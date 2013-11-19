@@ -58,10 +58,29 @@ In this example, the default options are used to do something with whatever. So 
 grunt.initConfig({
   karma_sonar: {
     options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    your_target: {
+      project: {
+        key: 'grunt-sonar',
+        name: 'Grunt sonar plugin',
+        version: '0.1.0'
+      },
+      sources: [
+        {
+          path: '...',
+          prefix: '...', // karma path in lcov files is incorrect, you can use prefix to fix this.
+          coverageReport: '.../path/to/lcov.info',
+          testReport: '.../path/to/junit.xml'
+        },
+        {
+          path: '...',
+          prefix: '...', // karma path in lcov files is incorrect, you can use prefix to fix this.
+          coverageReport: '.../path/to/lcov.info',
+          testReport: '.../path/to/junit.xml'
+        }
+      ],
+      exclusions: []
+    }
+  }
 })
 ```
 
@@ -72,13 +91,24 @@ In this example, custom options are used to do something else with whatever else
 grunt.initConfig({
   karma_sonar: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      defaultOutputDir: '.tmp/sonar/custom_options/',
+      instance: {
+        hostUrl : 'http://localhost:20001',
+        jdbcUrl : 'jdbc:h2:tcp://localhost:20003/sonar',
+        login: 'admin',
+        password: 'admin'
+      }
     },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    your_target: {
+      project: {
+        key: 'grunt-sonar',
+        name: 'Grunt sonar plugin',
+        version: '0.1.0'
+      },
+      sources: [...],
+      exclusions: []
+    }
+  }
 })
 ```
 
