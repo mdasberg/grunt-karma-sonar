@@ -1,5 +1,5 @@
 TN:
-SF:./sources/first/scripts/app-one.js
+SF:sources/first/scripts/app-one.js
 FN:1,App
 FN:6,(anonymous_2)
 FNF:2
@@ -16,7 +16,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:./sources/second/scripts/app-two.js
+SF:sources/second/scripts/app-two.js
 FN:1,App
 FN:6,(anonymous_2)
 FNF:2
