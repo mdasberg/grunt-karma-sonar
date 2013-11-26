@@ -62,7 +62,7 @@ grunt.initConfig({
       project: {
         key: 'grunt-sonar',
         name: 'Grunt sonar plugin',
-        version: '0.1.0'
+        version: '0.1.1'
       },
       sources: [
         {
@@ -103,7 +103,7 @@ grunt.initConfig({
       project: {
         key: 'grunt-sonar',
         name: 'Grunt sonar plugin',
-        version: '0.1.0'
+        version: '0.1.1'
       },
       sources: [...],
       exclusions: []
