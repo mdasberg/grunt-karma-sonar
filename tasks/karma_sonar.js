@@ -30,7 +30,7 @@ module.exports = function(grunt) {
         function getUpdatedLcovFileContent(source) {
             if (grunt.file.exists(source.coverageReport)) {
                 var content = grunt.file.read(source.coverageReport);
-                return content.replace(/SF:\./ig, 'SF:./' + source.prefix);
+                return content.replace(/SF:\./ig, 'SF:' + source.prefix);
             } else {
                 grunt.log.error(source.coverageReport + " does not exist.");
                 return null;
