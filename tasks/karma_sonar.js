@@ -169,6 +169,12 @@ module.exports = function(grunt) {
             if (options.instance !== undefined) {
                 args.push('-Dsonar.host.url=' + options.instance.hostUrl);
                 args.push('-Dsonar.jdbc.url=' + options.instance.jdbcUrl);
+                if (options.instance.jdbcUsername !== undefined) {
+                    args.push('-Dsonar.jdbc.username=' + options.instance.jdbcUsername);    
+                }
+                if (options.instance.jdbcPassword !== undefined) {                
+                    args.push('-Dsonar.jdbc.password=' + options.instance.jdbcPassword);
+                }
                 args.push('-Dsonar.login=' + options.instance.login);
                 args.push('-Dsonar.password=' + options.instance.password);
             }
