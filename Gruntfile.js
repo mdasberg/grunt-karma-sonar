@@ -34,7 +34,7 @@ module.exports = function(grunt) {
             project: {
                 key: 'grunt-sonar',
                 name: 'Grunt sonar plugin',
-                version: '0.1.1'
+                version: '0.1.2'
             },
             sources: [
                 {
@@ -59,6 +59,8 @@ module.exports = function(grunt) {
                 instance: {
                     hostUrl : 'http://localhost:20001',
                     jdbcUrl : 'jdbc:h2:tcp://localhost:20003/sonar',
+                    jdbcUsername: 'sonar',
+                    jdbcPassword: 'sonar',
                     login: 'admin',
                     password: 'admin'
                 }
@@ -66,7 +68,7 @@ module.exports = function(grunt) {
             project: {
                 key: 'grunt-sonar',
                 name: 'Grunt sonar plugin',
-                version: '0.1.1'
+                version: '0.1.2'
             },
             sources: [
                 {
