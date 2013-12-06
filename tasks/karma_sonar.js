@@ -175,6 +175,9 @@ module.exports = function(grunt) {
                 if (options.instance.jdbcPassword !== undefined) {                
                     args.push('-Dsonar.jdbc.password=' + options.instance.jdbcPassword);
                 }
+                if (options.instance.profile !== undefined) {
+                    args.push('-Dsonar.profile=' + options.instance.profile);
+                }
                 args.push('-Dsonar.login=' + options.instance.login);
                 args.push('-Dsonar.password=' + options.instance.password);
             }
