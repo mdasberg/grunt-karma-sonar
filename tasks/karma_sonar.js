@@ -8,7 +8,7 @@
 
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     var spawn = require("child_process").spawn, donePromise;
 
     grunt.registerMultiTask('karma_sonar', 'Grunt plugin for integrating karmma reports with sonar', function () {
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
         function mergeLcovFiles(sources) {
             var mergedAndUpdatedContent = '';
             sources.forEach(function (source) {
-                if(hasLcovFile(source)) {
+                if (hasLcovFile(source)) {
                     mergedAndUpdatedContent = mergedAndUpdatedContent.concat(getUpdatedLcovFileContent(source) + '\n');
                 }
             });
@@ -59,7 +59,7 @@ module.exports = function(grunt) {
         function hasLcovFiles(sources) {
             var result = false;
             sources.forEach(function (source) {
-                if(hasLcovFile(source)) {
+                if (hasLcovFile(source)) {
                     result = true;
                 }
             });
@@ -100,7 +100,7 @@ module.exports = function(grunt) {
         function mergeJUnitFiles(sources) {
             var mergedAndUpdatedContent = '<?xml version="1.0"?><testsuites>';
             sources.forEach(function (source) {
-                if(hasJunitFile(source)) {
+                if (hasJunitFile(source)) {
                     mergedAndUpdatedContent = mergedAndUpdatedContent.concat(getUpdatedJunitFileContent(source));
                 }
             });
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
         function hasJunitFiles(sources) {
             var result = false;
             sources.forEach(function (source) {
-                if(hasJunitFile(source)) {
+                if (hasJunitFile(source)) {
                     result = true;
                 }
             });
@@ -158,21 +158,21 @@ module.exports = function(grunt) {
             args.push('-Dsonar.projectName=' + data.project.name);
             args.push('-Dsonar.projectVersion=' + data.project.version);
             args.push('-Dsonar.sources=' + getSourcePaths(data.sources));
-            if(hasLcovFiles(data.sources)) {
+            if (hasLcovFiles(data.sources)) {
                 args.push('-Dsonar.javascript.lcov.reportPath=' + options.defaultOutputDir + 'coverage_report.lcov');
             }
-            if(hasJunitFiles(data.sources)) {
+            if (hasJunitFiles(data.sources)) {
                 args.push('-Dsonar.javascript.jstest.reportsPath=' + options.defaultOutputDir);
             }
-            args.push('-Dsonar.exclusions='+ data.exclusions);
+            args.push('-Dsonar.exclusions=' + data.exclusions);
 
             if (options.instance !== undefined) {
                 args.push('-Dsonar.host.url=' + options.instance.hostUrl);
                 args.push('-Dsonar.jdbc.url=' + options.instance.jdbcUrl);
                 if (options.instance.jdbcUsername !== undefined) {
-                    args.push('-Dsonar.jdbc.username=' + options.instance.jdbcUsername);    
+                    args.push('-Dsonar.jdbc.username=' + options.instance.jdbcUsername);
                 }
-                if (options.instance.jdbcPassword !== undefined) {                
+                if (options.instance.jdbcPassword !== undefined) {
                     args.push('-Dsonar.jdbc.password=' + options.instance.jdbcPassword);
                 }
                 if (options.instance.profile !== undefined) {
@@ -194,11 +194,12 @@ module.exports = function(grunt) {
                 opts: {
                     stdio: 'inherit'
                 }
-            }, function () {
-                grunt.log.writeln('Uploaded information to sonar.');
-                donePromise();
-            }, function(e) {
-                grunt.log.writeln('Oops');
+            }, function (error, result, code) {
+                if (code === 1) {
+                    return grunt.log.error('Something went wrong while trying to upload to sonar. ');
+                } else {
+                    grunt.log.writeln('Uploaded information to sonar.');
+                }
                 donePromise();
             });
         }
