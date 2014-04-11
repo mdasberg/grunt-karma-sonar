@@ -42,8 +42,7 @@ module.exports = function(grunt) {
                     prefix: 'sources/first',
                     coverageReport: 'results/first/lcov.info',
                     testReport: 'results/first/junit.xml'
-                }
-                ,
+                },
                 {
                     path: 'sources/second/scripts',
                     prefix: 'sources/second',
