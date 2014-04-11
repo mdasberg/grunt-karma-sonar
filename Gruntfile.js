@@ -34,7 +34,7 @@ module.exports = function(grunt) {
             project: {
                 key: 'grunt-sonar',
                 name: 'Grunt sonar plugin',
-                version: '0.1.3'
+                version: '0.1.4'
             },
             sources: [
                 {
@@ -67,7 +67,7 @@ module.exports = function(grunt) {
             project: {
                 key: 'grunt-sonar',
                 name: 'Grunt sonar plugin',
-                version: '0.1.3'
+                version: '0.1.4'
             },
             sources: [
                 {
