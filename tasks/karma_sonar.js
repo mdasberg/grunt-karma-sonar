@@ -195,8 +195,8 @@ module.exports = function (grunt) {
                     stdio: 'inherit'
                 }
             }, function (error, result, code) {
-                if (code === 1) {
-                    return grunt.log.error('Something went wrong while trying to upload to sonar. ');
+                if (code !== 0) {
+                    return grunt.log.error('The following error occured while trying to upload to sonar: ' + error);
                 } else {
                     grunt.log.writeln('Uploaded information to sonar.');
                 }
