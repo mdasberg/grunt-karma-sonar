@@ -32,7 +32,7 @@ module.exports = function (grunt) {
                 var content = grunt.file.read(source.coverageReport);
                 return content.replace(/SF:\./ig, 'SF:' + (source.prefix || '.'));
             } else {
-                grunt.log.error(source.coverageReport + " does not exist.");
+                grunt.warn(source.coverageReport + " does not exist.");
                 return null;
             }
         }
@@ -88,7 +88,7 @@ module.exports = function (grunt) {
 
                 return content;
             } else {
-                grunt.log.error(source.testReport + " does not exist.");
+                grunt.warn(source.testReport + " does not exist.");
                 return null;
             }
         }
@@ -196,7 +196,7 @@ module.exports = function (grunt) {
                 }
             }, function (error, result, code) {
                 if (code !== 0) {
-                    return grunt.log.error('The following error occured while trying to upload to sonar: ' + error);
+                    return grunt.warn('The following error occured while trying to upload to sonar: ' + error);
                 } else {
                     grunt.log.writeln('Uploaded information to sonar.');
                 }
