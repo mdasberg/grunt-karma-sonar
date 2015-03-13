@@ -105,6 +105,12 @@ grunt.initConfig({
         name: 'Grunt sonar plugin',
         version: '0.1.1'
       },
+      options: {
+        runnerProperties: {
+          'sonar.links.homepage': 'https://github.com/mdasberg/grunt-karma-sonar',
+          'sonar.branch': 'master'
+        }
+      },
       sources: [...],
       exclusions: []
     }

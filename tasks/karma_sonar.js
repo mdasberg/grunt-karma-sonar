@@ -181,6 +181,12 @@ module.exports = function (grunt) {
                 args.push('-Dsonar.login=' + options.instance.login);
                 args.push('-Dsonar.password=' + options.instance.password);
             }
+
+            if (options.runnerProperties) {
+                Object.keys(options.runnerProperties).forEach(function(prop) {
+                    args.push('-D' + prop + '=' + options.runnerProperties[prop]);
+                });
+            }
             return args;
         }
 
