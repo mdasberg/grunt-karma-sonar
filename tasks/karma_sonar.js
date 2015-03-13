@@ -17,7 +17,8 @@ module.exports = function (grunt) {
         var options = this.options({
             dynamicAnalysis: 'reuseReports',
             language: 'js',
-            defaultOutputDir: '.tmp/sonar/'
+            defaultOutputDir: '.tmp/sonar/',
+            exec: true
         });
 
         var data = this.data;
@@ -204,6 +205,11 @@ module.exports = function (grunt) {
             });
         }
 
-        exec();
+        if (options.exec) {
+            exec();
+        }
+        else {
+            donePromise();
+        }
     });
 };
