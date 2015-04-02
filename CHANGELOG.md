@@ -1,5 +1,11 @@
-<a name="0.1.6"></a>
-# 0.1.6 (2015-04-02)
+<a name="0.2.1"></a>
+# 0.2.1 (2015-04-02)
+
+## Bug Fixes
+- #17 Cannot find module 'fs-extra'
+
+<a name="0.2.0"></a>
+# 0.2.0 (2015-04-02)
 
 ## Breaking changes
 - The configuration has changed.
