@@ -3,7 +3,7 @@
 > Grunt plugin for integrating karma reports with sonar
 
 ## Getting Started
-This plugin requires Grunt `~0.4.1`
+This plugin requires Grunt `~0.4.5`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -37,46 +37,177 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.dynamicAnalysis
 Type: `String`
-Default value: `',  '`
+Default: 'reuseReports'
 
-A string value that is used to do something with whatever.
+Should be the sonar.property dynamicAnalysis
 
-#### options.punctuation
+#### options.sourceEncoding
 Type: `String`
-Default value: `'.'`
+Default: 'UTF-8'
 
-A string value that is used to do something else with whatever else.
+Should be the sonar.property sourceEncoding
+
+#### options.language
+Type: `String`
+Default: 'js'
+
+Should be the sonar.property language
+
+#### options.scmDisabled
+Type: `String`
+Default: 'true'
+
+Should be the sonar.property scmDisabled
+
+#### options.defaultOutputDir
+Type: `String`
+Default: '.tmp/sonar/'
+
+Should be the location where the karmaSonar plugin will put it's temporary files.
+
+#### options.instance.hostUrl
+Type: `String`
+Default: 'http://localhost:9000'
+
+Should be the sonar.property host.url
+
+#### options.instance.jdbcUrl
+Type: `String`
+Default: 'jdbc:h2:tcp://localhost:9092/sonar'
+
+Should be the sonar.property jdbc.url
+
+#### options.instance.jdbcUsername
+Type: `String`
+Default: 'sonar'
+
+Should be the sonar.property jdbc.username
+
+#### options.instance.jdbcPassword
+Type: `String`
+Default: 'sonar'
+
+Should be the sonar.property jdbc.password
+
+#### options.instance.login
+Type: `String`
+Default: 'admin'
+
+Should be the sonar.property login
+
+#### options.instance.password
+Type: `String`
+Default: 'admin'
+
+Should be the sonar.property password
+
+#### options.instance.runnerProperties
+Type: `Object`
+
+Should be the list of key(`sonar key`) value pairs.
+
+```js
+runnerProperties: {
+    'sonar.links.homepage': 'https://github.com/mdasberg/grunt-karma-sonar',
+    'sonar.branch': 'master'
+}
+```
+
+#### project
+Type: `Object`,
+Mandatory: true
+
+Should be the project information for sonar
+
+#### project.key
+Type: `String`
+Mandatory: true`
+
+Should be the project key for sonar 
+
+#### project.name
+Type: `String`
+Mandatory: true`
+
+Should be the project name for sonar
+ 
+#### project.version
+Type: `String`
+ 
+Should be the project version for sonar 
+
+#### paths
+Type: `Array`
+ 
+Should be the paths that contain the code, tests and results
+
+#### paths[].cwd
+Type: `String`
+Default: '.'
+ 
+Should be the current working directory that contain the source, tests and results folders are located
+
+#### paths[].src
+Type: `String`
+ 
+Should be the directory containing the sources within the cwd.
+
+#### paths[].test
+Type: `String`
+ 
+Should be the directory containing the tests within the cwd.
+
+#### paths[].reports
+Type: `Object`
+ 
+Should be the object containing the reports.
+
+#### paths[].reports.unit
+Type: `String`
+ 
+Should be the location of the karma-junit-reporter report within the cwd.
+
+#### paths[].reports.coverage
+Type: `String`
+ 
+Should be the glob for the lcov.info files within the cwd.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
 
 ```js
 grunt.initConfig({
   karma_sonar: {
-    options: {},
+    options: {
+    
+    },
     your_target: {
       project: {
         key: 'grunt-sonar',
         name: 'Grunt sonar plugin',
         version: '0.1.1'
       },
-      sources: [
+      paths: [
         {
-          path: '...',
-          prefix: '...', // karma path in lcov files is incorrect, you can use prefix to fix this.
-          coverageReport: '.../path/to/lcov.info',
-          testReport: '.../path/to/junit.xml'
+          cwd: '...', // the current working directory'
+          src: '...', // the source directory within the cwd
+          test: '...', // the test directory within the cwd
+          reports: {
+              unit: '../path/result.xml', // the result file within the cwd
+              coverage: '../path/**/lcov.info' // the glob for lcov files'
+          }
         },
         {
-          path: '...',
-          prefix: '...', // karma path in lcov files is incorrect, you can use prefix to fix this.
-          coverageReport: '.../path/to/lcov.info',
-          testReport: '.../path/to/junit.xml'
-        }
+          cwd: '...', // the current working directory'
+          src: '...', // the source directory within the cwd
+          test: '...', // the test directory within the cwd
+          reports: {
+              unit: '../path/result.xml', // the result file within the cwd
+              coverage: '../path/**/lcov.info' // the glob for lcov files'
+          }
       ],
       exclusions: []
     }
@@ -105,7 +236,7 @@ grunt.initConfig({
         name: 'Grunt sonar plugin',
         version: '0.1.1'
       },
-      sources: [...],
+      paths: [...],
       exclusions: []
     }
   }

@@ -27,15 +27,15 @@ exports.karma_sonar = {
         // setup here if necessary
         done();
     },
-    default_options: function (test) {
-        test.expect(1);
-
-        var actual = grunt.file.read('.tmp/sonar/coverage_report.lcov');
-        var expected = grunt.file.read('test/expected/default_options/coverage_report.lcov');
-        test.equal(actual, expected, 'should describe what the default behavior is.');
-
-        test.done();
-    },
+    //default_options: function (test) {
+    //    test.expect(1);
+    //
+    //    var actual = grunt.file.read('.tmp/sonar/coverage_report.lcov');
+    //    var expected = grunt.file.read('test/expected/default_options/coverage_report.lcov');
+    //    test.equal(actual, expected, 'should describe what the default behavior is.');
+    //
+    //    test.done();
+    //},
     custom_options: function (test) {
         test.expect(1);
 

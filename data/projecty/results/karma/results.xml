@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="PhantomJS 1.9.8 (Mac OS X)" package="" timestamp="2015-04-01T19:21:30" id="0" hostname="aurora-4.local" tests="1" errors="0" failures="0" time="0.001">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34"/>
+    </properties>
+    <testcase name="should return hello y app" time="0.001" classname="should return hello y app-PhantomJS 1.9.8 (Mac OS X).Project Y"></testcase>
+    <system-out><![CDATA[PhantomJS 1.9.8 (Mac OS X) LOG: Object{totalSpecsDefined: 1}
+
+]]></system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>
