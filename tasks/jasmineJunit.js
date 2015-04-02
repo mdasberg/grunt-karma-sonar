@@ -21,13 +21,13 @@
      * #7 write merged results to file.
      */
     jasmineJUnit.merge = function (locations, outputFile) {
-        
+
         var specs = [],
             CURRENT_PATH = '.',
             PREFIX = '<?xml version="1.0"?><testsuites>',
             SUFFIX = '</testsuites>',
-            JASMINE_TESTCASE_REGEX = /it\s?\(\"([^\"]*)\"/g,
-            SUREFIRE_TESTCASE_REGEX = /(\<testcase.*)(\bname=\")([^\"]*)(.*)(\bclassname=\")([^\"]*)(.*\">)/g,
+            JASMINE_TESTCASE_REGEX = /it\s?\([\'\"]([^\'\"]*)[\'\"]/g,
+            SUREFIRE_TESTCASE_REGEX = /(\<testcase.*)(\bname=\")([^\"]*)(.*)(\bclassname=\")([^\"]*)(.*\".*>)/g,
             SUREFIRE_TESTCASE_NAME_REGEX = /\bname=\"([^\"]*)/,
             resultContent = PREFIX;
 
@@ -47,14 +47,16 @@
                             content = grunt.file.read(testDir + path.sep + file),
                             matches = content.match(JASMINE_TESTCASE_REGEX);
 
-                        // #3
-                        for (var i = 0, len = matches.length; i < len; i++) {
-                            tests.push(matches[i].replace(JASMINE_TESTCASE_REGEX, '$1'));
+                        if (matches !== null) {
+                            // #3
+                            for (var i = 0, len = matches.length; i < len; i++) {
+                                tests.push(matches[i].replace(JASMINE_TESTCASE_REGEX, '$1'));
+                            }
+                            specs.push({
+                                'name': path.basename(file, path.extname(file)),
+                                'tests': tests
+                            });
                         }
-                        specs.push({
-                            'name': path.basename(file, path.extname(file)),
-                            'tests': tests
-                        });
                     });
 
                     // #4
@@ -65,17 +67,19 @@
 
                     // #5
                     var matches = content.match(SUREFIRE_TESTCASE_REGEX);
-                    for (var i = 0, len = matches.length; i < len; i++) {
-                        var name = SUREFIRE_TESTCASE_NAME_REGEX.exec(matches[i])[1];
-                        var spec = _.pluck(_.filter(specs, function (spec) {
-                            return _.find(spec.tests, function (test) {
-                                return test === name;
-                            })
-                        }), 'name');
-                        content = content.replace(
-                            matches[i],
-                            matches[i].replace(SUREFIRE_TESTCASE_REGEX, '$1$2$3$4$5' + spec + '$7')
-                        );
+                    if (matches !== null) {
+                        for (var i = 0, len = matches.length; i < len; i++) {
+                            var name = SUREFIRE_TESTCASE_NAME_REGEX.exec(matches[i])[1];
+                            var spec = _.pluck(_.filter(specs, function (spec) {
+                                return _.find(spec.tests, function (test) {
+                                    return test === name;
+                                })
+                            }), 'name');
+                            content = content.replace(
+                                matches[i],
+                                matches[i].replace(SUREFIRE_TESTCASE_REGEX, '$1$2$3$4$5' + spec + '$7')
+                            );
+                        }
                     }
                     // #6
                     resultContent = resultContent.concat(content);
@@ -87,7 +91,6 @@
                     }
                 }
             }
-            
         });
         // #7
         grunt.file.write(outputFile, resultContent.concat(SUFFIX));
