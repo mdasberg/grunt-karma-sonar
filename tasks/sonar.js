@@ -16,7 +16,7 @@ module.exports = function (grunt) {
             scmDisabled: true,
             instance: {
                 hostUrl: 'http://localhost:9000',
-                jdbcUrl: 'jdbc:h2:tcp://localhost:9093/sonar',
+                jdbcUrl: 'jdbc:h2:tcp://localhost:9092/sonar',
                 jdbcUsername: 'sonar',
                 jdbcPassword: 'sonar',
                 login: 'admin',
@@ -61,7 +61,7 @@ module.exports = function (grunt) {
     return {
         run: function (configuration) {
             var data = configuration.data;
-            
+
             if (typeof data.project === 'undefined') {
                 grunt.fail.fatal('No project information has been specified.');
             }
@@ -95,7 +95,7 @@ module.exports = function (grunt) {
                     mergeCoverageReports: function (callback) {
                         grunt.verbose.writeln('Merging Coverage reports');
                         coverage.merge(data.paths, coverageResultFile);
-                        
+
                         callback(null, 200);
                     },
                     //#3
@@ -151,7 +151,7 @@ module.exports = function (grunt) {
 
                         // Add custom properties
                         if (sonarOptions.runnerProperties) {
-                            
+
                             Object.keys(sonarOptions.runnerProperties).forEach(function (prop) {
                                 opts.args.push('-D' + prop + '=' + sonarOptions.runnerProperties[prop]);
                             });
