@@ -1,3 +1,11 @@
+<a name="0.2.2"></a>
+# 0.2.2 (2015-04-02)
+
+## Bug Fixes
+- Fixed regex for finding tests with double and single quotes
+- Fixed regex for finding testcases that have an autoclose tag
+- Added check for files that are in the test directory but are no tests
+
 <a name="0.2.1"></a>
 # 0.2.1 (2015-04-02)
 
