@@ -73,7 +73,7 @@
                             var spec = _.pluck(_.filter(specs, function (spec) {
                                 return _.find(spec.tests, function (test) {
                                     return test === name;
-                                })
+                                });
                             }), 'name');
                             content = content.replace(
                                 matches[i],
