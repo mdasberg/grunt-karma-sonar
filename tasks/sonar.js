@@ -28,10 +28,10 @@ module.exports = function (grunt) {
      * Copy files to the temp directory.
      * @param g The glob.
      */
-    function copyFiles(g, defaultOutputDir) {
+    function copyFiles(g, defaultOutputDir, targetDir) {
         var files = glob.sync(g.src.toString(), {cwd: g.cwd, root: '/'});
         files.forEach(function (file) {
-            var destinationDirectory = defaultOutputDir;
+            var destinationDirectory = defaultOutputDir + path.sep + targetDir;
             var fileDirectory = path.dirname(file);
             if (fileDirectory !== '.') {
                 destinationDirectory = destinationDirectory + path.sep + fileDirectory;
@@ -88,7 +88,7 @@ module.exports = function (grunt) {
                     // #1
                     mergeJUnitReports: function (callback) {
                         grunt.verbose.writeln('Merging JUnit reports');
-                        jasmineJUnit.merge(data.paths, jUnitResultFile,callback);
+                        jasmineJUnit.merge(data.paths, jUnitResultFile, callback);
                         callback(null, 200);
                     },
                     // #2
@@ -106,16 +106,16 @@ module.exports = function (grunt) {
 
                         data.paths.forEach(function (p) {
                             var cwd = p.cwd ? p.cwd : '.';
-                            sourceGlobs.push({cwd: cwd, src: p.src + '/**/*'});
-                            testGlobs.push({cwd: cwd, src: p.test + '/**/*'});
+                            sourceGlobs.push({cwd: cwd + path.sep + p.src, src: '**/*'});
+                            testGlobs.push({cwd: cwd + path.sep + p.test, src:'**/*'});
                         });
 
                         sourceGlobs.forEach(function (g) {
-                            copyFiles(g, sonarOptions.defaultOutputDir);
+                            copyFiles(g, sonarOptions.defaultOutputDir, 'src');
                         });
 
                         testGlobs.forEach(function (g) {
-                            copyFiles(g, sonarOptions.defaultOutputDir);
+                            copyFiles(g, sonarOptions.defaultOutputDir, 'test');
                         });
                         callback(null, 200);
                     },

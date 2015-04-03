@@ -150,8 +150,8 @@ describe('KarmaSonar', function () {
                         },
                         {
                             cwd: 'data/projecty',
-                            src: 'src',
-                            test: 'test',
+                            src: 'app',
+                            test: 'tests',
                             reports: {
                                 unit: 'results/karma/results.xml',
                                 coverage: 'results/karma/coverage/**/lcov.info'
