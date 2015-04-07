@@ -180,7 +180,7 @@ Should be the glob for the lcov.info files within the cwd.
 
 ```js
 grunt.initConfig({
-  karma_sonar: {
+  karmaSonar: {
     options: {
     
     },
@@ -220,7 +220,7 @@ In this example, custom options are used to do something else with whatever else
 
 ```js
 grunt.initConfig({
-  karma_sonar: {
+  karmaSonar: {
     options: {
       defaultOutputDir: '.tmp/sonar/custom_options/',
       instance: {
@@ -248,3 +248,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 _(Nothing yet)_
+

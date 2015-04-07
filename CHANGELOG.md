@@ -1,3 +1,12 @@
+<a name="0.2.3"></a>
+# 0.2.3 (2015-04-07)
+
+## Bug Fixes
+- Fixed Specs that escape characters are matched incorrectly, resulting in exclusion
+- Fixed Multiple test files that have specs with the same name are resolved incorrectly
+- Fixed Files with test directory different then `test` don't get copied
+- Fixed Files with source directory different then `src` don't get copied
+
 <a name="0.2.2"></a>
 # 0.2.2 (2015-04-02)
 
