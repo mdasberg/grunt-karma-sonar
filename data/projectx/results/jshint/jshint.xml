@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<testsuite name="jshint" tests="1" failures="7" errors="0">
+<testsuite name="jshint" tests="1" failures="9" errors="0">
 	<testcase name="../../src/x.js">
-		<failure message="7 JSHint Failures">
+		<failure message="9 JSHint Failures">
 1. line 2, char 5: Missing &quot;use strict&quot; statement.
 2. line 7, char 35: Missing &quot;use strict&quot; statement.
 3. line 11, char 37: Missing &quot;use strict&quot; statement.
-4. line 2, char 5: &apos;who&apos; is not defined.
-5. line 7, char 27: &apos;who&apos; is not defined.
-6. line 11, char 29: &apos;who&apos; is not defined.
-7. line 1, char 10: &apos;App&apos; is defined but never used.
+4. line 15, char 43: Missing &quot;use strict&quot; statement.
+5. line 2, char 5: &apos;who&apos; is not defined.
+6. line 7, char 27: &apos;who&apos; is not defined.
+7. line 11, char 29: &apos;who&apos; is not defined.
+8. line 15, char 35: &apos;who&apos; is not defined.
+9. line 1, char 10: &apos;App&apos; is defined but never used.
 		</failure>
 	</testcase>
 </testsuite>

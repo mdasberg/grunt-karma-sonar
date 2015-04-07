@@ -5,7 +5,10 @@
         glob = require("glob"),
         grunt = require('grunt'),
         path = require('path'),
-        _ = require('lodash');
+        _ = require('lodash'),
+        fs = require('fs'),
+        XmlDocument = require('xmldoc').XmlDocument,
+        xmlEntities = new (require('html-entities').XmlEntities)();
 
     /**
      * Merge all junit results.
@@ -15,26 +18,23 @@
      * #1 iterate over each location .
      * #2 iterate over each file and check if there are jasmine tests by checking for it().
      * #3 add all the jasmine tests to the array.
-     * #4 remove wrapper markup.
-     * #5 replace the classname with the spec filename.
-     * #6 append the tests to the result.
-     * #7 write merged results to file.
+     * #4 replace the classname with the spec filename.
+     * #5 append the tests to the result.
+     * #6 write merged results to file.
      */
     jasmineJUnit.merge = function (locations, outputFile) {
 
-        var specs = [],
-            CURRENT_PATH = '.',
+
+        var CURRENT_PATH = '.',
             PREFIX = '<?xml version="1.0"?><testsuites>',
             SUFFIX = '</testsuites>',
-            JASMINE_TESTCASE_REGEX = /it\s?\([\'\"]([^\'\"]*)[\'\"]/g,
-            SUREFIRE_TESTCASE_REGEX = /(\<testcase.*)(\bname=\")([^\"]*)(.*)(\bclassname=\")([^\"]*)(.*\".*>)/g,
-            SUREFIRE_TESTCASE_NAME_REGEX = /\bname=\"([^\"]*)/,
+            JASMINE_TESTCASE_REGEX = /[^\w]it\s?\([\'\"](.*)[\'\"]/g,
             resultContent = PREFIX;
 
         // #1 
         locations.forEach(function (l) {
-
-            var cwd = (l.cwd || CURRENT_PATH) + path.sep,
+            var specs = [],
+                cwd = (l.cwd || CURRENT_PATH) + path.sep,
                 testDir = cwd + l.test,
                 testDirExists = grunt.file.exists(testDir),
                 reportFile = cwd + l.reports.unit,
@@ -50,7 +50,7 @@
                         if (matches !== null) {
                             // #3
                             for (var i = 0, len = matches.length; i < len; i++) {
-                                tests.push(matches[i].replace(JASMINE_TESTCASE_REGEX, '$1'));
+                                tests.push(xmlEntities.encode(matches[i].replace(JASMINE_TESTCASE_REGEX, '$1')).replace(/\\/g, '')); // remove escaped characters
                             }
                             specs.push({
                                 'name': path.basename(file, path.extname(file)),
@@ -60,29 +60,32 @@
                     });
 
                     // #4
-                    var content = grunt.file.read(reportFile).
-                        replace(/\<\?xml.+\?\>/g, '').
-                        replace(/\<testsuites>/g, '').
-                        replace(/\<\/testsuites>/g, '');
+                    var content = new XmlDocument(grunt.file.read(reportFile));
+                    var testsuites = content.childrenNamed("testsuite");
+                    for (var i = 0; i < testsuites.length; i++) {
+                        testsuites[i].eachChild(function (testcase) {
+                            if (testcase.name === 'testcase') {
+                                var name = xmlEntities.encode(testcase.attr.name);
 
-                    // #5
-                    var matches = content.match(SUREFIRE_TESTCASE_REGEX);
-                    if (matches !== null) {
-                        for (var i = 0, len = matches.length; i < len; i++) {
-                            var name = SUREFIRE_TESTCASE_NAME_REGEX.exec(matches[i])[1];
-                            var spec = _.pluck(_.filter(specs, function (spec) {
-                                return _.find(spec.tests, function (test) {
-                                    return test === name;
-                                });
-                            }), 'name');
-                            content = content.replace(
-                                matches[i],
-                                matches[i].replace(SUREFIRE_TESTCASE_REGEX, '$1$2$3$4$5' + spec + '$7')
-                            );
-                        }
+                                var matchingSpecs = _.pluck(_.filter(specs, function (spec) {
+                                    return _.find(spec.tests, function (test) {
+                                        return test === name;
+                                    });
+                                }), 'name');
+                                var matchingSpec = matchingSpecs[0];
+                                if (matchingSpecs.length > 1) {
+                                    var m = _.find(specs, function (spec) {
+                                        return spec.name === matchingSpec;
+                                    });
+                                    m.tests = _.without(m.tests, name);
+                                }
+                                testcase.attr.name = xmlEntities.encode(name);
+                                testcase.attr.classname = matchingSpec;
+                            }
+                        });
                     }
-                    // #6
-                    resultContent = resultContent.concat(content);
+                    // #5
+                    resultContent = resultContent.concat(testsuites);
                 } else {
                     if (!reportFileExists) {
                         grunt.log.warn('The specified jUnit report [' + reportFile + '] does not exist');
@@ -92,7 +95,7 @@
                 }
             }
         });
-        // #7
+        // #6
         grunt.file.write(outputFile, resultContent.concat(SUFFIX));
     }
 

@@ -34,7 +34,7 @@
     "grunt-contrib-clean": "^0.5.0",
     "grunt-contrib-jshint": "^0.9.2",
     "grunt-shell": "^1.1.2",
-    "gruntmock": "^0.1.1",
+    "gruntmock": "^0.2.0",
     "jasmine-node": "^1.14.5"
   },
   "peerDependencies": {
@@ -48,6 +48,10 @@
     "fs-extra": "^0.18.0",
     "glob": "^5.0.3",
     "lodash": "^3.6.0",
-    "path": "^0.11.14"
+    "html-entities": "^1.1.2",
+    "path": "^0.11.14",
+    "sax": "^0.6.1",
+    "xml2js": "^0.4.6",
+    "xmldoc": "^0.3.0"
   }
 }
