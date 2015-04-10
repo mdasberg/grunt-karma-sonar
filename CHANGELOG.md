@@ -1,3 +1,9 @@
+<a name="0.2.4"></a>
+# 0.2.4 (2015-04-10)
+
+## Bug Fixes
+- Fixed Karma sonar should not write options instance when they are undefined.
+
 <a name="0.2.3"></a>
 # 0.2.3 (2015-04-07)
 
