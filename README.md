@@ -1,4 +1,4 @@
-# grunt-karma-sonar
+# grunt-karma-sonar [![Build Status](https://travis-ci.org/mdasberg/grunt-karma-sonar.svg?branch=master)](https://travis-ci.org/mdasberg/grunt-karma-sonar)
 
 > Grunt plugin for integrating karma reports with sonar
 
