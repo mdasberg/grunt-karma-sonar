@@ -1,5 +1,6 @@
 'use strict';
 
+/*jshint -W083 */
 (function () {
     var jasmineJUnit = {},
         glob = require("glob"),
@@ -97,7 +98,7 @@
         });
         // #6
         grunt.file.write(outputFile, resultContent.concat(SUFFIX));
-    }
+    };
 
     module.exports = jasmineJUnit;
 })();

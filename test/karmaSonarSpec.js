@@ -184,7 +184,7 @@ describe('KarmaSonar', function () {
                     project: {
                         key: 'key',
                         name: 'name',
-                        version: '1.3.37',
+                        version: '1.3.37'
                     },
                     exclusions: 'yep',
                     paths: [
