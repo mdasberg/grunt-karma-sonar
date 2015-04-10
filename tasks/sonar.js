@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (grunt) {
-    var glob = require("glob"),
+    var glob = require('glob'),
         fs = require('fs-extra'),
         path = require('path'),
         async = require('async'),
@@ -13,15 +13,7 @@ module.exports = function (grunt) {
             sourceEncoding: 'UTF-8',
             language: 'js',
             defaultOutputDir: '.tmp/sonar/',
-            scmDisabled: true,
-            instance: {
-                hostUrl: 'http://localhost:9000',
-                jdbcUrl: 'jdbc:h2:tcp://localhost:9092/sonar',
-                jdbcUsername: 'sonar',
-                jdbcPassword: 'sonar',
-                login: 'admin',
-                password: 'admin'
-            }
+            scmDisabled: true
         };
 
     /**
@@ -56,6 +48,52 @@ module.exports = function (grunt) {
             }
         });
 
+    }
+
+    /**
+     * Builds the arguments that need to be sent to sonar-runner.
+     *
+     * @param sonarOptions The sonar options such as username, password etc.
+     * @param data The data such as project name and project version.
+     * @returns The array of command line options for sonar-runner.
+     */
+    function buildArgs(sonarOptions, data) {
+        // Default arguments
+        var args = [
+            '-Dsonar.sources=src',
+            '-Dsonar.tests=test',
+            '-Dsonar.javascript.jstestdriver.reportsPath=results',
+            '-Dsonar.javascript.lcov.reportPath=' + 'results' + path.sep + 'coverage_report.lcov',
+        ];
+
+        // Add the parameter (-D) only when the 'key' exists in the 'object'
+        function addParameter(prop, object, key) {
+            var value = _.result(object, key);
+
+            if (value !== undefined) {
+                args.push('-D' + prop + '=' + value);
+            }
+        }
+
+        addParameter('sonar.host.url', sonarOptions.instance, 'hostUrl');
+        addParameter('sonar.jdbc.url', sonarOptions.instance, 'jdbcUrl');
+        addParameter('sonar.jdbc.username', sonarOptions.instance, 'jdbcUsername');
+        addParameter('sonar.jdbc.password', sonarOptions.instance, 'jdbcPassword');
+        addParameter('sonar.login', sonarOptions.instance, 'login');
+        addParameter('sonar.password', sonarOptions.instance, 'password');
+
+        addParameter('sonar.sourceEncoding', sonarOptions, 'sourceEncoding');
+        addParameter('sonar.language', sonarOptions, 'language');
+        addParameter('sonar.dynamicAnalysis', sonarOptions, 'dynamicAnalysis');
+        addParameter('sonar.projectBaseDir', sonarOptions, 'defaultOutputDir');
+        addParameter('sonar.scm.disabled', sonarOptions, 'scmDisabled');
+
+        addParameter('sonar.projectKey', data.project, 'key');
+        addParameter('sonar.projectName', data.project, 'name');
+        addParameter('sonar.projectVersion', data.project, 'version');
+
+        addParameter('sonar.exclusions', data, 'exclusions');
+        return args;
     }
 
     return {
@@ -123,27 +161,7 @@ module.exports = function (grunt) {
                     publish: function (callback) {
                         var opts = {
                             cmd: 'sonar-runner',
-                            args: [
-                                '-Dsonar.sourceEncoding=' + sonarOptions.sourceEncoding,
-                                '-Dsonar.language=' + sonarOptions.language,
-                                '-Dsonar.dynamicAnalysis=' + sonarOptions.dynamicAnalysis,
-                                '-Dsonar.projectKey=' + data.project.key,
-                                '-Dsonar.projectName=' + data.project.name,
-                                '-Dsonar.projectVersion=' + data.project.version,
-                                '-Dsonar.projectBaseDir=' + sonarOptions.defaultOutputDir,
-                                '-Dsonar.sources=' + 'src',
-                                '-Dsonar.tests=' + 'test',
-                                '-Dsonar.exclusions=' + data.exclusions,
-                                '-Dsonar.javascript.jstestdriver.reportsPath=' + 'results',
-                                '-Dsonar.javascript.lcov.reportPath=' + 'results' + path.sep + 'coverage_report.lcov',
-                                '-Dsonar.scm.disabled=' + sonarOptions.scmDisabled,
-                                '-Dsonar.host.url=' + sonarOptions.instance.hostUrl,
-                                '-Dsonar.jdbc.url=' + sonarOptions.instance.jdbcUrl,
-                                '-Dsonar.jdbc.username=' + sonarOptions.instance.jdbcUsername,
-                                '-Dsonar.jdbc.password=' + sonarOptions.instance.jdbcPassword,
-                                '-Dsonar.login=' + sonarOptions.instance.login,
-                                '-Dsonar.password=' + sonarOptions.instance.password
-                            ],
+                            args: buildArgs(sonarOptions, data),
                             opts: {
                                 stdio: 'inherit'
                             }
@@ -151,12 +169,10 @@ module.exports = function (grunt) {
 
                         // Add custom properties
                         if (sonarOptions.runnerProperties) {
-
                             Object.keys(sonarOptions.runnerProperties).forEach(function (prop) {
                                 opts.args.push('-D' + prop + '=' + sonarOptions.runnerProperties[prop]);
                             });
                         }
-
 
                         if (!sonarOptions.dryRun) {
                             grunt.util.spawn(opts, function (error, result, code) {
@@ -170,12 +186,15 @@ module.exports = function (grunt) {
                         } else {
                             grunt.log.subhead('Dry-run');
                             grunt.log.writeln('Sonar would have been triggered with the following sonar properties:', opts.args);
+                            _.each(opts.args, function(arg) {
+                              grunt.log.writeln(arg);
+                            });
                             callback(null, 200);
                         }
 
                     }
                 },
-                function (err, results) {
+                function (err) {
                     if (err !== undefined) {
                         grunt.fail.fatal(err);
                     }

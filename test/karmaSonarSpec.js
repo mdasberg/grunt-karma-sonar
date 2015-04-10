@@ -115,7 +115,7 @@ describe('KarmaSonar', function () {
         );
         mock.invoke(karmaSonar, function (err) {
             expect(mock.logError.length).toBe(0);
-            expect(mock.logOk.length).toBe(5);
+            expect(mock.logOk.length).toBe(19);
             expect(mock.logOk[0]).toBe('Merging JUnit reports');
             expect(mock.logOk[1]).toBe('Merging Coverage reports');
             expect(mock.logOk[2]).toBe('Copying files to working directory ['+opts.defaultOutputDir+']');
@@ -163,7 +163,7 @@ describe('KarmaSonar', function () {
         );
         mock.invoke(karmaSonar, function (err) {
             expect(mock.logError.length).toBe(0);
-            expect(mock.logOk.length).toBe(5);
+            expect(mock.logOk.length).toBe(19);
             expect(mock.logOk[0]).toBe('Merging JUnit reports');
             expect(mock.logOk[1]).toBe('Merging Coverage reports');
             expect(mock.logOk[2]).toBe('Copying files to working directory ['+opts.defaultOutputDir+ ']');
@@ -173,6 +173,101 @@ describe('KarmaSonar', function () {
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov','test/expected/sonar-two-paths' + path.sep + 'coverage_report.lcov')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml','test/expected/sonar-two-paths' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
+            done();
+        });
+    });
+
+    // Creates mock for testing parameters.
+    function getDefaultParameterMock() {
+      return gruntMock.create({
+                target: 'all', options: DEFAULT_OPTIONS, data: {
+                    project: {
+                        key: 'key',
+                        name: 'name',
+                        version: '1.3.37',
+                    },
+                    exclusions: 'yep',
+                    paths: [
+                        {
+                            cwd: 'data/projectx',
+                            src: 'src',
+                            test: 'test',
+                            reports: {
+                                unit: 'results/karma/results.xml',
+                                coverage: 'results/karma/coverage/**/lcov.info'
+                            }
+                        }
+                    ]
+                }
+            }
+        );
+    }
+
+    it('should set the right default arguments (-D) for sonar-runner', function (done) {
+        var opts = DEFAULT_OPTIONS
+        opts.defaultOutputDir = '.tmp/sonar/';
+        opts.runnerProperties = {};
+        opts.instance = undefined;
+
+        var mock = getDefaultParameterMock();
+
+        mock.invoke(karmaSonar, function (err) {
+            expect(mock.logError.length).toBe(0);
+            expect(mock.logOk.length).toBe(18);
+            expect(mock.logOk[3]).toBe('Dry-run');
+            expect(mock.logOk[4]).toBe('Sonar would have been triggered with the following sonar properties:');
+
+            // Defaults
+            expect(mock.logOk[5]).toBe('-Dsonar.sources=src');
+            expect(mock.logOk[6]).toBe('-Dsonar.tests=test');
+            expect(mock.logOk[7]).toBe('-Dsonar.javascript.jstestdriver.reportsPath=results');
+            expect(mock.logOk[8]).toBe('-Dsonar.javascript.lcov.reportPath=results/coverage_report.lcov');
+
+            // options
+            expect(mock.logOk[9]).toBe('-Dsonar.sourceEncoding=UTF-8');
+            expect(mock.logOk[10]).toBe('-Dsonar.language=js');
+            expect(mock.logOk[11]).toBe('-Dsonar.dynamicAnalysis=reuseReports');
+            expect(mock.logOk[12]).toBe('-Dsonar.projectBaseDir=.tmp/sonar/');
+            expect(mock.logOk[13]).toBe('-Dsonar.scm.disabled=true');
+
+            // data
+            expect(mock.logOk[14]).toBe('-Dsonar.projectKey=key');
+            expect(mock.logOk[15]).toBe('-Dsonar.projectName=name');
+            expect(mock.logOk[16]).toBe('-Dsonar.projectVersion=1.3.37');
+            expect(mock.logOk[17]).toBe('-Dsonar.exclusions=yep');
+            done();
+        });
+    });
+
+    it('should set the credentials when  options.instance is defined (-D) for sonar-runner', function (done) {
+        var opts = DEFAULT_OPTIONS
+        opts.defaultOutputDir = '.tmp/sonar/';
+        opts.runnerProperties = {};
+        opts.instance = {
+                hostUrl: 'http://localhost:9000',
+                jdbcUrl: 'jdbc:h2:tcp://localhost:9092/sonar',
+                jdbcUsername: 'sonar',
+                jdbcPassword: 'sonar',
+                login: 'admin',
+                password: 'admin'
+        };
+
+        var mock = getDefaultParameterMock();
+
+        mock.invoke(karmaSonar, function (err) {
+            expect(mock.logError.length).toBe(0);
+            expect(mock.logOk.length).toBe(24);
+            expect(mock.logOk[3]).toBe('Dry-run');
+            expect(mock.logOk[4]).toBe('Sonar would have been triggered with the following sonar properties:');
+
+            // options.instance
+            expect(mock.logOk[9]).toBe('-Dsonar.host.url=http://localhost:9000');
+            expect(mock.logOk[10]).toBe('-Dsonar.jdbc.url=jdbc:h2:tcp://localhost:9092/sonar');
+            expect(mock.logOk[11]).toBe('-Dsonar.jdbc.username=sonar');
+            expect(mock.logOk[12]).toBe('-Dsonar.jdbc.password=sonar');
+            expect(mock.logOk[13]).toBe('-Dsonar.login=admin');
+            expect(mock.logOk[14]).toBe('-Dsonar.password=admin');
+
             done();
         });
     });
