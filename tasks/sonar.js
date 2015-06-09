@@ -42,12 +42,12 @@ module.exports = function (grunt) {
      * @return merged The merged object.
      */
     function mergeJson(original, override) {
-        return _.merge(original, override, function (a, b) {
-            if (_.isArray(a)) {
-                return a.concat(b);
+        return _.merge(original, override, function (a, b, key, aParent, bParent) {
+            if (_.isUndefined(b)) {
+                aParent[key] = undefined;
+                return;
             }
         });
-
     }
 
     /**
@@ -70,7 +70,7 @@ module.exports = function (grunt) {
         function addParameter(prop, object, key) {
             var value = _.result(object, key);
 
-            if (value !== undefined && value !== null) {
+            if (value !== undefined) {
                 args.push('-D' + prop + '=' + value);
             }
         }
