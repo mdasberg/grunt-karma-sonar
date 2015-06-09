@@ -70,7 +70,7 @@ module.exports = function (grunt) {
         function addParameter(prop, object, key) {
             var value = _.result(object, key);
 
-            if (value !== undefined) {
+            if (value !== undefined && value !== null) {
                 args.push('-D' + prop + '=' + value);
             }
         }
