@@ -53,7 +53,7 @@ Should be the sonar.property sourceEncoding
 Type: `String`
 Default: 'js'
 
-Should be the sonar.property language
+Should be the sonar.property language (Starting with SonarQube 4.2, multi-language projects are supported. To enable this, set the value to null)
 
 #### options.scmDisabled
 Type: `String`
