@@ -1,5 +1,5 @@
-<a name="0.2.5"></a>
-# 0.2.4 (2015-06-09)
+<a name="0.2.6"></a>
+# 0.2.6 (2015-06-09)
 
 ## Bug Fixes
 - Added support for not adding a parameter to sonar by providing null as a value.
