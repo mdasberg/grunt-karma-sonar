@@ -13,7 +13,8 @@ module.exports = function (grunt) {
             sourceEncoding: 'UTF-8',
             language: 'js',
             defaultOutputDir: '.tmp/sonar/',
-            scmDisabled: true
+            scmDisabled: true,
+            excludedProperties:[]
         };
 
     /**
@@ -69,8 +70,8 @@ module.exports = function (grunt) {
         // Add the parameter (-D) only when the 'key' exists in the 'object'
         function addParameter(prop, object, key) {
             var value = _.result(object, key);
-
-            if (value !== undefined) {
+            
+            if (value !== undefined && sonarOptions.excludedProperties.indexOf(prop) === -1) {
                 args.push('-D' + prop + '=' + value);
             }
         }

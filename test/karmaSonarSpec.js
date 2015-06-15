@@ -239,7 +239,7 @@ describe('KarmaSonar', function () {
         });
     });
 
-    it('should set the credentials when  options.instance is defined (-D) for sonar-runner', function (done) {
+    it('should set the credentials when options.instance is defined (-D) for sonar-runner', function (done) {
         var opts = DEFAULT_OPTIONS
         opts.defaultOutputDir = '.tmp/sonar/';
         opts.runnerProperties = {};
@@ -267,6 +267,45 @@ describe('KarmaSonar', function () {
             expect(mock.logOk[12]).toBe('-Dsonar.jdbc.password=sonar');
             expect(mock.logOk[13]).toBe('-Dsonar.login=admin');
             expect(mock.logOk[14]).toBe('-Dsonar.password=admin');
+            expect(mock.logOk[16]).toBe('-Dsonar.language=js');
+
+            done();
+        });
+    });
+
+    it('should exclude options that are excluded for sonar-runner', function (done) {
+        var opts = DEFAULT_OPTIONS
+        opts.defaultOutputDir = '.tmp/sonar/';
+        opts.runnerProperties = {};
+        opts.instance = {
+            hostUrl: 'http://localhost:9000',
+            jdbcUrl: 'jdbc:h2:tcp://localhost:9092/sonar',
+            jdbcUsername: 'sonar',
+            jdbcPassword: 'sonar',
+            login: 'admin',
+            password: 'admin'
+        };
+        opts.excludedProperties = ['sonar.language'];
+
+        var mock = getDefaultParameterMock();
+
+        mock.invoke(karmaSonar, function (err) {
+            expect(mock.logError.length).toBe(0);
+            expect(mock.logOk.length).toBe(23);
+            expect(mock.logOk[3]).toBe('Dry-run');
+            expect(mock.logOk[4]).toBe('Sonar would have been triggered with the following sonar properties:');
+            console.log(mock.logOk)
+            
+
+            // options.instance
+            expect(mock.logOk[9]).toBe('-Dsonar.host.url=http://localhost:9000');
+            expect(mock.logOk[10]).toBe('-Dsonar.jdbc.url=jdbc:h2:tcp://localhost:9092/sonar');
+            expect(mock.logOk[11]).toBe('-Dsonar.jdbc.username=sonar');
+            expect(mock.logOk[12]).toBe('-Dsonar.jdbc.password=sonar');
+            expect(mock.logOk[13]).toBe('-Dsonar.login=admin');
+            expect(mock.logOk[14]).toBe('-Dsonar.password=admin');
+
+            expect(mock.logOk[16]).not.toBe('-Dsonar.language=js');
 
             done();
         });
