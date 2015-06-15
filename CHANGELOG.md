@@ -1,3 +1,9 @@
+<a name="0.2.7"></a>
+# 0.2.7 (2015-06-15)
+
+## Bug Fixes
+- Added support excluding any sonar property.
+
 <a name="0.2.6"></a>
 # 0.2.6 (2015-06-09)
 

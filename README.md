@@ -67,6 +67,12 @@ Default: '.tmp/sonar/'
 
 Should be the location where the karmaSonar plugin will put it's temporary files.
 
+#### options.excludedProperties
+Type: `Array`
+Default: []
+
+Should be a list of sonar properties to exclude
+
 #### options.instance.hostUrl
 Type: `String`
 Default: 'http://localhost:9000'
