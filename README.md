@@ -180,6 +180,11 @@ Type: `String`
  
 Should be the glob for the lcov.info files within the cwd.
 
+#### paths[].reports.itCoverage
+Type: `String`
+ 
+Should be the glob for the integration test lcov.info files within the cwd.
+
 ### Usage Examples
 
 #### Default Options
