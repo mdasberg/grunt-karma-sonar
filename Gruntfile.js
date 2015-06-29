@@ -46,7 +46,8 @@ module.exports = function (grunt) {
                             test: 'test',
                             reports: {
                                 unit: 'results/karma/results.xml',
-                                coverage: 'results/karma/coverage/**/lcov.info'
+                                coverage: 'results/karma/coverage/**/lcov.info',
+                                itCoverage: 'results/protractor-coverage/**/lcov.info'
                             }
                         },
                         {

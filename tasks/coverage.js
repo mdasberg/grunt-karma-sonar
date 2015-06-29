@@ -15,7 +15,7 @@
      * #3 append the tests to the result.
      * #4 write merged results to file.
      */
-    coverage.merge = function (locations, outputFile) {
+    coverage.merge = function (locations, outputFile, type) {
         var CURRENT_PATH = '.',
             resultContent = '';
 
@@ -23,8 +23,8 @@
         locations.forEach(function (l) {
             var cwd = (l.cwd || CURRENT_PATH) + path.sep;
 
-            if (l.reports.coverage) {
-                glob.sync(l.reports.coverage, {cwd: cwd, root: '/'}).forEach(function (file) {
+            if (l.reports[type]) {
+                glob.sync(l.reports[type], {cwd: cwd, root: '/'}).forEach(function (file) {
                     // #2
                     var content = grunt.file.read(cwd + file).
                         replace(new RegExp('(SF:)(.*' + l.src + ')(.*)', 'g'), '$1.' + path.sep + 'src$3');

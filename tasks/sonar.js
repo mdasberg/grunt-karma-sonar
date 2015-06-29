@@ -65,6 +65,7 @@ module.exports = function (grunt) {
             '-Dsonar.tests=test',
             '-Dsonar.javascript.jstestdriver.reportsPath=results',
             '-Dsonar.javascript.lcov.reportPath=' + 'results' + path.sep + 'coverage_report.lcov',
+            '-Dsonar.javascript.lcov.itReportPath=' + 'results' + path.sep + 'it_coverage_report.lcov'
         ];
 
         // Add the parameter (-D) only when the 'key' exists in the 'object'
@@ -121,7 +122,8 @@ module.exports = function (grunt) {
                 done = configuration.async(),
                 resultsDir = sonarOptions.defaultOutputDir + path.sep + 'results' + path.sep,
                 jUnitResultFile = resultsDir + 'TESTS-xunit.xml',
-                coverageResultFile = resultsDir + 'coverage_report.lcov';
+                coverageResultFile = resultsDir + 'coverage_report.lcov',
+                itCoverageResultFile = resultsDir + 'it_coverage_report.lcov';
 
             async.series({
                     // #1
@@ -133,11 +135,18 @@ module.exports = function (grunt) {
                     // #2
                     mergeCoverageReports: function (callback) {
                         grunt.verbose.writeln('Merging Coverage reports');
-                        coverage.merge(data.paths, coverageResultFile);
+                        coverage.merge(data.paths, coverageResultFile, 'coverage');
 
                         callback(null, 200);
                     },
-                    //#3
+                    // #3
+                    mergeItCoverageReports: function (callback) {
+                        grunt.verbose.writeln('Merging Integration Coverage reports');
+                        coverage.merge(data.paths, itCoverageResultFile, 'itCoverage');
+
+                        callback(null, 200);
+                    },
+                    //#4
                     copy: function (callback) {
                         grunt.verbose.writeln('Copying files to working directory [' + sonarOptions.defaultOutputDir + ']');
                         var sourceGlobs = [],
@@ -158,7 +167,7 @@ module.exports = function (grunt) {
                         });
                         callback(null, 200);
                     },
-                    //#4
+                    //#5
                     publish: function (callback) {
                         var opts = {
                             cmd: 'sonar-runner',
