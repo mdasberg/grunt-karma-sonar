@@ -1,5 +1,6 @@
-<a name="0.2.8"></a>
-# 0.2.8 (2015-06-30)
+
+<a name="0.2.9"></a>
+# 0.2.9 (2015-06-30)
 
 ## Features
 - Added support for adding integration tests coverage

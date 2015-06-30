@@ -1,4 +1,21 @@
+#intellij
+.idea
+*.iml
+*.ipr
+*.iws
+
+# other
+data
+test
+.travis.yml
+.jshintrc
+
+
+# generated
+.tmp
+reports
+
+#npm
 node_modules
 npm-debug.log
-tmp
-.tmp
+
