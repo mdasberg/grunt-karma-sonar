@@ -208,7 +208,8 @@ grunt.initConfig({
           test: '...', // the test directory within the cwd
           reports: {
               unit: '../path/result.xml', // the result file within the cwd
-              coverage: '../path/**/lcov.info' // the glob for lcov files'
+              coverage: '../path/**/lcov.info', // the glob for lcov files'
+              itCoverage: '../path/**/lcov.info' // the glob for integration lcov files'
           }
         },
         {
@@ -217,7 +218,8 @@ grunt.initConfig({
           test: '...', // the test directory within the cwd
           reports: {
               unit: '../path/result.xml', // the result file within the cwd
-              coverage: '../path/**/lcov.info' // the glob for lcov files'
+              coverage: '../path/**/lcov.info', // the glob for lcov files'
+              itCoverage: '../path/**/lcov.info' // the glob for integration lcov files'
           }
       ],
       exclusions: []
@@ -245,7 +247,7 @@ grunt.initConfig({
       project: {
         key: 'grunt-sonar',
         name: 'Grunt sonar plugin',
-        version: '0.1.1'
+        version: '0.2.8'
       },
       paths: [...],
       exclusions: []
