@@ -28,12 +28,16 @@
                     // #2
                     var content = grunt.file.read(cwd + file).
                         replace(new RegExp('(SF:)(.*' + l.src + ')(.*)', 'g'), '$1.' + path.sep + 'src$3');
-                    
+
                     // #3
                     resultContent = resultContent.concat(content);
                 });
             } else {
-                grunt.log.warn('No coverage report has been specified');
+                if(type === 'itCoverage') {
+                    grunt.log.warn('No integration coverage report has been specified');
+                } else {
+                    grunt.log.warn('No coverage report has been specified');
+                }
             }
         });
         // #4
