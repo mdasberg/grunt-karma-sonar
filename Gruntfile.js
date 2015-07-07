@@ -37,7 +37,7 @@ module.exports = function (grunt) {
                     project: {
                         key: 'grunt-karma-sonar',
                         name: 'Grunt-karma-sonar plugin',
-                        version: '0.2.0'
+                        version: '0.2.10'
                     },
                     paths: [
                         {
@@ -75,23 +75,21 @@ module.exports = function (grunt) {
                 }
             }
         }
-    )
-    ;
+    );
 
-// Actually load this plugin's task(s).
+    // Actually load this plugin's task(s).
     grunt.loadTasks('tasks');
 
-// These plugins provide necessary tasks.
+    // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-shell');
 
-// Whenever the "test" task is run, first clean the "tmp" dir, then run this
-// plugin's task(s), then test the result.
+    // Whenever the "test" task is run, first clean the "tmp" dir, then run this
+    // plugin's task(s), then test the result.
     grunt.registerTask('test', ['clean', 'shell']);
 
-// By default, lint and run all tests.
+    // By default, lint and run all tests.
     grunt.registerTask('default', ['jshint', 'test']);
 
-}
-;
+};

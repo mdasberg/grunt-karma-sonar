@@ -1,7 +1,7 @@
 {
   "name": "grunt-karma-sonar",
   "description": "Grunt plugin for integrating karma reports with sonar",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "homepage": "https://github.com/mdasberg/grunt-karma-sonar",
   "author": {
     "name": "Mischa Dasberg",
@@ -25,6 +25,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
+    "install": "node install.js",
     "test": "grunt test"
   },
   "devDependencies": {
@@ -44,14 +45,18 @@
     "gruntplugin"
   ],
   "dependencies": {
+    "adm-zip": "^0.4.7",
     "async": "^0.9.0",
     "fs-extra": "^0.18.0",
-    "glob": "^5.0.3",
+    "glob": "^5.0.13",
     "lodash": "^3.6.0",
     "html-entities": "^1.1.2",
     "path": "^0.11.14",
     "sax": "^0.6.1",
     "xml2js": "^0.4.6",
-    "xmldoc": "^0.3.0"
+    "xmldoc": "^0.3.0",
+    "kew": "^0.6.0",
+    "semver": "^4.3.6",
+    "sync-request": "^2.0.1"
   }
 }

@@ -14,7 +14,7 @@ module.exports = function (grunt) {
             language: 'js',
             defaultOutputDir: '.tmp/sonar/',
             scmDisabled: true,
-            excludedProperties:[]
+            excludedProperties: []
         };
 
     /**
@@ -155,7 +155,7 @@ module.exports = function (grunt) {
                         data.paths.forEach(function (p) {
                             var cwd = p.cwd ? p.cwd : '.';
                             sourceGlobs.push({cwd: cwd + path.sep + p.src, src: '**/*'});
-                            testGlobs.push({cwd: cwd + path.sep + p.test, src:'**/*'});
+                            testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*'});
                         });
 
                         sourceGlobs.forEach(function (g) {
@@ -177,6 +177,13 @@ module.exports = function (grunt) {
                             }
                         };
 
+                        var libDir = path.join(__dirname, '..', 'lib');
+                        if(grunt.file.exists(libDir)) {
+                            glob.sync('**/bin/sonar-runner', {cwd: libDir, root: '/'}).forEach(function (file) {
+                                opts.cmd = libDir + path.sep + file;
+                            });
+                        }
+
                         // Add custom properties
                         if (sonarOptions.runnerProperties) {
                             Object.keys(sonarOptions.runnerProperties).forEach(function (prop) {
@@ -196,8 +203,8 @@ module.exports = function (grunt) {
                         } else {
                             grunt.log.subhead('Dry-run');
                             grunt.log.writeln('Sonar would have been triggered with the following sonar properties:', opts.args);
-                            _.each(opts.args, function(arg) {
-                              grunt.log.writeln(arg);
+                            _.each(opts.args, function (arg) {
+                                grunt.log.writeln(arg);
                             });
                             callback(null, 200);
                         }

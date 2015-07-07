@@ -1,3 +1,8 @@
+<a name="0.2.10"></a>
+# 0.2.10 (2015-07-07)
+
+## Features
+- Added support for fetching sonar-runner when it is not available on the path
 
 <a name="0.2.9"></a>
 # 0.2.9 (2015-06-30)

@@ -256,6 +256,37 @@ grunt.initConfig({
 })
 ```
 
+Deciding Where To Get Sonar-runner from
+-------------------------------
+
+By default, this package will download sonar-runner from `https://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=org.codehaus.sonar.runner&a=sonar-runner-dist&v=LATEST&p=zip`, 
+but only when sonar-runner is not available on the path.
+
+##### Downloading from a custom URL
+
+If for some reason sonatype is down, or the Great Firewall is blocking sonatype, you may need to use
+a download mirror. To set a mirror, set npm config property `sonarrunner_cdnurl`.
+Default is ``.
+
+```shell
+npm install grunt-karma-sonar --sonarrunner_cdnurl=http://some-mirror.org/path/to/downloads
+```
+
+Or add property into your `.npmrc` file (https://www.npmjs.org/doc/files/npmrc.html)
+
+```
+sonarrunner_cdnurl=http://some-mirror.org/path/to/downloads
+```
+
+Another option is to use PATH variable `SONARRUNNER_CDNURL`.
+```shell
+SONARRUNNER_CDNURL=http://some-mirror.org/path/to/downloads npm install grunt-karma-sonar
+```
+
+Note: It can be the case that there are multiple versions available at the download mirror. 
+If this is the case the latest version will be used.
+
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
