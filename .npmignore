@@ -1,0 +1,12 @@
+#intellij
+.idea
+*.iml
+*.ipr
+*.iws
+
+#generated
+.tmp
+
+#npm
+node_modules
+.npmrc
