@@ -14,7 +14,8 @@
     "globals": {
         "module": false,
         "require": false,
-        "exports": false
+        "exports": false,
+        "__dirname": false
     }
 
 }
