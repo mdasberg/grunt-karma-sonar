@@ -9,12 +9,12 @@
         kew = require('kew');
 
     var cdnUrl = process.env.npm_config_sonarrunner_cdnurl || process.env.SONARRUNNER_CDNURL,
+        cdnDir = process.env.npm_config_sonarrunner_cdndir || process.env.SONARRUNNER_CDNDIR,
         destination = 'lib',
         validExit = false;
 
     /** Handle event handling when an exit occurs. */
     process.on('exit', function () {
-        console.log('exit');
         if (!validExit) {
             console.log('Install exited unexpectedly');
             exit(1)
@@ -45,14 +45,14 @@
     }
 
     /**
-     * Copy the latest sonar-runner from the given cdn url.
-     * @param cdnUrl The cdn url.
+     * Copy the latest sonar-runner from the given cdn dir.
+     * @param cdnDir The cdn dir.
      * @return destination The location where the latest sonar-runner is copied to.
      * @throws error If no sonar-runner can be found on the cdn.
      */
-    function copyLatestVersion(cdnUrl) {
+    function copyLatestVersion(cdnDir) {
         var latestAvailableVersion, latestFileName;
-        glob.sync('sonar-runner*.zip', {cwd: cdnUrl, root: '/'}).forEach(function (file) {
+        glob.sync('sonar-runner*.zip', {cwd: cdnDir, root: '/'}).forEach(function (file) {
             var match = /sonar-runner.*(\d)\.(\d)\.?(\d?).zip/.exec(file);
             if (match) { // convert to semver
                 var currentVersion = (match[1] + '.' + match[2] + '.' + (match[3] ? match[3] : '0'));
@@ -64,11 +64,11 @@
                     latestFileName = file;
                 }
             }
-            src = cdnUrl + path.sep + latestFileName;
+            src = cdnDir + path.sep + latestFileName;
         });
 
         if (latestFileName !== undefined) {
-            var source = cdnUrl + path.sep + latestFileName,
+            var source = cdnDir + path.sep + latestFileName,
                 destination = path.join('.tmp', latestFileName);
 
             if (destination) {
@@ -79,6 +79,19 @@
             console.error('Could not find any sonar-runner on the specified CDN.');
             return;
         }
+    }
+
+    /**
+     * Fetch the cdn release of sonar-runner from nexus.
+     * @param cdnDir The cdn url. 
+     * @return destination The location where the cdn sonar-runner is copied to.
+     */
+    function fetchCdnVersion(cdnUrl) {
+        var response = request('GET', cdnUrl + path.sep + 'sonar-runner-dist.zip');
+        var destination = path.join('.tmp', 'sonar-runner-dist.zip');
+        fs.mkdirsSync('.tmp', '0775');
+        fs.writeFileSync(destination, response.getBody(), {replace: true});
+        return destination;
     }
 
     /**
@@ -122,13 +135,16 @@
         var pkg;
         if (cdnUrl) {
             // 2. copy latest version
-            pkg = copyLatestVersion(cdnUrl);
+            pkg = fetchCdnVersion(cdnUrl);
+        } else if(cdnDir) {
+            // 3. fetch cdn version
+            pkg = copyLatestVersion(cdnDir);
         } else {
-            console.log('No CDN has been specified.');
-            console.log('Usage: either specify property sonarrunner_cdnurl in .npmrc or define it as a environment variable as SONARRUNNER_CDNURL.')
+            console.log('No CDN url or directory have been specified.');
+            console.log('Usage: either specify property sonarrunner_cdnurl/sonarrunner_cdndir  in .npmrc or define it as a environment variable as SONARRUNNER_CDNURL/SONARRUNNER_CDNDIR.')
         }
 
-        if (!pkg) { // 3. if no version is copied or something went wrong, try to fetch it from remote.
+        if (!pkg) { // 4. if no version is copied or something went wrong, try to fetch it from remote.
             try {
                 console.log('Using remote location to fetch sonar-runner.');
                 pkg = fetchLatestVersion();
@@ -137,7 +153,7 @@
                 exit(1);
             }
         }
-        // 4. make it available by extracting it.
+        // 5. make it available by extracting it.
         extractLatestVersion(pkg);
     }
 

@@ -199,7 +199,7 @@ grunt.initConfig({
       project: {
         key: 'grunt-sonar',
         name: 'Grunt sonar plugin',
-        version: '0.1.1'
+        version: '0.2.12'
       },
       paths: [
         {
@@ -247,7 +247,7 @@ grunt.initConfig({
       project: {
         key: 'grunt-sonar',
         name: 'Grunt sonar plugin',
-        version: '0.2.8'
+        version: '0.2.12'
       },
       paths: [...],
       exclusions: []
@@ -265,7 +265,7 @@ but only when sonar-runner is not available on the path.
 ##### Downloading from a custom URL
 
 If for some reason sonatype is down, or the Great Firewall is blocking sonatype, you may need to use
-a download mirror. To set a mirror, set npm config property `sonarrunner_cdnurl`.
+a download mirror url. To set a mirror, set npm config property `sonarrunner_cdnurl`.
 Default is ``.
 
 ```shell
@@ -281,6 +281,29 @@ sonarrunner_cdnurl=http://some-mirror.org/path/to/downloads
 Another option is to use PATH variable `SONARRUNNER_CDNURL`.
 ```shell
 SONARRUNNER_CDNURL=http://some-mirror.org/path/to/downloads npm install grunt-karma-sonar
+```
+
+Note: It will try to find `sonar-runner-dist.zip` in the cdn url.
+
+##### Downloading from a custom Dir
+
+If for some reason sonatype is down, or the Great Firewall is blocking sonatype, you may need to use
+a download mirror directory. To set a mirror, set npm config property `sonarrunner_cdndir`.
+Default is ``.
+
+```shell
+npm install grunt-karma-sonar --sonarrunner_cdndir=/some/path/downloads
+```
+
+Or add property into your `.npmrc` file (https://www.npmjs.org/doc/files/npmrc.html)
+
+```
+sonarrunner_cdndir=/some/path/downloads
+```
+
+Another option is to use PATH variable `SONARRUNNER_CDNDIR`.
+```shell
+SONARRUNNER_CDNDIR=/some/path/downloads npm install grunt-karma-sonar
 ```
 
 Note: It can be the case that there are multiple versions available at the download mirror. 
