@@ -199,7 +199,7 @@ grunt.initConfig({
       project: {
         key: 'grunt-sonar',
         name: 'Grunt sonar plugin',
-        version: '0.2.12'
+        version: '0.2.13'
       },
       paths: [
         {
@@ -247,7 +247,7 @@ grunt.initConfig({
       project: {
         key: 'grunt-sonar',
         name: 'Grunt sonar plugin',
-        version: '0.2.12'
+        version: '0.2.13'
       },
       paths: [...],
       exclusions: []

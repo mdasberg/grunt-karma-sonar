@@ -1,3 +1,9 @@
+<a name="0.2.13"></a>
+# 0.2.13 (2015-07-08)
+
+## Bugfix
+- Added lib directory to npm ignore
+
 <a name="0.2.12"></a>
 # 0.2.12 (2015-07-07)
 

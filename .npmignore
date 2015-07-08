@@ -6,7 +6,13 @@
 
 #generated
 .tmp
+data
+results
+lib
 
 #npm
 node_modules
 .npmrc
+
+#build
+.travis.yml
