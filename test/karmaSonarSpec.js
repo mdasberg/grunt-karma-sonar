@@ -132,7 +132,7 @@ describe('KarmaSonar', function () {
 
     it('should merge and update data from more paths', function (done) {
         var opts = DEFAULT_OPTIONS
-        opts.defaultOutputDir = '.tmp/sonar-more-paths';
+        opts.defaultOutputDir = '.tmp/sonar-dots-in-specs';
         var mock = gruntMock.create({
                 target: 'all', options: DEFAULT_OPTIONS, data: {
                     project: {
@@ -163,7 +163,7 @@ describe('KarmaSonar', function () {
                             src: 'src',
                             test: 'test',
                             reports: {
-                                unit: 'results/unit/results.xml',
+                                unit: 'results/unit/**/TESTS*.xml',
                                 coverage: 'results/unit/coverage/**/lcov.info'
                             }
                         }
@@ -182,8 +182,8 @@ describe('KarmaSonar', function () {
             expect(mock.logOk[5]).toBe('Sonar would have been triggered with the following sonar properties:');
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
-            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-more-paths' + path.sep + 'coverage_report.lcov')).toBeTruthy();
-            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-more-paths' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-dots-in-specs' + path.sep + 'coverage_report.lcov')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             done();
         });
     });

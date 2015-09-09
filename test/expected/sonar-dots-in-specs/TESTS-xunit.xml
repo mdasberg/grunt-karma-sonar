@@ -6,7 +6,7 @@
   <testcase name="should say see you later" time="0" classname="xSpec"/>
   <testcase name="should say goodbye &amp;quot;x&amp;quot; app" time="0" classname="xSpec">
     <failure type="">Expected 'goodbye x app' to be 'hello x app'.
-      at /Users/mischa/workspace/karma-example/projectx/test/karma/xSpec.js:21</failure>
+    at /Users/mischa/workspace/karma-example/projectx/test/karma/xSpec.js:21</failure>
   </testcase>
   <system-out>PhantomJS 1.9.8 (Mac OS X) LOG: Object{totalSpecsDefined: 3}</system-out>
   <system-err/>
@@ -18,12 +18,12 @@
   <testcase name="should say see you later" time="0" classname="ySpec"/>
   <system-out>PhantomJS 1.9.8 (Mac OS X) LOG: Object{totalSpecsDefined: 2}</system-out>
   <system-err/>
-</testsuite><testsuite name="PhantomJS 1.9.8 (Mac OS X)" package="" timestamp="2015-09-09T18:58:11" id="0" hostname="aurora.local" tests="2" errors="0" failures="0" time="0.007">
+</testsuite><testsuite name="PhantomJS 1.9.8 (Mac OS X)" package="" timestamp="2015-09-09T20:41:33" id="0" hostname="aurora.local" tests="2" errors="0" failures="0" time="0.009">
   <properties>
     <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34"/>
   </properties>
-  <testcase name="should make the model accessible to the view" time="0.006" classname="some_controller_spec"/>
-  <testcase name="should tell who is awesome" time="0.001" classname="some_service_spec"/>
+  <testcase name="should make the model accessible to the view" time="0.007" classname="some_controller_spec"/>
+  <testcase name="should tell who is awesome" time="0.002" classname="some_service_spec"/>
   <system-out>PhantomJS 1.9.8 (Mac OS X) LOG: Object{totalSpecsDefined: 2}</system-out>
   <system-err/>
 </testsuite></testsuites>
