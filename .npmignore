@@ -8,11 +8,13 @@
 .tmp
 data
 results
+test
 lib
 
 #npm
 node_modules
 .npmrc
+.npmignore
 
 #build
 .travis.yml

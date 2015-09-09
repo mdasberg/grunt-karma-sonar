@@ -1,3 +1,10 @@
+<a name="0.2.14"></a>
+# 0.2.14 (2015-09-09)
+
+## Bugfix
+- Fix support for karma-junit-reporter higher then 0.3.1 (glob support)
+- Fix test files containing dots in the name do not get uploaded 
+
 <a name="0.2.13"></a>
 # 0.2.13 (2015-07-08)
 

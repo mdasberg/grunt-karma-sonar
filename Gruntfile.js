@@ -64,7 +64,7 @@ module.exports = function (grunt) {
                             src: 'src',
                             test: 'test',
                             reports: {
-                                unit: 'results/unit/results.xml',
+                                unit: 'results/unit/**/TESTS*.xml',
                                 coverage: 'results/unit/coverage/**/lcov.info'
                             }
                         }
