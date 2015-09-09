@@ -31,7 +31,15 @@ module.exports = function (grunt) {
             }
             fs.mkdirpSync(destinationDirectory);
             var source = path.resolve(g.cwd, file);
-            var destination = destinationDirectory + path.sep + path.basename(file);
+            var extension = path.extname(file);
+            var destination;
+            if(targetDir === 'test') {
+                var base = path.basename(file, extension);
+                destination = destinationDirectory + path.sep + path.basename(base.replace(/\./g, '_') + extension);
+            } else {
+                destination = destinationDirectory + path.sep + path.basename(file);
+            }
+
             fs.copySync(source, destination, {replace: true});
         });
     }
@@ -154,8 +162,8 @@ module.exports = function (grunt) {
 
                         data.paths.forEach(function (p) {
                             var cwd = p.cwd ? p.cwd : '.';
-                            sourceGlobs.push({cwd: cwd + path.sep + p.src, src: '**/*'});
-                            testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*'});
+                            sourceGlobs.push({cwd: cwd + path.sep + p.src, src: '**/*.js'});
+                            testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*.js'});
                         });
 
                         sourceGlobs.forEach(function (g) {

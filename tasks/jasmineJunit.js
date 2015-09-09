@@ -81,7 +81,7 @@
                                     m.tests = _.without(m.tests, name);
                                 }
                                 testcase.attr.name = xmlEntities.encode(name);
-                                testcase.attr.classname = matchingSpec;
+                                testcase.attr.classname = matchingSpec.replace(/\./g, '_');
                             }
                         });
                     }

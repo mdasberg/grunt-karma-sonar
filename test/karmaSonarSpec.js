@@ -130,9 +130,9 @@ describe('KarmaSonar', function () {
         });
     });
 
-    it('should merge and update data from two paths', function (done) {
+    it('should merge and update data from more paths', function (done) {
         var opts = DEFAULT_OPTIONS
-        opts.defaultOutputDir = '.tmp/sonar-two-paths';
+        opts.defaultOutputDir = '.tmp/sonar-more-paths';
         var mock = gruntMock.create({
                 target: 'all', options: DEFAULT_OPTIONS, data: {
                     project: {
@@ -157,6 +157,15 @@ describe('KarmaSonar', function () {
                                 unit: 'results/karma/results.xml',
                                 coverage: 'results/karma/coverage/**/lcov.info'
                             }
+                        },
+                        {
+                            cwd: 'data/projectz',
+                            src: 'src',
+                            test: 'test',
+                            reports: {
+                                unit: 'results/unit/results.xml',
+                                coverage: 'results/unit/coverage/**/lcov.info'
+                            }
                         }
                     ]
                 }
@@ -173,8 +182,8 @@ describe('KarmaSonar', function () {
             expect(mock.logOk[5]).toBe('Sonar would have been triggered with the following sonar properties:');
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
-            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-two-paths' + path.sep + 'coverage_report.lcov')).toBeTruthy();
-            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-two-paths' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-more-paths' + path.sep + 'coverage_report.lcov')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-more-paths' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             done();
         });
     });

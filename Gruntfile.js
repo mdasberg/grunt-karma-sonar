@@ -52,14 +52,22 @@ module.exports = function (grunt) {
                         },
                         {
                             cwd: 'data/projecty',
-                            src: 'src',
-                            test: 'test',
+                            src: 'app',
+                            test: 'tests',
                             reports: {
                                 unit: 'results/karma/results.xml',
                                 coverage: 'results/karma/coverage/**/lcov.info'
                             }
+                        },
+                        {
+                            cwd: 'data/projectz',
+                            src: 'src',
+                            test: 'test',
+                            reports: {
+                                unit: 'results/unit/results.xml',
+                                coverage: 'results/unit/coverage/**/lcov.info'
+                            }
                         }
-
                     ]
                 }
             },
