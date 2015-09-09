@@ -70,7 +70,7 @@
                     var content = new XmlDocument(grunt.file.read(reportFile)),
                         testsuites;
                     if (content.name === 'testsuite') {
-                        testsuites = [content]
+                        testsuites = [content];
                     } else {
                         testsuites = content.childrenNamed("testsuite");
                     }
