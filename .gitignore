@@ -5,8 +5,6 @@
 *.iws
 
 # other
-data
-
 .travis.yml
 .jshintrc
 
