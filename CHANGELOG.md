@@ -1,3 +1,9 @@
+<a name="0.2.15"></a>
+# 0.2.15 (2015-09-11)
+
+## Features
+- Added support for adding integration tests results
+
 <a name="0.2.14"></a>
 # 0.2.14 (2015-09-09)
 
