@@ -72,6 +72,7 @@ module.exports = function (grunt) {
             '-Dsonar.sources=src',
             '-Dsonar.tests=test',
             '-Dsonar.javascript.jstestdriver.reportsPath=results',
+            '-Dsonar.javascript.jstestdriver.itReportsPath=results',
             '-Dsonar.javascript.lcov.reportPath=' + 'results' + path.sep + 'coverage_report.lcov',
             '-Dsonar.javascript.lcov.itReportPath=' + 'results' + path.sep + 'it_coverage_report.lcov'
         ];
@@ -130,6 +131,7 @@ module.exports = function (grunt) {
                 done = configuration.async(),
                 resultsDir = sonarOptions.defaultOutputDir + path.sep + 'results' + path.sep,
                 jUnitResultFile = resultsDir + 'TESTS-xunit.xml',
+                itJUnitResultFile = resultsDir + 'ITESTS-xunit.xml',
                 coverageResultFile = resultsDir + 'coverage_report.lcov',
                 itCoverageResultFile = resultsDir + 'it_coverage_report.lcov';
 
@@ -137,24 +139,30 @@ module.exports = function (grunt) {
                     // #1
                     mergeJUnitReports: function (callback) {
                         grunt.verbose.writeln('Merging JUnit reports');
-                        jasmineJUnit.merge(data.paths, jUnitResultFile, callback);
+                        jasmineJUnit.merge(data.paths, jUnitResultFile, 'unit');
                         callback(null, 200);
                     },
                     // #2
+                    mergeItJUnitReports: function (callback) {
+                        grunt.verbose.writeln('Merging Integration JUnit reports');
+                        jasmineJUnit.merge(data.paths, itJUnitResultFile, 'itUnit');
+                        callback(null, 200);
+                    },
+                    // #3
                     mergeCoverageReports: function (callback) {
                         grunt.verbose.writeln('Merging Coverage reports');
                         coverage.merge(data.paths, coverageResultFile, 'coverage');
 
                         callback(null, 200);
                     },
-                    // #3
+                    // #4
                     mergeItCoverageReports: function (callback) {
                         grunt.verbose.writeln('Merging Integration Coverage reports');
                         coverage.merge(data.paths, itCoverageResultFile, 'itCoverage');
 
                         callback(null, 200);
                     },
-                    //#4
+                    // #5
                     copy: function (callback) {
                         grunt.verbose.writeln('Copying files to working directory [' + sonarOptions.defaultOutputDir + ']');
                         var sourceGlobs = [],
@@ -175,7 +183,7 @@ module.exports = function (grunt) {
                         });
                         callback(null, 200);
                     },
-                    //#5
+                    // #6
                     publish: function (callback) {
                         var opts = {
                             cmd: 'sonar-runner',

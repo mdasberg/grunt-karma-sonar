@@ -65,6 +65,17 @@ module.exports = function (grunt) {
                             test: 'test',
                             reports: {
                                 unit: 'results/unit/**/TESTS*.xml',
+                                itUnit: 'results/protractor/**/protractor*.xml',
+                                coverage: 'results/unit/coverage/**/lcov.info',
+                                itCoverage: 'results/protractor-coverage/**/lcov.info'
+                            }
+                        },
+                        {
+                            cwd: 'data/karma02x',
+                            src: 'src',
+                            test: 'test',
+                            reports: {
+                                unit: 'results/karma/results.xml',
                                 coverage: 'results/unit/coverage/**/lcov.info'
                             }
                         }
