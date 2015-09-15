@@ -5,7 +5,9 @@
       <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34"/>
     </properties>
     <testcase name="should say hello &apos;y&apos; app" time="0.001" classname="PhantomJS 1.9.8 (Mac OS X).Project Y"/>
-    <testcase name="should say see you later" time="0" classname="PhantomJS 1.9.8 (Mac OS X).Project Y"/>
+    <testcase name="should say see you later" time="0" classname="PhantomJS 1.9.8 (Mac OS X).Project Y">
+      <skipped/>
+    </testcase>
     <system-out><![CDATA[PhantomJS 1.9.8 (Mac OS X) LOG: Object{totalSpecsDefined: 2}
 
 ]]></system-out>

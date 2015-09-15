@@ -29,7 +29,7 @@
         var CURRENT_PATH = '.',
             PREFIX = '<?xml version="1.0"?><testsuites>',
             SUFFIX = '</testsuites>',
-            JASMINE_TESTCASE_REGEX = /[^\w]it\s?\([\'\"](.*)[\'\"]/g,
+            JASMINE_TESTCASE_REGEX = /[^\w]x?it\s?\([\'\"](.*)[\'\"]/g,
             resultContent = PREFIX,
             TYPE = type === 'itUnit' ? ' integration' : '';
 
