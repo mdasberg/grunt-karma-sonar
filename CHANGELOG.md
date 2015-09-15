@@ -1,3 +1,10 @@
+<a name="0.2.16"></a>
+# 0.2.16 (2015-09-15)
+
+## Bugfix
+- Fix file merge fails if there is disabled jasmine test ('xit()')
+- Fix tests that contain '' in jasmine it break sonar
+
 <a name="0.2.15"></a>
 # 0.2.15 (2015-09-11)
 
