@@ -4,7 +4,7 @@
   </properties>
   <testcase name="should say hello app" time="0" classname="xSpec"/>
   <testcase name="should say see you later" time="0" classname="xSpec"/>
-  <testcase name="should say goodbye &amp;quot;x&amp;quot; app" time="0" classname="xSpec">
+  <testcase name="should say goodbye &quot;x&quot; app" time="0" classname="xSpec">
     <failure type="">Expected 'goodbye x app' to be 'hello x app'.
     at /Users/mischa/workspace/karma-example/projectx/test/karma/xSpec.js:21</failure>
   </testcase>
@@ -14,7 +14,7 @@
   <properties>
     <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34"/>
   </properties>
-  <testcase name="should say hello &amp;apos;y&amp;apos; app" time="0.001" classname="ySpec"/>
+  <testcase name="should say hello &apos;y&apos; app" time="0.001" classname="ySpec"/>
   <testcase name="should say see you later" time="0" classname="ySpec"/>
   <system-out>PhantomJS 1.9.8 (Mac OS X) LOG: Object{totalSpecsDefined: 2}</system-out>
   <system-err/>

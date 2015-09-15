@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <testsuites>
-<testsuite name="chrome" package="protractor" tests="1" errors="0" failures="0" time="0">
-  <testcase classname="Some app" name="should show who is awesome" time="NaN"></testcase>
-</testsuite></testsuites>
+  <testsuite name="chrome" package="protractor" tests="1" errors="0" failures="0" time="0">
+    <testcase classname="Some app" name="should show &amp;apos;who&amp;apos; is awesome" time="NaN"></testcase>
+  </testsuite></testsuites>

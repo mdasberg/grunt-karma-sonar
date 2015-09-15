@@ -86,7 +86,7 @@
 
                                     var matchingSpecs = _.pluck(_.filter(specs, function (spec) {
                                         return _.find(spec.tests, function (test) {
-                                            return test === name;
+                                            return test === name || xmlEntities.encode(test) === name;
                                         });
                                     }), 'name');
                                     var matchingSpec = matchingSpecs[0];
@@ -96,7 +96,7 @@
                                         });
                                         m.tests = _.without(m.tests, name);
                                     }
-                                    testcase.attr.name = xmlEntities.encode(name);
+                                    testcase.attr.name = name;
                                     testcase.attr.classname = matchingSpec.replace(/\./g, '_');
                                 }
                             });
