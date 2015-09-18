@@ -27,6 +27,8 @@ describe('KarmaSonar', function () {
         if (type === 'xml') {
             var actualString = new XmlDocument(actualFileContents).toString({compressed: true, trimmed: true});
             var expectedString = new XmlDocument(expectedFileContents).toString({compressed: true, trimmed: true});
+            console.log('actual\n' + actualString);
+            console.log('expected\n' + expectedString);
             result = (actualString === expectedString);
         } else {
             result = bufferEqual(new Buffer(actualFileContents), new Buffer(expectedFileContents));
