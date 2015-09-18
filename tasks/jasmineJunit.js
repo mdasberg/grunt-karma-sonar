@@ -116,7 +116,7 @@
             });
             // #6
             grunt.file.write(outputFile, resultContent.concat(SUFFIX));
-        };
+        }
 
         return {
             merge: merge

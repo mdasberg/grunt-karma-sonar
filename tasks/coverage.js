@@ -41,7 +41,7 @@
             });
             // #4
             grunt.file.write(outputFile, resultContent);
-        };
+        }
 
         return {
             merge: merge
