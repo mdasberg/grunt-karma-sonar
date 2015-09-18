@@ -9,7 +9,9 @@ describe('KarmaSonar', function () {
         karmaSonar = require('./../tasks/karmaSonar.js'),
         fs = require('fs'),
         fsExtra = require('fs-extra'),
-        path = require('path');
+        path = require('path'),
+        XmlDocument = require('xmldoc').XmlDocument,
+        bufferEqual = require('buffer-equal');
 
     /**
      * Indicates if the file content matches.
@@ -17,8 +19,19 @@ describe('KarmaSonar', function () {
      * @param expected The expected.
      * @returns {*}
      */
-    function fileContentMatches(actual, expected) {
-        return new Buffer(fs.readFileSync(actual, {encoding: 'utf8'})).compare(new Buffer(fs.readFileSync(expected, {encoding: 'utf8'}))) === 0;
+    function fileContentMatches(actual, expected, type) {
+        var actualFileContents = fs.readFileSync(actual, {encoding: 'utf8'}),
+            expectedFileContents = fs.readFileSync(expected, {encoding: 'utf8'}),
+            result = false;
+
+        if (type === 'xml') {
+            var actualString = new XmlDocument(actualFileContents).toString({compressed: true, trimmed: true});
+            var expectedString = new XmlDocument(expectedFileContents).toString({compressed: true, trimmed: true});
+            result = (actualString === expectedString);
+        } else {
+            result = bufferEqual(new Buffer(actualFileContents), new Buffer(expectedFileContents));
+        }
+        return result;
     }
 
     const DEFAULT_OPTIONS = {
@@ -128,7 +141,7 @@ describe('KarmaSonar', function () {
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-one-path' + path.sep + 'coverage_report.lcov')).toBeTruthy();
-            //expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-one-path' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-one-path' + path.sep + 'TESTS-xunit.xml', 'xml')).toBeTruthy();
             done();
         });
     });
@@ -209,9 +222,9 @@ describe('KarmaSonar', function () {
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'it_coverage_report.lcov')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-dots-in-specs' + path.sep + 'coverage_report.lcov')).toBeTruthy();
-            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'TESTS-xunit.xml', 'xml')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'it_coverage_report.lcov', 'test/expected/sonar-dots-in-specs' + path.sep + 'it_coverage_report.lcov')).toBeTruthy();
-            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'ITESTS-xunit.xml', 'xml')).toBeTruthy();
             done();
         });
     });
