@@ -11,6 +11,7 @@ describe('KarmaSonar', function () {
         fsExtra = require('fs-extra'),
         path = require('path'),
         XmlDocument = require('xmldoc').XmlDocument,
+        xmlEntities = new (require('html-entities').XmlEntities)();
         bufferEqual = require('buffer-equal');
 
     /**
@@ -27,9 +28,7 @@ describe('KarmaSonar', function () {
         if (type === 'xml') {
             var actualString = new XmlDocument(actualFileContents).toString({compressed: true, trimmed: true});
             var expectedString = new XmlDocument(expectedFileContents).toString({compressed: true, trimmed: true});
-            console.log('actual\n' + actualString);
-            console.log('expected\n' + expectedString);
-            result = (actualString === expectedString);
+            result = (actualString === expectedString || actualString === (xmlEntities.encode(expectedString)));
         } else {
             result = bufferEqual(new Buffer(actualFileContents), new Buffer(expectedFileContents));
         }
