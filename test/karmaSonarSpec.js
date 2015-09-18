@@ -115,14 +115,16 @@ describe('KarmaSonar', function () {
         );
         mock.invoke(karmaSonar, function (err) {
             expect(mock.logError.length).toBe(0);
-            expect(mock.logOk.length).toBe(23);
+            expect(mock.logOk.length).toBe(25);
             expect(mock.logOk[0]).toBe('Merging JUnit reports');
             expect(mock.logOk[1]).toBe('Merging Integration JUnit reports');
-            expect(mock.logOk[2]).toBe('Merging Coverage reports');
-            expect(mock.logOk[3]).toBe('Merging Integration Coverage reports');
-            expect(mock.logOk[4]).toBe('Copying files to working directory [' + opts.defaultOutputDir + ']');
-            expect(mock.logOk[5]).toBe('Dry-run');
-            expect(mock.logOk[6]).toBe('Sonar would have been triggered with the following sonar properties:');
+            expect(mock.logOk[2]).toBe('No integration jUnit report has been specified');
+            expect(mock.logOk[3]).toBe('Merging Coverage reports');
+            expect(mock.logOk[4]).toBe('Merging Integration Coverage reports');
+            expect(mock.logOk[5]).toBe('No integration coverage report has been specified');
+            expect(mock.logOk[6]).toBe('Copying files to working directory [' + opts.defaultOutputDir + ']');
+            expect(mock.logOk[7]).toBe('Dry-run');
+            expect(mock.logOk[8]).toBe('Sonar would have been triggered with the following sonar properties:');
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
@@ -187,14 +189,22 @@ describe('KarmaSonar', function () {
         );
         mock.invoke(karmaSonar, function (err) {
             expect(mock.logError.length).toBe(0);
-            expect(mock.logOk.length).toBe(23);
+            expect(mock.logOk.length).toBe(31);
             expect(mock.logOk[0]).toBe('Merging JUnit reports');
-            expect(mock.logOk[1]).toBe('Merging Integration JUnit reports');
-            expect(mock.logOk[2]).toBe('Merging Coverage reports');
-            expect(mock.logOk[3]).toBe('Merging Integration Coverage reports');
-            expect(mock.logOk[4]).toBe('Copying files to working directory [' + opts.defaultOutputDir + ']');
-            expect(mock.logOk[5]).toBe('Dry-run');
-            expect(mock.logOk[6]).toBe('Sonar would have been triggered with the following sonar properties:');
+            expect(mock.logOk[1]).toBe('No spec filename found for test [should test for 0 equals 0]');
+            expect(mock.logOk[2]).toBe('No spec filename found for test [should test for 1 equals 1]');
+            expect(mock.logOk[3]).toBe('No spec filename found for test [should test for 2 equals 2]');
+            expect(mock.logOk[4]).toBe('Merging Integration JUnit reports');
+            expect(mock.logOk[5]).toBe('No integration jUnit report has been specified');
+            expect(mock.logOk[6]).toBe('No integration jUnit report has been specified');
+            expect(mock.logOk[7]).toBe('No integration jUnit report has been specified');
+            expect(mock.logOk[8]).toBe('Merging Coverage reports');
+            expect(mock.logOk[9]).toBe('Merging Integration Coverage reports');
+            expect(mock.logOk[10]).toBe('No integration coverage report has been specified');
+            expect(mock.logOk[11]).toBe('No integration coverage report has been specified');
+            expect(mock.logOk[12]).toBe('Copying files to working directory [' + opts.defaultOutputDir + ']');
+            expect(mock.logOk[13]).toBe('Dry-run');
+            expect(mock.logOk[14]).toBe('Sonar would have been triggered with the following sonar properties:');
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
@@ -243,30 +253,30 @@ describe('KarmaSonar', function () {
 
         mock.invoke(karmaSonar, function (err) {
             expect(mock.logError.length).toBe(0);
-            expect(mock.logOk.length).toBe(22);
-            expect(mock.logOk[5]).toBe('Dry-run');
-            expect(mock.logOk[6]).toBe('Sonar would have been triggered with the following sonar properties:');
+            expect(mock.logOk.length).toBe(24);
+            expect(mock.logOk[7]).toBe('Dry-run');
+            expect(mock.logOk[8]).toBe('Sonar would have been triggered with the following sonar properties:');
 
             // Defaults
-            expect(mock.logOk[7]).toBe('-Dsonar.sources=src');
-            expect(mock.logOk[8]).toBe('-Dsonar.tests=test');
-            expect(mock.logOk[9]).toBe('-Dsonar.javascript.jstestdriver.reportsPath=results');
-            expect(mock.logOk[10]).toBe('-Dsonar.javascript.jstestdriver.itReportsPath=results');
-            expect(mock.logOk[11]).toBe('-Dsonar.javascript.lcov.reportPath=results/coverage_report.lcov');
-            expect(mock.logOk[12]).toBe('-Dsonar.javascript.lcov.itReportPath=results/it_coverage_report.lcov');
+            expect(mock.logOk[9]).toBe('-Dsonar.sources=src');
+            expect(mock.logOk[10]).toBe('-Dsonar.tests=test');
+            expect(mock.logOk[11]).toBe('-Dsonar.javascript.jstestdriver.reportsPath=results');
+            expect(mock.logOk[12]).toBe('-Dsonar.javascript.jstestdriver.itReportsPath=results');
+            expect(mock.logOk[13]).toBe('-Dsonar.javascript.lcov.reportPath=results/coverage_report.lcov');
+            expect(mock.logOk[14]).toBe('-Dsonar.javascript.lcov.itReportPath=results/it_coverage_report.lcov');
 
             // options
-            expect(mock.logOk[13]).toBe('-Dsonar.sourceEncoding=UTF-8');
-            expect(mock.logOk[14]).toBe('-Dsonar.language=js');
-            expect(mock.logOk[15]).toBe('-Dsonar.dynamicAnalysis=reuseReports');
-            expect(mock.logOk[16]).toBe('-Dsonar.projectBaseDir=.tmp/sonar/');
-            expect(mock.logOk[17]).toBe('-Dsonar.scm.disabled=true');
+            expect(mock.logOk[15]).toBe('-Dsonar.sourceEncoding=UTF-8');
+            expect(mock.logOk[16]).toBe('-Dsonar.language=js');
+            expect(mock.logOk[17]).toBe('-Dsonar.dynamicAnalysis=reuseReports');
+            expect(mock.logOk[18]).toBe('-Dsonar.projectBaseDir=.tmp/sonar/');
+            expect(mock.logOk[19]).toBe('-Dsonar.scm.disabled=true');
 
             // data
-            expect(mock.logOk[18]).toBe('-Dsonar.projectKey=key');
-            expect(mock.logOk[19]).toBe('-Dsonar.projectName=name');
-            expect(mock.logOk[20]).toBe('-Dsonar.projectVersion=1.3.37');
-            expect(mock.logOk[21]).toBe('-Dsonar.exclusions=yep');
+            expect(mock.logOk[20]).toBe('-Dsonar.projectKey=key');
+            expect(mock.logOk[21]).toBe('-Dsonar.projectName=name');
+            expect(mock.logOk[22]).toBe('-Dsonar.projectVersion=1.3.37');
+            expect(mock.logOk[23]).toBe('-Dsonar.exclusions=yep');
             done();
         });
     });
@@ -288,23 +298,21 @@ describe('KarmaSonar', function () {
 
         mock.invoke(karmaSonar, function (err) {
             expect(mock.logError.length).toBe(0);
-            expect(mock.logOk.length).toBe(28);
-            expect(mock.logOk[5]).toBe('Dry-run');
-            expect(mock.logOk[6]).toBe('Sonar would have been triggered with the following sonar properties:');
+            expect(mock.logOk.length).toBe(30);
+            expect(mock.logOk[7]).toBe('Dry-run');
+            expect(mock.logOk[8]).toBe('Sonar would have been triggered with the following sonar properties:');
 
             // options.instance
-            expect(mock.logOk[13]).toBe('-Dsonar.host.url=http://localhost:9000');
-            expect(mock.logOk[14]).toBe('-Dsonar.jdbc.url=jdbc:h2:tcp://localhost:9092/sonar');
-            expect(mock.logOk[15]).toBe('-Dsonar.jdbc.username=sonar');
-            expect(mock.logOk[16]).toBe('-Dsonar.jdbc.password=sonar');
-            expect(mock.logOk[17]).toBe('-Dsonar.login=admin');
-            expect(mock.logOk[18]).toBe('-Dsonar.password=admin');
-            expect(mock.logOk[20]).toBe('-Dsonar.language=js');
+            expect(mock.logOk[15]).toBe('-Dsonar.host.url=http://localhost:9000');
+            expect(mock.logOk[16]).toBe('-Dsonar.jdbc.url=jdbc:h2:tcp://localhost:9092/sonar');
+            expect(mock.logOk[17]).toBe('-Dsonar.jdbc.username=sonar');
+            expect(mock.logOk[18]).toBe('-Dsonar.jdbc.password=sonar');
+            expect(mock.logOk[19]).toBe('-Dsonar.login=admin');
+            expect(mock.logOk[20]).toBe('-Dsonar.password=admin');
+            expect(mock.logOk[22]).toBe('-Dsonar.language=js');
 
             done();
         });
     });
-
-    7
 });
 

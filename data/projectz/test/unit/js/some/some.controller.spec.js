@@ -32,6 +32,13 @@
         it('should make the model accessible to the view', function () {
             expect(scope.vm.whoIsAwesome).toBe('You are if you fix this test');
         });
+
+        for(var i = 0; i < 3; i++) {
+            it('should test for ' + i + ' equals ' + i, function () {
+                expect(i).toBe(i);
+            });
+        }
+
     });
 })();
 
