@@ -115,7 +115,7 @@
                 }
             });
             // #6
-            grunt.file.write(outputFile, resultContent.concat(SUFFIX));
+            grunt.file.write(outputFile, resultContent.concat(SUFFIX), {encoding: 'utf8'});
         }
 
         return {

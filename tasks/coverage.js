@@ -40,7 +40,7 @@
                 }
             });
             // #4
-            grunt.file.write(outputFile, resultContent);
+            grunt.file.write(outputFile, resultContent, {encoding: 'utf8'});
         }
 
         return {
