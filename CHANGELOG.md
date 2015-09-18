@@ -1,3 +1,9 @@
+<a name="0.2.17"></a>
+# 0.2.17 (2015-09-18)
+
+## Bugfix
+- Fix conditional specs aren't being resolved and result in an error 
+
 <a name="0.2.16"></a>
 # 0.2.16 (2015-09-15)
 
