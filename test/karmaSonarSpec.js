@@ -19,7 +19,7 @@ describe('KarmaSonar', function () {
      * @returns {*}
      */
     function fileContentMatches(actual, expected) {
-        return bufferEqual(fs.readFileSync(actual),fs.readFileSync(expected));
+        return bufferEqual(new Buffer(fs.readFileSync(actual, {encoding: 'utf8'})), new Buffer(fs.readFileSync(expected, {encoding: 'utf8'})));
     }
 
     const DEFAULT_OPTIONS = {
