@@ -89,15 +89,19 @@
                                             return test === name || xmlEntities.encode(test) === name;
                                         });
                                     }), 'name');
-                                    var matchingSpec = matchingSpecs[0];
-                                    if (matchingSpecs.length > 1) {
-                                        var m = _.find(specs, function (spec) {
-                                            return spec.name === matchingSpec;
-                                        });
-                                        m.tests = _.without(m.tests, name);
+                                    if (matchingSpecs.length === 0) {
+                                        grunt.log.warn('No spec filename found for test [' + name + ']');
+                                    } else {
+                                        var matchingSpec = matchingSpecs[0];
+                                        if (matchingSpecs.length > 1) {
+                                            var m = _.find(specs, function (spec) {
+                                                return spec.name === matchingSpec;
+                                            });
+                                            m.tests = _.without(m.tests, name);
+                                        }
+                                        testcase.attr.name = name;
+                                        testcase.attr.classname = matchingSpec.replace(/\./g, '_');
                                     }
-                                    testcase.attr.name = name;
-                                    testcase.attr.classname = matchingSpec.replace(/\./g, '_');
                                 }
                             });
                         }
