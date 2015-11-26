@@ -223,7 +223,7 @@
 
                             if (!sonarOptions.dryRun) {
                                 if (sonarOptions.debug) {
-                                    this.logArguments('Sonar will run with the following sonar properties:', opts);
+                                    logArguments('Sonar will run with the following sonar properties:', opts);
                                 }
                                 grunt.util.spawn(opts, function (error, result, code) {
                                     if (code !== 0) {
@@ -235,10 +235,9 @@
                                 });
                             } else {
                                 grunt.log.subhead('Dry-run');
-                                this.logArguments('Sonar would have been triggered with the following sonar properties:', opts);
+                                logArguments('Sonar would have been triggered with the following sonar properties:', opts);
                                 callback(null, 200);
                             }
-
                         }
                     },
                     function (err) {
