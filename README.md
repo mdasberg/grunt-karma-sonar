@@ -121,6 +121,12 @@ runnerProperties: {
 }
 ```
 
+#### options.debug
+Type: `Boolean`
+Default: 'false'
+
+If true sonar-runner debug logging will be turned on. 
+
 #### project
 Type: `Object`,
 Mandatory: true

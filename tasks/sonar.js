@@ -108,6 +108,13 @@
             return args;
         }
 
+        function logArguments(message, opts) {
+            grunt.log.writeln(message, opts.args);
+            _.each(opts.args, function (arg) {
+                grunt.log.writeln(arg);
+            });
+        }
+
         return {
             run: function (configuration) {
                 var data = configuration.data;
@@ -184,6 +191,7 @@
                             });
                             callback(null, 200);
                         },
+
                         // #6
                         publish: function (callback) {
                             var opts = {
@@ -208,7 +216,15 @@
                                 });
                             }
 
+                            // enable debug
+                            if (sonarOptions.debug) {
+                                opts.args.push('-X');
+                            }
+
                             if (!sonarOptions.dryRun) {
+                                if (sonarOptions.debug) {
+                                    this.logArguments('Sonar will run with the following sonar properties:', opts);
+                                }
                                 grunt.util.spawn(opts, function (error, result, code) {
                                     if (code !== 0) {
                                         return grunt.warn('The following error occured while trying to upload to sonar: ' + error);
@@ -219,10 +235,7 @@
                                 });
                             } else {
                                 grunt.log.subhead('Dry-run');
-                                grunt.log.writeln('Sonar would have been triggered with the following sonar properties:', opts.args);
-                                _.each(opts.args, function (arg) {
-                                    grunt.log.writeln(arg);
-                                });
+                                this.logArguments('Sonar would have been triggered with the following sonar properties:', opts);
                                 callback(null, 200);
                             }
 
