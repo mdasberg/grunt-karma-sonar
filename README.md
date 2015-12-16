@@ -17,14 +17,14 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-karma-sonar');
 ```
 
-## The "karma_sonar" task
+## The "karmaSonar" task
 
 ### Overview
-In your project's Gruntfile, add a section named `karma_sonar` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `karmaSonar` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  karma_sonar: {
+  karmaSonar: {
     options: {
       // Task-specific options go here.
     },
