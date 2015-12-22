@@ -26,7 +26,7 @@
                     glob.sync(l.reports[type], {cwd: cwd, root: '/'}).forEach(function (file) {
                         // #2
                         var content = grunt.file.read(cwd + file).
-                            replace(new RegExp('(SF:)(.*' + l.src + ')(.*)', 'g'), '$1.' + path.sep + 'src$3');
+                            replace(new RegExp('(SF:)(.*?' + l.src + ')(.*)', 'g'), '$1.' + path.sep + 'src$3');
 
                         // #3
                         resultContent = resultContent.concat(content);
