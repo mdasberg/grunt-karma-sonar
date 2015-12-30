@@ -10,7 +10,7 @@ describe('KarmaSonar', function () {
         fs = require('fs'),
         fsExtra = require('fs-extra'),
         path = require('path'),
-        parser = require('xml2json'),
+        xml2json = require('simple-xml2json'),
         bufferEqual = require('buffer-equal');
 
     /**
@@ -24,8 +24,8 @@ describe('KarmaSonar', function () {
             expectedString = fs.readFileSync(expected, {encoding: 'utf8'});
 
         if(path.extname(actual) === '.xml' && path.extname(expected) === '.xml') {
-            actualString = parser.toJson(actualString);
-            expectedString = parser.toJson(expectedString);
+            actualString = JSON.stringify(xml2json.parser(actualString));
+            expectedString = JSON.stringify(xml2json.parser(expectedString));
         }
         return bufferEqual(new Buffer(actualString), new Buffer(expectedString));
 
