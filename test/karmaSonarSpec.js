@@ -10,8 +10,7 @@ describe('KarmaSonar', function () {
         fs = require('fs'),
         fsExtra = require('fs-extra'),
         path = require('path'),
-        XmlDocument = require('xmldoc').XmlDocument,
-        xmlEntities = new (require('html-entities').XmlEntities)();
+        parser = require('xml2json'),
         bufferEqual = require('buffer-equal');
 
     /**
@@ -21,7 +20,15 @@ describe('KarmaSonar', function () {
      * @returns {*}
      */
     function fileContentMatches(actual, expected) {
-        return bufferEqual(new Buffer(fs.readFileSync(actual, {encoding: 'utf8'})), new Buffer(fs.readFileSync(expected, {encoding: 'utf8'})));
+        var actualString = fs.readFileSync(actual, {encoding: 'utf8'}),
+            expectedString = fs.readFileSync(expected, {encoding: 'utf8'});
+
+        if(path.extname(actual) === '.xml' && path.extname(expected) === '.xml') {
+            actualString = parser.toJson(actualString);
+            expectedString = parser.toJson(expectedString);
+        }
+        return bufferEqual(new Buffer(actualString), new Buffer(expectedString));
+
     }
 
     const DEFAULT_OPTIONS = {
