@@ -2,53 +2,43 @@
 (function () {
     'use strict';
 
-    module.exports = function (grunt) {
-        var glob = require("glob"),
-            path = require('path'),
-            _ = require('lodash'),
-            fs = require('fs'),
-            XmlDocument = require('xmldoc').XmlDocument,
-            xmlEntities = new (require('html-entities').XmlEntities)();
+    var glob = require("glob"),
+        path = require('path'),
+        _ = require('lodash'),
+        fs = require('fs'),
+        XmlDocument = require('xmldoc').XmlDocument,
+        xmlEntities = new (require('html-entities').XmlEntities)();
 
-        /**
-         * Merge all junit results.
-         * Because the karma-junit-reporter does not use the name of the spec file for the classname, the
-         * results need to be updated with the correct classname.
-         *
-         * #1 iterate over each location .
-         * #2 iterate over each file and check if there are jasmine tests by checking for it().
-         * #3 add all the jasmine tests to the array.
-         * #4 replace the classname with the spec filename.
-         * #5 append the tests to the result.
-         * #6 write merged results to file.
-         */
+    module.exports = function (grunt) {
+        var PREFIX = '<?xml version="1.0"?><testsuites>',
+            SUFFIX = '</testsuites>',
+            JASMINE_TESTCASE_REGEX = /[^\w]x?it\s?\([\'\"](.*)[\'\"]/g,
+            resultContent = PREFIX;
+
+        ///**
+        // * Merge all the junit xml results.
+        // */
         function merge(locations, outputFile, type) {
-            var CURRENT_PATH = '.',
-                PREFIX = '<?xml version="1.0"?><testsuites>',
-                SUFFIX = '</testsuites>',
-                JASMINE_TESTCASE_REGEX = /[^\w]x?it\s?\([\'\"](.*)[\'\"]/g,
-                resultContent = PREFIX,
-                TYPE = type === 'itUnit' ? ' integration' : '';
+            var testType = (type === 'itUnit' ? ' integration' : '');
 
             // #1
             locations.forEach(function (l) {
+
                 var specs = [],
-                    cwd = (l.cwd || CURRENT_PATH) + path.sep,
+                    cwd = (l.cwd || '.') + path.sep,
                     testDir = cwd + l.test,
-                    testDirExists = grunt.file.exists(testDir),
-                    reportFile,
-                    reportFileExists;
+                    testDirExists = grunt.file.exists(testDir);
 
-                var source = l.reports[type];
-                if (source) {
-                    source = (typeof source === 'object' ? source.src : source);
-
-                    glob.sync(source, {cwd: cwd, root: '/'}).forEach(function (file) {
-                        reportFile = cwd + file;
-                        reportFileExists = grunt.file.exists(reportFile);
+                var report = l.reports[type];
+                if (report) {
+                    var src = (typeof report === "object") ? report.src : report;
+                    glob.sync(src, {cwd: cwd, root: '/'}).forEach(function (file) {
+                        grunt.log.ok(file);
+                        var reportFile = cwd + file,
+                            reportFileExists = grunt.file.exists(reportFile);
 
                         if (l.test && testDirExists) {
-                            if (source && reportFileExists) {
+                            if (l.reports[type] && reportFileExists) {
 
                                 // #2
                                 glob.sync('**/*.js', {cwd: testDir, root: '/'}).forEach(function (file) {
@@ -67,6 +57,7 @@
                                         });
                                     }
                                 });
+
 
                                 // #4
                                 var content = new XmlDocument(grunt.file.read(reportFile)),
@@ -112,11 +103,13 @@
                         }
                     });
                 } else {
-                    grunt.log.warn('No' + TYPE + ' jUnit report has been specified');
+                    grunt.log.warn('No' + testType + ' jUnit report has been specified');
                 }
             });
             // #6
+            grunt.log.ok(outputFile); 
             grunt.file.write(outputFile, resultContent.concat(SUFFIX), {encoding: 'utf8'});
+            //require(__dirname + '/jasmineJunit')(grunt).merge(locations, outputFile, type)
         }
 
         return {
