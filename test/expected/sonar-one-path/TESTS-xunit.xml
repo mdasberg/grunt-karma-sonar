@@ -4,10 +4,12 @@
   </properties>
   <testcase name="should say hello app" time="0" classname="xSpec"/>
   <testcase name="should say see you later" time="0" classname="xSpec"/>
-  <testcase name="should say goodbye &quot;x&quot; app" time="0" classname="xSpec">
-    <failure type="">Expected 'goodbye x app' to be 'hello x app'.
+  <testcase name="should say goodbye &amp;quot;x&amp;quot; app" time="0" classname="xSpec">
+    <failure type="">Expected &apos;goodbye x app&apos; to be &apos;hello x app&apos;.
     at /Users/mischa/workspace/karma-example/projectx/test/karma/xSpec.js:21</failure>
   </testcase>
-  <system-out>PhantomJS 1.9.8 (Mac OS X) LOG: Object{totalSpecsDefined: 3}</system-out>
+  <system-out><![CDATA[PhantomJS 1.9.8 (Mac OS X) LOG: Object{totalSpecsDefined: 3}
+
+]]></system-out>
   <system-err/>
 </testsuite></testsuites>

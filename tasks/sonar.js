@@ -241,7 +241,7 @@
                         }
                     },
                     function (err) {
-                        if (err !== undefined) {
+                        if (err !== undefined && err !== null) {
                             grunt.fail.fatal(err);
                         }
                         done();
