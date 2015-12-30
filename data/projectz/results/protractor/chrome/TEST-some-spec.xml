@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
 <testsuite name="Some app" errors="0" tests="1" failures="0" time="0" timestamp="2015-09-11T11:48:12">
-  <testcase classname="Some app" name="should show who is awesome" time="NaN"></testcase>
+  <testcase classname="Some app" name="should show &amp;apos;who&amp;apos; is awesome" time="NaN"></testcase>
 </testsuite>
 </testsuites>

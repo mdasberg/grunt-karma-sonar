@@ -171,7 +171,7 @@ describe('KarmaSonar', function () {
                             test: 'test',
                             reports: {
                                 unit: 'results/unit/**/TESTS*.xml',
-                                itUnit: 'results/protractor/**/protractor*.xml',
+                                itUnit: 'results/protractor/chrome/*.xml',
                                 coverage: 'results/unit/coverage/**/lcov.info',
                                 itCoverage: 'results/protractor-coverage/**/lcov.info'
                             }
