@@ -177,7 +177,7 @@ Type: `Object`
 Should be the object containing the reports.
 
 #### paths[].reports.unit
-Type: `String`
+Type: `String` or `Object` ie: {src: '...', framework: 'jasmine'} (default framework is jasmine)
  
 Should be the location of the karma-junit-reporter report within the cwd.
 
@@ -185,6 +185,11 @@ Should be the location of the karma-junit-reporter report within the cwd.
 Type: `String`
  
 Should be the glob for the lcov.info files within the cwd.
+
+#### paths[].reports.itUnit
+Type: `String` or `Object` ie: {src: '...', framework: 'jasmine'} (default framework is jasmine)
+
+Should be the location of the protractor report within the cwd.
 
 #### paths[].reports.itCoverage
 Type: `String`

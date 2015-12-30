@@ -131,7 +131,7 @@ describe('KarmaSonar', function () {
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-one-path' + path.sep + 'coverage_report.lcov')).toBeTruthy();
-            //expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-one-path' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-one-path' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             done();
         });
     });
@@ -171,7 +171,7 @@ describe('KarmaSonar', function () {
                             test: 'test',
                             reports: {
                                 unit: 'results/unit/**/TESTS*.xml',
-                                itUnit: {src: 'results/protractor/chrome/*.xml'},
+                                itUnit: {src:'results/protractor/chrome/*.xml'},
                                 coverage: 'results/unit/coverage/**/lcov.info',
                                 itCoverage: 'results/protractor-coverage/**/lcov.info'
                             }
@@ -212,9 +212,9 @@ describe('KarmaSonar', function () {
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'it_coverage_report.lcov')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-dots-in-specs' + path.sep + 'coverage_report.lcov')).toBeTruthy();
-            //expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'it_coverage_report.lcov', 'test/expected/sonar-dots-in-specs' + path.sep + 'it_coverage_report.lcov')).toBeTruthy();
-            //expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
             done();
         });
     });

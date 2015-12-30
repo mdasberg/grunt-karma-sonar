@@ -7,7 +7,7 @@
             path = require('path'),
             async = require('async'),
             _ = require('lodash'),
-            jasmineJUnit = require('./jasmineJunit.js')(grunt),
+            xunit = require('./xunit.js')(grunt),
             coverage = require('./coverage.js')(grunt),
             defaultOptions = {
                 dynamicAnalysis: 'reuseReports',
@@ -147,13 +147,13 @@
                         // #1
                         mergeJUnitReports: function (callback) {
                             grunt.verbose.writeln('Merging JUnit reports');
-                            jasmineJUnit.merge(data.paths, jUnitResultFile, 'unit');
+                            xunit.merge(data.paths, jUnitResultFile, 'unit');
                             callback(null, 200);
                         },
                         // #2
                         mergeItJUnitReports: function (callback) {
                             grunt.verbose.writeln('Merging Integration JUnit reports');
-                            jasmineJUnit.merge(data.paths, itJUnitResultFile, 'itUnit');
+                            xunit.merge(data.paths, itJUnitResultFile, 'itUnit');
                             callback(null, 200);
                         },
                         // #3
