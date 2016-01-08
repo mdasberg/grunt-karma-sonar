@@ -36,7 +36,11 @@
                 var destination;
                 if (targetDir === 'test') {
                     var base = path.basename(file, extension);
-                    destination = destinationDirectory + path.sep + path.basename(base.replace(/\./g, '_') + extension);
+                    if(extension === '.js') {
+                        destination = destinationDirectory + path.sep + path.basename(base.replace(/\./g, '_') + extension);
+                    } else if(extension === '.feature') {
+                        destination = destinationDirectory + path.sep + path.basename(base.concat(extension).replace(/\./g, '_') + '.js');
+                    }
                 } else {
                     destination = destinationDirectory + path.sep + path.basename(file);
                 }
@@ -180,6 +184,7 @@
                                 var cwd = p.cwd ? p.cwd : '.';
                                 sourceGlobs.push({cwd: cwd + path.sep + p.src, src: '**/*.js'});
                                 testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*.js'});
+                                testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*.feature'});
                             });
 
                             sourceGlobs.forEach(function (g) {

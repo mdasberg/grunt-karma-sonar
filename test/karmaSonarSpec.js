@@ -99,8 +99,8 @@ describe('KarmaSonar', function () {
         });
     });
 
-    it('should update the data', function (done) {
-        var opts = DEFAULT_OPTIONS
+    it('should make provided data compatible for sonar using only one path', function (done) {
+        var opts = DEFAULT_OPTIONS;
         opts.defaultOutputDir = '.tmp/sonar-one-path';
         var mock = gruntMock.create({
                 target: 'all', options: DEFAULT_OPTIONS, data: {
@@ -110,12 +110,14 @@ describe('KarmaSonar', function () {
                     },
                     paths: [
                         {
-                            cwd: 'data/projectx',
+                            cwd: 'node_modules/angular-test-setup',
                             src: 'src',
                             test: 'test',
                             reports: {
-                                unit: 'results/karma/results.xml',
-                                coverage: 'results/karma/coverage/**/lcov.info'
+                                unit: 'results/karma/TESTS*.xml',
+                                coverage: 'results/karma/coverage/**/lcov.info',
+                                itUnit: 'results/protractor/jasmine2/chrome/*.xml', // default framework jasmine
+                                itCoverage: 'results/protractor-coverage/**/lcov.info'
                             }
                         }
                     ]
@@ -124,28 +126,28 @@ describe('KarmaSonar', function () {
         );
         mock.invoke(karmaSonar, function (err) {
             expect(mock.logError.length).toBe(0);
-            expect(mock.logOk.length).toBe(25);
+            expect(mock.logOk.length).toBe(23);
             expect(mock.logOk[0]).toBe('Merging JUnit reports');
             expect(mock.logOk[1]).toBe('Merging Integration JUnit reports');
-            expect(mock.logOk[2]).toBe('No integration jUnit report has been specified');
-            expect(mock.logOk[3]).toBe('Merging Coverage reports');
-            expect(mock.logOk[4]).toBe('Merging Integration Coverage reports');
-            expect(mock.logOk[5]).toBe('No integration coverage report has been specified');
-            expect(mock.logOk[6]).toBe('Copying files to working directory [' + opts.defaultOutputDir + ']');
-            expect(mock.logOk[7]).toBe('Dry-run');
-            expect(mock.logOk[8]).toBe('Sonar would have been triggered with the following sonar properties:');
+            expect(mock.logOk[2]).toBe('Merging Coverage reports');
+            expect(mock.logOk[3]).toBe('Merging Integration Coverage reports');
+            expect(mock.logOk[4]).toBe('Copying files to working directory [' + opts.defaultOutputDir + ']');
+            expect(mock.logOk[5]).toBe('Dry-run');
+            expect(mock.logOk[6]).toBe('Sonar would have been triggered with the following sonar properties:');
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-one-path' + path.sep + 'coverage_report.lcov')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-one-path' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'it_coverage_report.lcov', 'test/expected/sonar-one-path' + path.sep + 'it_coverage_report.lcov')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml', 'test/expected/sonar-one-path' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
             done();
         });
     });
 
-    it('should merge and update data from more paths', function (done) {
-        var opts = DEFAULT_OPTIONS
-        opts.defaultOutputDir = '.tmp/sonar-dots-in-specs';
+    it('should make provided data compatible for sonar using multiple paths', function (done) {
+        var opts = DEFAULT_OPTIONS;
+        opts.defaultOutputDir = '.tmp/sonar-multiple-paths';
         var mock = gruntMock.create({
                 target: 'all', options: DEFAULT_OPTIONS, data: {
                     project: {
@@ -154,33 +156,31 @@ describe('KarmaSonar', function () {
                     },
                     paths: [
                         {
-                            cwd: 'data/projectx',
+                            cwd: 'node_modules/angular-test-setup',
                             src: 'src',
                             test: 'test',
                             reports: {
-                                unit: 'results/karma/results.xml',
+                                unit: 'results/karma/TESTS*.xml',
+                                itUnit: {src:'results/protractor/cucumber/chrome/*.xml', framework: 'cucumber'},
                                 coverage: 'results/karma/coverage/**/lcov.info',
                                 itCoverage: 'results/protractor-coverage/**/lcov.info'
                             }
                         },
                         {
-                            cwd: 'data/projecty',
-                            src: 'app',
-                            test: 'tests',
-                            reports: {
-                                unit: 'results/karma/results.xml',
-                                coverage: 'results/karma/coverage/**/lcov.info'
-                            }
-                        },
-                        {
-                            cwd: 'data/projectz',
+                            cwd: 'node_modules/angular-test-setup',
                             src: 'src',
                             test: 'test',
                             reports: {
-                                unit: 'results/unit/**/TESTS*.xml',
-                                itUnit: {src:'results/protractor/chrome/*.xml'},
-                                coverage: 'results/unit/coverage/**/lcov.info',
-                                itCoverage: 'results/protractor-coverage/**/lcov.info'
+                                itUnit: {src:'results/protractor/jasmine2/chrome/*.xml', framework: 'jasmine2'} // either jasmine or jasmine2
+                            }
+                        },
+                        {
+                            cwd: 'data/projectx',
+                            src: 'src',
+                            test: 'test',
+                            reports: {
+                                unit: 'results/karma/TESTS*.xml',
+                                coverage: 'results/karma/coverage/**/lcov.info'
                             }
                         },
                         {
@@ -198,30 +198,28 @@ describe('KarmaSonar', function () {
         );
         mock.invoke(karmaSonar, function (err) {
             expect(mock.logError.length).toBe(0);
-            expect(mock.logOk.length).toBe(31);
+            expect(mock.logOk.length).toBe(30);
             expect(mock.logOk[0]).toBe('Merging JUnit reports');
-            expect(mock.logOk[1]).toBe('No spec filename found for test [should test for 0 equals 0]');
-            expect(mock.logOk[2]).toBe('No spec filename found for test [should test for 1 equals 1]');
-            expect(mock.logOk[3]).toBe('No spec filename found for test [should test for 2 equals 2]');
-            expect(mock.logOk[4]).toBe('Merging Integration JUnit reports');
-            expect(mock.logOk[5]).toBe('No integration jUnit report has been specified');
-            expect(mock.logOk[6]).toBe('No integration jUnit report has been specified');
-            expect(mock.logOk[7]).toBe('No integration jUnit report has been specified');
-            expect(mock.logOk[8]).toBe('Merging Coverage reports');
-            expect(mock.logOk[9]).toBe('Merging Integration Coverage reports');
+            expect(mock.logOk[1]).toBe('No jUnit report has been specified');
+            expect(mock.logOk[2]).toBe('Merging Integration JUnit reports');
+            expect(mock.logOk[3]).toBe('No integration jUnit report has been specified');
+            expect(mock.logOk[4]).toBe('No integration jUnit report has been specified');
+            expect(mock.logOk[5]).toBe('Merging Coverage reports');
+            expect(mock.logOk[6]).toBe('No coverage report has been specified');
+            expect(mock.logOk[7]).toBe('Merging Integration Coverage reports');
+            expect(mock.logOk[8]).toBe('No integration coverage report has been specified');
+            expect(mock.logOk[9]).toBe('No integration coverage report has been specified');
             expect(mock.logOk[10]).toBe('No integration coverage report has been specified');
-            expect(mock.logOk[11]).toBe('No integration coverage report has been specified');
-            expect(mock.logOk[12]).toBe('Copying files to working directory [' + opts.defaultOutputDir + ']');
-            expect(mock.logOk[13]).toBe('Dry-run');
-            expect(mock.logOk[14]).toBe('Sonar would have been triggered with the following sonar properties:');
+            expect(mock.logOk[11]).toBe('Copying files to working directory [' + opts.defaultOutputDir + ']');
+            expect(mock.logOk[12]).toBe('Dry-run');
+            expect(mock.logOk[13]).toBe('Sonar would have been triggered with the following sonar properties:');
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
-            expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'it_coverage_report.lcov')).toBeTruthy();
-            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-dots-in-specs' + path.sep + 'coverage_report.lcov')).toBeTruthy();
-            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
-            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'it_coverage_report.lcov', 'test/expected/sonar-dots-in-specs' + path.sep + 'it_coverage_report.lcov')).toBeTruthy();
-            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml', 'test/expected/sonar-dots-in-specs' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-multiple-paths' + path.sep + 'coverage_report.lcov')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-multiple-paths' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'it_coverage_report.lcov', 'test/expected/sonar-multiple-paths' + path.sep + 'it_coverage_report.lcov')).toBeTruthy();
+            expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml', 'test/expected/sonar-multiple-paths' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
             done();
         });
     });

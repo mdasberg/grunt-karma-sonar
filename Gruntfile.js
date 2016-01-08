@@ -41,33 +41,31 @@ module.exports = function (grunt) {
                     },
                     paths: [
                         {
-                            cwd: 'data/projectx',
+                            cwd: 'node_modules/angular-test-setup',
                             src: 'src',
                             test: 'test',
                             reports: {
-                                unit: 'results/karma/results.xml',
+                                unit: 'results/karma/TESTS*.xml',
+                                itUnit: {src:'results/protractor/cucumber/chrome/*.xml', framework: 'cucumber'},
                                 coverage: 'results/karma/coverage/**/lcov.info',
                                 itCoverage: 'results/protractor-coverage/**/lcov.info'
                             }
                         },
                         {
-                            cwd: 'data/projecty',
-                            src: 'app',
-                            test: 'tests',
-                            reports: {
-                                unit: 'results/karma/results.xml',
-                                coverage: 'results/karma/coverage/**/lcov.info'
-                            }
-                        },
-                        {
-                            cwd: 'data/projectz',
+                            cwd: 'node_modules/angular-test-setup',
                             src: 'src',
                             test: 'test',
                             reports: {
-                                unit: 'results/unit/**/TESTS*.xml',
-                                itUnit: {src:'results/protractor/chrome/*.xml'},
-                                coverage: 'results/unit/coverage/**/lcov.info',
-                                itCoverage: 'results/protractor-coverage/**/lcov.info'
+                                itUnit: {src:'results/protractor/jasmine2/chrome/*.xml', framework: 'jasmine2'}
+                            }
+                        },
+                        {
+                            cwd: 'data/projectx',
+                            src: 'src',
+                            test: 'test',
+                            reports: {
+                                unit: 'results/karma/results.xml',
+                                coverage: 'results/karma/coverage/**/lcov.info'
                             }
                         },
                         {

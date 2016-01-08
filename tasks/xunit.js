@@ -8,7 +8,8 @@
     module.exports = function (grunt) {
         var PREFIX = '<?xml version="1.0"?><testsuites>',
             SUFFIX = '</testsuites>',
-            jasmineJunit = require(__dirname + '/jasmineJunit')(grunt);
+            jasmineJunit = require(__dirname + '/jasmineJunit')(grunt),
+            cucumberJunit = require(__dirname + '/cucumberJunit')(grunt);
 
         /**
          * Merge all junit results.
@@ -34,9 +35,12 @@
                 if (source) {
                     if (l.test && testDirExists) {
                         // #2
-                        if(framework === 'jasmine') {
+                        if(framework === 'jasmine' || framework === 'jasmine2') {
                             // #3
                             resultContent = resultContent.concat(jasmineJunit.mergeLocation(source, cwd, testDir, type));
+                        } else if(framework === 'cucumber') {
+                            // #3
+                            resultContent = resultContent.concat(cucumberJunit.mergeLocation(source, cwd, testDir, type));
                         }
                     }
                 } else {
