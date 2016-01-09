@@ -199,8 +199,9 @@
 
                         // #6
                         publish: function (callback) {
+                            var extension = (/^win/.test(process.platform) ? '.bat': '');
                             var opts = {
-                                cmd: 'sonar-runner',
+                                cmd: 'sonar-runner' + extension,
                                 args: buildArgs(sonarOptions, data),
                                 opts: {
                                     stdio: 'inherit'
@@ -209,9 +210,11 @@
 
                             var libDir = path.join(__dirname, '..', 'lib');
                             if (grunt.file.exists(libDir)) {
-                                glob.sync('**/bin/sonar-runner', {cwd: libDir, root: '/'}).forEach(function (file) {
+
+                                glob.sync('**/bin/sonar-runner' + extension, {cwd: libDir, root: '/'}).forEach(function (file) {
                                     opts.cmd = libDir + path.sep + file;
                                 });
+                                console.log(opts.cmd)
                             }
 
                             // Add custom properties
