@@ -6,6 +6,7 @@
 - Add debug option
 
 ## Bugfix
+- Fix sonar-runner cmd for windows
 - Update documentation to reflect task name change from 'karma_sonar' to 'karmaSonar'
 - Modified the regex to be non-greedy (src: js/x/some.js) 
 
