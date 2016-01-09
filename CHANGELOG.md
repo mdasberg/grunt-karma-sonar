@@ -1,5 +1,5 @@
 <a name="0.2.18"></a>
-# 0.2.18 (...)
+# 0.2.18 (2016-01-09)
 
 ## Feature
 - Add cucumber testframework support
