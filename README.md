@@ -1,4 +1,5 @@
-# grunt-karma-sonar [![Build Status](https://travis-ci.org/mdasberg/grunt-karma-sonar.svg?branch=master)](https://travis-ci.org/mdasberg/grunt-karma-sonar)
+# grunt-karma-sonar 
+[![Build Status](https://travis-ci.org/mdasberg/grunt-karma-sonar.svg?branch=master)](https://travis-ci.org/mdasberg/grunt-karma-sonar) [![npm version](https://img.shields.io/node/v/grunt-karma-sonar.svg)](https://github.com/mdasberg/grunt-karma-sonar) [![dependency Status](https://img.shields.io/david/mdasberg/grunt-karma-sonar.svg)](https://david-dm.org/mdasberg/grunt-karma-sonar) [![devDependency Status](https://img.shields.io/david/dev/mdasberg/grunt-karma-sonar.svg)](https://david-dm.org/mdasberg/grunt-karma-sonar#info=devDependencies)
 
 > Grunt plugin for integrating karma reports with sonar
 
@@ -177,7 +178,7 @@ Type: `Object`
 Should be the object containing the reports.
 
 #### paths[].reports.unit
-Type: `String` or `Object` ie: {src: '...', framework: 'jasmine'} (default framework is jasmine)
+Type: `String` or `Object` ie: {src: '...', framework: 'jasmine'} (Supported frameworks are: cucumber, jasmine/jasmine2(default))
  
 Should be the location of the karma-junit-reporter report within the cwd.
 
@@ -187,7 +188,7 @@ Type: `String`
 Should be the glob for the lcov.info files within the cwd.
 
 #### paths[].reports.itUnit
-Type: `String` or `Object` ie: {src: '...', framework: 'jasmine'} (default framework is jasmine)
+Type: `String` or `Object` ie: {src: '...', framework: 'jasmine'} (Supported frameworks are: cucumber, jasmine/jasmine2(default))
 
 Should be the location of the protractor report within the cwd.
 
