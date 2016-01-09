@@ -1,3 +1,14 @@
+<a name="0.2.18"></a>
+# 0.2.18 (...)
+
+## Feature
+- Add cucumber testframework support
+- Add debug option
+
+## Bugfix
+- Update documentation to reflect task name change from 'karma_sonar' to 'karmaSonar'
+- Modified the regex to be non-greedy (src: js/x/some.js) 
+
 <a name="0.2.17"></a>
 # 0.2.17 (2015-09-18)
 
