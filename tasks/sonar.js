@@ -1,3 +1,4 @@
+/*globals process */
 (function () {
     'use strict';
 
@@ -214,7 +215,6 @@
                                 glob.sync('**/bin/sonar-runner' + extension, {cwd: libDir, root: '/'}).forEach(function (file) {
                                     opts.cmd = libDir + path.sep + file;
                                 });
-                                console.log(opts.cmd)
                             }
 
                             // Add custom properties
