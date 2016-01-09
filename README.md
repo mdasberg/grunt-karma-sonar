@@ -1,5 +1,5 @@
 # grunt-karma-sonar 
-[![Build Status](https://travis-ci.org/mdasberg/grunt-karma-sonar.svg?branch=master)](https://travis-ci.org/mdasberg/grunt-karma-sonar) [![npm version](https://img.shields.io/node/v/grunt-karma-sonar.svg)](https://github.com/mdasberg/grunt-karma-sonar) [![dependency Status](https://img.shields.io/david/mdasberg/grunt-karma-sonar.svg)](https://david-dm.org/mdasberg/grunt-karma-sonar) [![devDependency Status](https://img.shields.io/david/dev/mdasberg/grunt-karma-sonar.svg)](https://david-dm.org/mdasberg/grunt-karma-sonar#info=devDependencies)
+[![Build Status](https://travis-ci.org/mdasberg/grunt-karma-sonar.svg?branch=master)](https://travis-ci.org/mdasberg/grunt-karma-sonar) [![npm version](https://img.shields.io/node/v/grunt-karma-sonar.svg)](https://github.com/mdasberg/grunt-karma-sonar) [![dependency Status](https://img.shields.io/david/mdasberg/grunt-karma-sonar.svg)](https://david-dm.org/mdasberg/grunt-karma-sonar) [![devDependency Status](https://img.shields.io/david/dev/mdasberg/grunt-karma-sonar.svg)](https://david-dm.org/mdasberg/grunt-karma-sonar#info=devDependencies) [![npm downloads](https://img.shields.io/npm/dm/grunt-karma-sonar.svg?style=flat-square)](https://www.npmjs.com/package/grunt-karma-sonar)
 
 > Grunt plugin for integrating karma reports with sonar
 
