@@ -1,3 +1,10 @@
+<a name="0.2.19"></a>
+# 0.2.19 (2016-01-27)
+
+## Improvements
+- Add check for sonar-runner in the lib dir and update log message to be more clear
+- Update all dependencies
+
 <a name="0.2.18"></a>
 # 0.2.18 (2016-01-09)
 
