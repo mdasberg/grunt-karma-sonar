@@ -35,13 +35,40 @@
      * @return <code>true</code> if available, else <code>false</code>.
      */
     function isSonarInstalled() {
+        return isSonarInstalledGlobally() || isSonarInstalledLocally();
+    }
+
+    /**
+     * Indicates if sonar-runner is available globally (ie on the command-line)
+     * @return <code>true</code> if available, else <code>false</code>.
+     */
+    function isSonarInstalledGlobally() {
         try {
-            sync('sonar-runner --version');
-            console.log('Sonar-runner is already installed.');
+            sync('sonar-runner --version', {encoding: 'utf8', stdio: ['ignore', 'ignore', 'ignore']});
+            console.log('Sonar-runner is already installed on the path`.');
             exit(0);
         } catch (e) {
+            console.log('Sonar-runner command [sonar-runner] could not be found on the path, checking locally...');
             return false;
         }
+    }
+
+    /**
+     * Indicates if sonar-runner is available locally (in the lib dir)
+     * @return <code>true</code> if available, else <code>false</code>.
+     */
+    function isSonarInstalledLocally() {
+        var libDir = path.join(__dirname, 'lib'),
+            extension = (/^win/.test(process.platform) ? '.bat' : '');
+
+        if (fs.existsSync(libDir)) {
+            glob.sync('**/bin/sonar-runner' + extension, {cwd: libDir, root: '/'}).forEach(function (file) {
+                console.log('Sonar-runner is already installed locally.');
+                exit(0);
+            });
+        }
+        console.log('Sonar-runner command [sonar-runner] could not be found locally either.');
+        return false;
     }
 
     /**
@@ -136,9 +163,11 @@
         if (cdnUrl) {
             // 2. copy latest version
             pkg = fetchCdnVersion(cdnUrl);
+            console.log('Fetching sonar-runner from CDN url [' + cdnUrl + '.');
         } else if(cdnDir) {
             // 3. fetch cdn version
             pkg = copyLatestVersion(cdnDir);
+            console.log('Fetching sonar-runner from CDN dir [' + cdnDir + '.');
         } else {
             console.log('No CDN url or directory have been specified.');
             console.log('Usage: either specify property sonarrunner_cdnurl/sonarrunner_cdndir  in .npmrc or define it as a environment variable as SONARRUNNER_CDNURL/SONARRUNNER_CDNDIR.')
