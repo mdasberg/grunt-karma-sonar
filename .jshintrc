@@ -10,7 +10,7 @@
     "boss": true,
     "eqnull": true,
     "node": false,
-    "globalstrict": true,
+    "strict": true,
     "globals": {
         "module": false,
         "require": false,
