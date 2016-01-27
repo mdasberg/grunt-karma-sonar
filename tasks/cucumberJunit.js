@@ -69,7 +69,7 @@
                                 var name = xmlEntities.encode(testcase.attr.name);
                                 var classname = xmlEntities.encode(testcase.attr.classname);
 
-                                var matchingSpecs = _.pluck(_.filter(specs, function (spec) {
+                                var matchingSpecs = _.map(_.filter(specs, function (spec) {
                                     return _.find(spec.tests, function (test) {
                                         return test === classname || xmlEntities.encode(test) === classname;
                                     });

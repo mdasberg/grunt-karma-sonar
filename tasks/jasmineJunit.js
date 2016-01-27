@@ -61,7 +61,7 @@
                             if (testcase.name === 'testcase') {
                                 var name = xmlEntities.encode(testcase.attr.name);
 
-                                var matchingSpecs = _.pluck(_.filter(specs, function (spec) {
+                                var matchingSpecs = _.map(_.filter(specs, function (spec) {
                                     return _.find(spec.tests, function (test) {
                                         return test === name || xmlEntities.encode(test) === name;
                                     });

@@ -115,7 +115,7 @@ describe('KarmaSonar', function () {
                             test: 'test',
                             reports: {
                                 unit: 'results/karma/TESTS*.xml',
-                                coverage: 'results/karma/coverage/**/lcov.info',
+                                coverage: 'results/karma-coverage/**/lcov.info',
                                 itUnit: 'results/protractor/jasmine2/chrome/*.xml', // default framework jasmine
                                 itCoverage: 'results/protractor-coverage/**/lcov.info'
                             }
@@ -162,7 +162,7 @@ describe('KarmaSonar', function () {
                             reports: {
                                 unit: 'results/karma/TESTS*.xml',
                                 itUnit: {src:'results/protractor/cucumber/chrome/*.xml', framework: 'cucumber'},
-                                coverage: 'results/karma/coverage/**/lcov.info',
+                                coverage: 'results/karma-coverage/**/lcov.info',
                                 itCoverage: 'results/protractor-coverage/**/lcov.info'
                             }
                         },

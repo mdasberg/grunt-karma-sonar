@@ -29,12 +29,12 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "angular-test-setup": "^0.1.0",
+    "angular-test-setup": "^0.1.2",
     "buffer-equal": "1.0.0",
     "fs": "0.0.2",
     "grunt": "~0.4.5",
     "grunt-contrib-clean": "^0.7.0",
-    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-jshint": "^0.12.0",
     "grunt-shell": "^1.1.2",
     "gruntmock": "^0.2.0",
     "jasmine-node": "^1.14.5",
@@ -49,15 +49,15 @@
   "dependencies": {
     "adm-zip": "^0.4.7",
     "async": "^1.5.2",
-    "fs-extra": "^0.26.4",
+    "fs-extra": "^0.26.5",
     "glob": "^6.0.4",
-    "lodash": "^3.10.1",
+    "lodash": "^4.0.1",
     "html-entities": "^1.2.0",
     "path": "^0.12.7",
     "sax": "^1.1.4",
     "xmldoc": "^0.4.0",
     "kew": "^0.7.0",
     "semver": "^5.1.0",
-    "sync-request": "^2.1.0"
+    "sync-request": "^3.0.0"
   }
 }
