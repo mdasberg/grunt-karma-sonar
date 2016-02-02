@@ -1,3 +1,9 @@
+<a name="0.2.20"></a>
+# 0.2.20 (2016-02-02)
+
+## Bugfix
+- Fix install exits when sonar-runner-dist is not found on the cdnurl
+
 <a name="0.2.19"></a>
 # 0.2.19 (2016-01-27)
 
