@@ -1,4 +1,6 @@
 (function () {
+    var SONAR_RUNNER_DIST = 'sonar-runner-dist.zip';
+
     var path = require('path'),
         fs = require('fs-extra'),
         glob = require('glob'),
@@ -22,14 +24,14 @@
     });
 
     /**
-     * Handles a valid exit. 
+     * Handles a valid exit.
      * @param code The exit code.
      */
     function exit(code) {
         validExit = true;
         process.exit(code || 0)
     }
-   
+
     /**
      * Indicates if sonar-runner is available.
      * @return <code>true</code> if available, else <code>false</code>.
@@ -78,6 +80,7 @@
      * @throws error If no sonar-runner can be found on the cdn.
      */
     function copyLatestVersion(cdnDir) {
+        console.log('Fetching sonar-runner from CDN dir [' + cdnDir + '].');
         var latestAvailableVersion, latestFileName;
         glob.sync('sonar-runner*.zip', {cwd: cdnDir, root: '/'}).forEach(function (file) {
             var match = /sonar-runner.*(\d)\.(\d)\.?(\d?).zip/.exec(file);
@@ -110,15 +113,27 @@
 
     /**
      * Fetch the cdn release of sonar-runner from nexus.
-     * @param cdnDir The cdn url. 
+     * @param cdnDir The cdn url.
      * @return destination The location where the cdn sonar-runner is copied to.
      */
     function fetchCdnVersion(cdnUrl) {
-        var response = request('GET', cdnUrl + path.sep + 'sonar-runner-dist.zip');
-        var destination = path.join('.tmp', 'sonar-runner-dist.zip');
-        fs.mkdirsSync('.tmp', '0775');
-        fs.writeFileSync(destination, response.getBody(), {replace: true});
-        return destination;
+        var fullUrl = cdnUrl + path.sep + SONAR_RUNNER_DIST;
+        console.log('Fetching sonar-runner from CDN url [' + fullUrl + '].');
+        try {
+            var response = request('GET', fullUrl);
+            if(response.statusCode === 200) {
+                var destination = path.join('.tmp', SONAR_RUNNER_DIST);
+                fs.mkdirsSync('.tmp', '0775');
+                fs.writeFileSync(destination, response.getBody(), {replace: true});
+                return destination;
+            } else if(response.statusCode === 404) {
+                console.error('Could not find '+ SONAR_RUNNER_DIST + ' on the specified CDN url[' + fullUrl +'].');
+            } else {
+                console.error('Something went wrong while fetching '+ SONAR_RUNNER_DIST + ' on the specified CDN url[' + fullUrl +'], statusCode [' + response.statusCode + '] was received.');
+            }
+        } catch (e) {
+            console.error('Could not connect to CDN url[' + cdnUrl +'], received message [' + e + ']');
+        }
     }
 
     /**
@@ -163,11 +178,9 @@
         if (cdnUrl) {
             // 2. copy latest version
             pkg = fetchCdnVersion(cdnUrl);
-            console.log('Fetching sonar-runner from CDN url [' + cdnUrl + '.');
-        } else if(cdnDir) {
+        } else if (cdnDir) {
             // 3. fetch cdn version
             pkg = copyLatestVersion(cdnDir);
-            console.log('Fetching sonar-runner from CDN dir [' + cdnDir + '.');
         } else {
             console.log('No CDN url or directory have been specified.');
             console.log('Usage: either specify property sonarrunner_cdnurl/sonarrunner_cdndir  in .npmrc or define it as a environment variable as SONARRUNNER_CDNURL/SONARRUNNER_CDNDIR.')
