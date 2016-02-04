@@ -1,3 +1,9 @@
+<a name="0.2.21"></a>
+# 0.2.21 (2016-02-04)
+
+## Bugfix
+- Fix sonar properties with null values are not added anymore
+
 <a name="0.2.20"></a>
 # 0.2.20 (2016-02-02)
 
