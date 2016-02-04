@@ -250,6 +250,36 @@ describe('KarmaSonar', function () {
         );
     }
 
+    // Creates override mock for testing parameters.
+    function getNullAndExcludeParameterMock() {
+        var options = JSON.parse(JSON.stringify(DEFAULT_OPTIONS));
+        options.language = null;
+        options.excludedProperties = ['sonar.scm.disabled'];
+
+        return gruntMock.create({
+                target: 'all', options: options, data: {
+                    project: {
+                        key: 'key',
+                        name: 'name',
+                        version: '1.3.37'
+                    },
+                    exclusions: 'yep',
+                    paths: [
+                        {
+                            cwd: 'data/projectx',
+                            src: 'src',
+                            test: 'test',
+                            reports: {
+                                unit: 'results/karma/results.xml',
+                                coverage: 'results/karma/coverage/**/lcov.info'
+                            }
+                        }
+                    ]
+                }
+            }
+        );
+    }
+
     it('should set the right default arguments (-D) for sonar-runner', function (done) {
         var opts = DEFAULT_OPTIONS
         opts.defaultOutputDir = '.tmp/sonar/';
@@ -284,6 +314,42 @@ describe('KarmaSonar', function () {
             expect(mock.logOk[21]).toBe('-Dsonar.projectName=name');
             expect(mock.logOk[22]).toBe('-Dsonar.projectVersion=1.3.37');
             expect(mock.logOk[23]).toBe('-Dsonar.exclusions=yep');
+            done();
+        });
+    });
+
+    it('should exclude null values or excluded properties for sonar-runner', function (done) {
+        var opts = DEFAULT_OPTIONS
+        opts.defaultOutputDir = '.tmp/sonar/';
+        opts.runnerProperties = {};
+        opts.instance = undefined;
+
+        var mock = getNullAndExcludeParameterMock();
+
+        mock.invoke(karmaSonar, function (err) {
+            expect(mock.logError.length).toBe(0);
+            expect(mock.logOk.length).toBe(22);
+            expect(mock.logOk[7]).toBe('Dry-run');
+            expect(mock.logOk[8]).toBe('Sonar would have been triggered with the following sonar properties:');
+
+            // Defaults
+            expect(mock.logOk[9]).toBe('-Dsonar.sources=src');
+            expect(mock.logOk[10]).toBe('-Dsonar.tests=test');
+            expect(mock.logOk[11]).toBe('-Dsonar.javascript.jstestdriver.reportsPath=results');
+            expect(mock.logOk[12]).toBe('-Dsonar.javascript.jstestdriver.itReportsPath=results');
+            expect(mock.logOk[13]).toBe('-Dsonar.javascript.lcov.reportPath=results/coverage_report.lcov');
+            expect(mock.logOk[14]).toBe('-Dsonar.javascript.lcov.itReportPath=results/it_coverage_report.lcov');
+
+            // options
+            expect(mock.logOk[15]).toBe('-Dsonar.sourceEncoding=UTF-8');
+            expect(mock.logOk[16]).toBe('-Dsonar.dynamicAnalysis=reuseReports');
+            expect(mock.logOk[17]).toBe('-Dsonar.projectBaseDir=.tmp/sonar/');
+
+            // data
+            expect(mock.logOk[18]).toBe('-Dsonar.projectKey=key');
+            expect(mock.logOk[19]).toBe('-Dsonar.projectName=name');
+            expect(mock.logOk[20]).toBe('-Dsonar.projectVersion=1.3.37');
+            expect(mock.logOk[21]).toBe('-Dsonar.exclusions=yep');
             done();
         });
     });
