@@ -182,7 +182,7 @@
 
                             data.paths.forEach(function (p) {
                                 var cwd = p.cwd ? p.cwd : '.';
-                                sourceGlobs.push({cwd: cwd + path.sep + p.src, src: '**/*.js'});
+                                sourceGlobs.push({cwd: cwd + path.sep + p.src, src: '**/*.*'});
                                 testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*.js'});
                                 testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*.feature'});
                             });

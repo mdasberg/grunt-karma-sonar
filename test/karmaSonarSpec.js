@@ -216,6 +216,7 @@ describe('KarmaSonar', function () {
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'ITESTS-xunit.xml')).toBeTruthy();
             expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov')).toBeTruthy();
+            expect(fsExtra.existsSync(opts.defaultOutputDir + path.sep + 'src' + path.sep + 'index.html')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'coverage_report.lcov', 'test/expected/sonar-multiple-paths' + path.sep + 'coverage_report.lcov')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'TESTS-xunit.xml', 'test/expected/sonar-multiple-paths' + path.sep + 'TESTS-xunit.xml')).toBeTruthy();
             expect(fileContentMatches(opts.defaultOutputDir + path.sep + 'results' + path.sep + 'it_coverage_report.lcov', 'test/expected/sonar-multiple-paths' + path.sep + 'it_coverage_report.lcov')).toBeTruthy();
