@@ -1,3 +1,11 @@
+<a name="0.2.22"></a>
+# 0.2.22 (2016-03-02)
+
+## Improvements
+- Upgrade dependency for grunt 1.0.0
+- Upgrade all other dependencies
+- Add all sources for language (web)
+
 <a name="0.2.21"></a>
 # 0.2.21 (2016-02-04)
 
