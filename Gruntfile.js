@@ -83,6 +83,9 @@
 
                 // Before generating any new files, remove any previously-created files.
                 clean: {
+                    options: {
+                        force: true
+                    },
                     tests: ['.tmp'],
                     install: ['lib']
                 },
