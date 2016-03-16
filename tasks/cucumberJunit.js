@@ -9,8 +9,23 @@
             fs = require('fs'),
             CUCUMBER_FEATURE_REGEX = /.*Feature:\s*?(.*)/g,
             CUCUMBER_SCENARIO_REGEX = /.*Scenario:\s*?(.*)/g,
+            CUCUMBER_SCENARIO_OUTLINE_REGEX = /.*Scenario Outline:\s*?(.*)/g,
             XmlDocument = require('xmldoc').XmlDocument,
             xmlEntities = new (require('html-entities').XmlEntities)();
+
+        /**
+         * Gets the scenario's tests.
+         * @param feature The feature.
+         * @param match The match.
+         * @param regex The regex.
+         * @param tests The tests.
+         */
+        function addTests(feature, match, regex, tests) {
+            for (var i = 0, len = match.length; i < len; i++) {
+                var scenario = match[i].replace(regex, '$1').trim().replace(/\s/g, '-');
+                tests.push(xmlEntities.encode(feature + ';' + scenario).replace(/\\/g, ''));
+            }
+        }
 
         /**
          * Merge all junit results.
@@ -34,18 +49,20 @@
 
                 if (featureMatch !== null) {
                     var feature = featureMatch[1].trim().replace(/\s/g, '-'),
-                        scenarioMatch = content.match(CUCUMBER_SCENARIO_REGEX);
+                        scenarioMatch = content.match(CUCUMBER_SCENARIO_REGEX),
+                        scenarioOutlineMatch = content.match(CUCUMBER_SCENARIO_OUTLINE_REGEX);
 
                     if(scenarioMatch !== null) {
-                        for (var i = 0, len = scenarioMatch.length; i < len; i++) {
-                            var scenario = scenarioMatch[i].replace(CUCUMBER_SCENARIO_REGEX, '$1').trim().replace(/\s/g, '-');
-                            tests.push(xmlEntities.encode(feature+';'+scenario).replace(/\\/g, ''));
-                        }
-                        specs.push({
-                            'name': path.basename(file, path.extname(file)) + '.feature',
-                            'tests': tests
-                        });
+                        addTests(feature, scenarioMatch, CUCUMBER_SCENARIO_REGEX, tests);
                     }
+                    if(scenarioOutlineMatch !== null) {
+                        addTests(feature, scenarioOutlineMatch, CUCUMBER_SCENARIO_OUTLINE_REGEX, tests);
+                    }
+
+                    specs.push({
+                        'name': path.basename(file, path.extname(file)) + '.feature',
+                        'tests': tests
+                    });
                 }
                 CUCUMBER_FEATURE_REGEX.lastIndex=0; // reset lastIndex so we can reuse.
             });
