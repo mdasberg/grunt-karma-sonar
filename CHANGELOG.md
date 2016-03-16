@@ -1,3 +1,9 @@
+<a name="0.2.23"></a>
+# 0.2.23 (2016-03-16)
+
+## Bugfix
+- Fix Scenario outlines are not resolved to a feature file
+
 <a name="0.2.22"></a>
 # 0.2.22 (2016-03-02)
 
