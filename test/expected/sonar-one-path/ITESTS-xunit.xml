@@ -1,15 +1,15 @@
-<?xml version="1.0"?><testsuites><testsuite name="Happy flow" timestamp="2016-01-27T22:17:50" hostname="localhost" time="3.965" errors="0" tests="6" skipped="0" disabled="0" failures="0">
-  <testcase classname="happy-flow_spec" name="should show all todos" time="0.85"/>
-  <testcase classname="happy-flow_spec" name="should show the total number of todos" time="0.188"/>
-  <testcase classname="happy-flow_spec" name="should show the total number of remaining uncompleted todos" time="0.183"/>
-  <testcase classname="todo_service_spec" name="should add a todo" time="0.829"/>
-  <testcase classname="happy-flow_spec" name="should archive completed todo" time="0.545"/>
-  <testcase classname="happy-flow_spec" name="should mark a todo as completed" time="0.537"/>
-</testsuite><testsuite name="Unhappy flow" timestamp="2016-01-27T22:17:50" hostname="localhost" time="3.882" errors="0" tests="0" skipped="0" disabled="0" failures="0"/>,<testsuite name="Unhappy flow.when the backend returns anything other than a status 200" timestamp="2016-01-27T22:17:51" hostname="localhost" time="2.902" errors="0" tests="6" skipped="0" disabled="0" failures="0">
-  <testcase classname="unhappy-flow_spec" name="should not show any todo" time="0.332"/>
-  <testcase classname="unhappy-flow_spec" name="should show the total number of todos" time="0.232"/>
-  <testcase classname="unhappy-flow_spec" name="should show the total number of remaining uncompleted todos" time="0.219"/>
-  <testcase classname="unhappy-flow_spec" name="should not add a todo" time="0.788"/>
-  <testcase classname="unhappy-flow_spec" name="should not archive completed todo" time="0.78"/>
-  <testcase classname="unhappy-flow_spec" name="should not mark a todo as completed" time="0.546"/>
+<?xml version="1.0"?><testsuites><testsuite name="Happy flow" timestamp="2016-03-16T11:15:59" hostname="localhost" time="1.909" errors="0" tests="6" skipped="0" disabled="0" failures="0">
+  <testcase classname="happy-flow_spec" name="should show all todos" time="0.329"/>
+  <testcase classname="happy-flow_spec" name="should show the total number of todos" time="0.078"/>
+  <testcase classname="happy-flow_spec" name="should show the total number of remaining uncompleted todos" time="0.081"/>
+  <testcase classname="todo_service_spec" name="should add a todo" time="0.327"/>
+  <testcase classname="happy-flow_spec" name="should archive completed todo" time="0.251"/>
+  <testcase classname="happy-flow_spec" name="should mark a todo as completed" time="0.288"/>
+</testsuite><testsuite name="Unhappy flow" timestamp="2016-03-16T11:15:59" hostname="localhost" time="1.86" errors="0" tests="0" skipped="0" disabled="0" failures="0"/>,<testsuite name="Unhappy flow.when the backend returns anything other than a status 200" timestamp="2016-03-16T11:16:00" hostname="localhost" time="1.309" errors="0" tests="6" skipped="0" disabled="0" failures="0">
+  <testcase classname="unhappy-flow_spec" name="should not show any todo" time="0.107"/>
+  <testcase classname="unhappy-flow_spec" name="should show the total number of todos" time="0.123"/>
+  <testcase classname="unhappy-flow_spec" name="should show the total number of remaining uncompleted todos" time="0.111"/>
+  <testcase classname="unhappy-flow_spec" name="should not add a todo" time="0.309"/>
+  <testcase classname="unhappy-flow_spec" name="should not archive completed todo" time="0.383"/>
+  <testcase classname="unhappy-flow_spec" name="should not mark a todo as completed" time="0.274"/>
 </testsuite></testsuites>
