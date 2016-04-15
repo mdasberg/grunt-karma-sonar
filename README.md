@@ -78,6 +78,24 @@ Should be the location where the karmaSonar plugin will put it's temporary files
 Type: `Array`
 Default: []
 
+Should be the indicator for performing a dry run.
+
+#### options.dryRun
+Type: `Boolean`
+Default: false
+
+#### options.runnerProperties
+Type: `Object`
+
+Should be the list of key(`sonar key`) value pairs.
+
+```js
+runnerProperties: {
+    'sonar.links.homepage': 'https://github.com/mdasberg/grunt-karma-sonar',
+    'sonar.branch': 'master'
+}
+```
+
 Should be a list of sonar properties to exclude
 
 #### options.instance.hostUrl
@@ -115,18 +133,6 @@ Type: `String`
 Default: 'admin'
 
 Should be the sonar.property password
-
-#### options.instance.runnerProperties
-Type: `Object`
-
-Should be the list of key(`sonar key`) value pairs.
-
-```js
-runnerProperties: {
-    'sonar.links.homepage': 'https://github.com/mdasberg/grunt-karma-sonar',
-    'sonar.branch': 'master'
-}
-```
 
 #### options.debug
 Type: `Boolean`
