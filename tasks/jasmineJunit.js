@@ -12,6 +12,16 @@
             xmlEntities = new (require('html-entities').XmlEntities)();
 
         /**
+         * Indicate if it matches.
+         * @param test The test.
+         * @param name The name.
+         * @returns {boolean}
+         */
+        function match(test, name) {
+            return name.match(new RegExp('(.*)('+ test+')')) !== null;
+        }
+
+        /**
          * Merge all junit results.
          * Because the junit-reporter does not use the name of the spec file for the classname, the
          * results need to be updated with the correct classname.
@@ -63,7 +73,7 @@
 
                                 var matchingSpecs = _.map(_.filter(specs, function (spec) {
                                     return _.find(spec.tests, function (test) {
-                                        return test === name || xmlEntities.encode(test) === name;
+                                        return match(test, name) || match(xmlEntities.encode(test), name);
                                     });
                                 }), 'name');
                                 if (matchingSpecs.length === 0) {
