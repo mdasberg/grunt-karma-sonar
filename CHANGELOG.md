@@ -1,3 +1,9 @@
+<a name="0.2.24"></a>
+# 0.2.24 (2016-05-17)
+
+## Bugfix
+- Fix new JUnit report matching
+
 <a name="0.2.23"></a>
 # 0.2.23 (2016-03-16)
 
