@@ -1,3 +1,9 @@
+<a name="0.2.26"></a>
+# 0.2.26 (2016-05-18)
+
+## Bugfix
+- Fix duration of junit result should be > 0 or 0
+
 <a name="0.2.25"></a>
 # 0.2.25 (2016-05-18)
 
@@ -7,7 +13,6 @@
 
 ## Bugfix
 - Fix invalid matching of testcases that contain /) like characters
-
 
 <a name="0.2.24"></a>
 # 0.2.24 (2016-05-17)
