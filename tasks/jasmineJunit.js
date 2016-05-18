@@ -48,6 +48,8 @@
                     }
                     specs.push({
                         'name': path.basename(file, path.extname(file)),
+                        'dirname': path.dirname(file),
+                        'extension': path.extname(file),
                         'tests': tests
                     });
                 }
@@ -71,23 +73,25 @@
                             if (testcase.name === 'testcase') {
                                 var name = xmlEntities.encode(testcase.attr.name);
 
-                                var matchingSpecs = _.map(_.filter(specs, function (spec) {
+                                var matchingSpecs = _.filter(specs, function (spec) {
                                     return _.find(spec.tests, function (test) {
                                         return match(test, name) || match(xmlEntities.encode(test), name);
                                     });
-                                }), 'name');
+                                });
                                 if (matchingSpecs.length === 0) {
                                     grunt.log.warn('No spec filename found for test [' + name + ']');
                                 } else {
                                     var matchingSpec = matchingSpecs[0];
                                     if (matchingSpecs.length > 1) {
                                         var m = _.find(specs, function (spec) {
-                                            return spec.name === matchingSpec;
+                                            return spec.name === matchingSpec.name;
                                         });
                                         m.tests = _.without(m.tests, name);
                                     }
                                     testcase.attr.name = name;
-                                    testcase.attr.classname = matchingSpec.replace(/\./g, '_');
+                                    testcase.attr.dirname = matchingSpec.dirname;
+                                    testcase.attr.extension = matchingSpec.extension;
+                                    testcase.attr.classname = matchingSpec.name.replace(/\./g, '_');
                                 }
                             }
                         });
