@@ -38,7 +38,7 @@
                             classname = xmlEntities.encode(testcase.attr.classname),
                             dirname = xmlEntities.encode(testcase.attr.dirname),
                             extension = xmlEntities.encode(testcase.attr.extension),
-                            duration = parseFloat(xmlEntities.encode(testcase.attr.time)) * 1000;
+                            duration = (parseFloat(xmlEntities.encode(testcase.attr.time)) * 1000);
 
                         var match = files.filter(function (file) {
                             return file.name === classname;
@@ -55,7 +55,7 @@
                             fileMatch = match[0];
                         }
 
-                        var tc = {name: name, duration: duration},
+                        var tc = {name: name, duration: duration > 0 ? duration : 0},
                             failure = testcase.childrenNamed('failure'),
                             skipped = testcase.childrenNamed('skipped'),
                             error = testcase.childrenNamed('error');
