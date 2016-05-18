@@ -1,3 +1,14 @@
+<a name="0.2.25"></a>
+# 0.2.25 (2016-05-18)
+
+## Improvements
+- Support Generic Test Coverage junit report (as of version 2.10 of the Javascript plugin, reports are no longer supported)
+  @see http://docs.sonarqube.org/display/PLUG/JavaScript+Unit+Tests+Execution+Reports+Import
+
+## Bugfix
+- Fix invalid matching of testcases that contain /) like characters
+
+
 <a name="0.2.24"></a>
 # 0.2.24 (2016-05-17)
 
