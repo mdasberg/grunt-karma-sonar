@@ -8,6 +8,7 @@
             _ = require('lodash'),
             fs = require('fs'),
             JASMINE_TESTCASE_REGEX = /[^\w]x?it\s?\([\'\"](.*)[\'\"]/g,
+            escape = require('escape-string-regexp'),
             XmlDocument = require('xmldoc').XmlDocument,
             xmlEntities = new (require('html-entities').XmlEntities)();
 
@@ -18,7 +19,7 @@
          * @returns {boolean}
          */
         function match(test, name) {
-            return name.match(new RegExp('(.*)('+ test+')')) !== null;
+            return name.match(new RegExp('(.*?)(' + escape(test) + ')')) !== null;
         }
 
         /**
