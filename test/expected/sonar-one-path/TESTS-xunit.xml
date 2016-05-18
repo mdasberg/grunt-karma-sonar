@@ -1,23 +1,25 @@
-<?xml version="1.0"?><testsuites><testsuite name="PhantomJS 2.1.1 (Mac OS X 0.0.0)" package="" timestamp="2016-05-17T12:54:05" id="0" hostname="MACBOOK-MISCHAD.local" tests="12" errors="0" failures="1" time="0.06">
+<?xml version="1.0"?><testsuites><testsuite name="PhantomJS 2.1.1 (Mac OS X 0.0.0)" package="" timestamp="2016-05-17T18:39:59" id="0" hostname="MACBOOK-MISCHAD.local" tests="12" errors="0" failures="1" time="0.061">
   <properties>
     <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1"/>
   </properties>
-  <testcase name="The todo controller bla should make the todo array available by default when api response is ok" time="0.016" classname="todo_controller_spec">
-    <failure type="">ReferenceError: Strict mode forbids implicit creation of global property &apos;controller2&apos; in /Users/mischa/Development/workspace/github/angular-test-setup/test/karma/specs/todo.controller.spec.js (line 35)
-/Users/mischa/Development/workspace/github/angular-test-setup/test/karma/specs/todo.controller.spec.js:34:30</failure>
+  <testcase name="The todo controller should make the todo array available by default when api response is ok" time="0.019" classname="todo_controller_spec" dirname="karma/specs" extension=".js">
+    <failure type="">ReferenceError: Strict mode forbids implicit creation of global property &apos;controller2&apos; in
+            /Users/mischa/Development/workspace/github/angular-test-setup/test/karma/specs/todo.controller.spec.js (line
+            35)
+            /Users/mischa/Development/workspace/github/angular-test-setup/test/karma/specs/todo.controller.spec.js:34:26</failure>
   </testcase>
-  <testcase name="The todo controller bla should make an empty todo array available by default when api response is nok" time="0.006" classname="todo_controller_spec"/>
-  <testcase name="The todo controller bla should get remaining todos" time="0.003" classname="todo_controller_spec"/>
-  <testcase name="The todo controller bla should add a todo and fetch todos when api response is ok" time="0.004" classname="todo_controller_spec"/>
-  <testcase name="The todo controller bla should update a todo and fetch todos when api response is ok" time="0.003" classname="todo_controller_spec"/>
-  <testcase name="The todo controller bla should update a todo and fetch todos when api response is nok" time="0.004" classname="todo_controller_spec"/>
-  <testcase name="The todo controller bla should archive a todo and fetch todos when api response is ok" time="0.005" classname="todo_controller_spec"/>
-  <testcase name="The todo controller bla should archive a todo and fetch todos when api response is nok" time="0.005" classname="todo_controller_spec"/>
-  <testcase name="The todo service should get todos" time="0.006" classname="todo_service_spec"/>
-  <testcase name="The todo service should add a todo" time="0.003" classname="todo_service_spec"/>
-  <testcase name="The todo service should update a todo" time="0.002" classname="todo_service_spec"/>
-  <testcase name="The todo service should archive a todo" time="0.003" classname="todo_service_spec"/>
+  <testcase name="The todo controller should make an empty todo array available by default when api response is nok" time="0.007" classname="todo_controller_spec" dirname="karma/specs" extension=".js"/>
+  <testcase name="The todo controller should get remaining todos" time="0.003" classname="todo_controller_spec" dirname="karma/specs" extension=".js"/>
+  <testcase name="The todo controller should add a todo and fetch todos when api response is ok" time="0.004" classname="todo_controller_spec" dirname="karma/specs" extension=".js"/>
+  <testcase name="The todo controller should update a todo and fetch todos when api response is ok" time="0.003" classname="todo_controller_spec" dirname="karma/specs" extension=".js"/>
+  <testcase name="The todo controller should update a todo and fetch todos when api response is nok" time="0.003" classname="todo_controller_spec" dirname="karma/specs" extension=".js"/>
+  <testcase name="The todo controller should archive a todo and fetch todos when api response is ok" time="0.004" classname="todo_controller_spec" dirname="karma/specs" extension=".js"/>
+  <testcase name="The todo controller should archive a todo and fetch todos when api response is nok" time="0.004" classname="todo_controller_spec" dirname="karma/specs" extension=".js"/>
+  <testcase name="The todo service should get todos" time="0.006" classname="todo_service_spec" dirname="karma/specs" extension=".js"/>
+  <testcase name="The todo service should add a todo" time="0.002" classname="todo_service_spec" dirname="karma/specs" extension=".js"/>
+  <testcase name="The todo service should update a todo" time="0.002" classname="todo_service_spec" dirname="karma/specs" extension=".js"/>
+  <testcase name="The todo service should archive a todo" time="0.004" classname="todo_service_spec" dirname="karma/specs" extension=".js"/>
   <system-out><![CDATA[
-  ]]></system-out>
+    ]]></system-out>
   <system-err/>
 </testsuite></testsuites>

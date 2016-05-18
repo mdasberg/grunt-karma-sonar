@@ -9,6 +9,7 @@
             async = require('async'),
             _ = require('lodash'),
             xunit = require('./xunit.js')(grunt),
+            junit = require('./junit.js')(grunt),
             coverage = require('./coverage.js')(grunt),
             defaultOptions = {
                 dynamicAnalysis: 'reuseReports',
@@ -78,6 +79,7 @@
                 '-Dsonar.sources=src',
                 '-Dsonar.tests=test',
                 '-Dsonar.javascript.jstestdriver.reportsPath=results',
+                '-Dsonar.genericcoverage.unitTestReportPaths='+ 'results' + path.sep + 'TESTS-junit.xml',  
                 '-Dsonar.javascript.jstestdriver.itReportsPath=results',
                 '-Dsonar.javascript.lcov.reportPath=' + 'results' + path.sep + 'coverage_report.lcov',
                 '-Dsonar.javascript.lcov.itReportPath=' + 'results' + path.sep + 'it_coverage_report.lcov'
@@ -142,7 +144,8 @@
                 var sonarOptions = mergeJson(defaultOptions, configuration.options({})),
                     done = configuration.async(),
                     resultsDir = sonarOptions.defaultOutputDir + path.sep + 'results' + path.sep,
-                    jUnitResultFile = resultsDir + 'TESTS-xunit.xml',
+                    xUnitResultFile = resultsDir + 'TESTS-xunit.xml',
+                    jUnitResultFile = resultsDir + 'TESTS-junit.xml',
                     itJUnitResultFile = resultsDir + 'ITESTS-xunit.xml',
                     coverageResultFile = resultsDir + 'coverage_report.lcov',
                     itCoverageResultFile = resultsDir + 'it_coverage_report.lcov';
@@ -151,7 +154,8 @@
                         // #1
                         mergeJUnitReports: function (callback) {
                             grunt.verbose.writeln('Merging JUnit reports');
-                            xunit.merge(data.paths, jUnitResultFile, 'unit');
+                            xunit.merge(data.paths, xUnitResultFile, 'unit');
+                            junit.convert(xUnitResultFile, jUnitResultFile, 'unit');
                             callback(null, 200);
                         },
                         // #2
@@ -164,14 +168,12 @@
                         mergeCoverageReports: function (callback) {
                             grunt.verbose.writeln('Merging Coverage reports');
                             coverage.merge(data.paths, coverageResultFile, 'coverage');
-
                             callback(null, 200);
                         },
                         // #4
                         mergeItCoverageReports: function (callback) {
                             grunt.verbose.writeln('Merging Integration Coverage reports');
                             coverage.merge(data.paths, itCoverageResultFile, 'itCoverage');
-
                             callback(null, 200);
                         },
                         // #5
@@ -179,24 +181,24 @@
                             grunt.verbose.writeln('Copying files to working directory [' + sonarOptions.defaultOutputDir + ']');
                             var sourceGlobs = [],
                                 testGlobs = [];
-
+                        
                             data.paths.forEach(function (p) {
                                 var cwd = p.cwd ? p.cwd : '.';
                                 sourceGlobs.push({cwd: cwd + path.sep + p.src, src: '**/*.*'});
                                 testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*.js'});
                                 testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*.feature'});
                             });
-
+                        
                             sourceGlobs.forEach(function (g) {
                                 copyFiles(g, sonarOptions.defaultOutputDir, 'src');
                             });
-
+                        
                             testGlobs.forEach(function (g) {
                                 copyFiles(g, sonarOptions.defaultOutputDir, 'test');
                             });
                             callback(null, 200);
                         },
-
+                        
                         // #6
                         publish: function (callback) {
                             var extension = (/^win/.test(process.platform) ? '.bat': '');
@@ -207,27 +209,27 @@
                                     stdio: 'inherit'
                                 }
                             };
-
+                        
                             var libDir = path.join(__dirname, '..', 'lib');
                             if (grunt.file.exists(libDir)) {
-
+                        
                                 glob.sync('**/bin/sonar-runner' + extension, {cwd: libDir, root: '/'}).forEach(function (file) {
                                     opts.cmd = libDir + path.sep + file;
                                 });
                             }
-
+                        
                             // Add custom properties
                             if (sonarOptions.runnerProperties) {
                                 Object.keys(sonarOptions.runnerProperties).forEach(function (prop) {
                                     opts.args.push('-D' + prop + '=' + sonarOptions.runnerProperties[prop]);
                                 });
                             }
-
+                        
                             // enable debug
                             if (sonarOptions.debug) {
                                 opts.args.push('-X');
                             }
-
+                        
                             if (!sonarOptions.dryRun) {
                                 if (sonarOptions.debug) {
                                     logArguments('Sonar will run with the following sonar properties:', opts);
