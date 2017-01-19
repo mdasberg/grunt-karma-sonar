@@ -1,0 +1,8 @@
+title: Grunt-karma-sonar
+description: Grunt plugin for integrating karma and protractor reports with sonar
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
