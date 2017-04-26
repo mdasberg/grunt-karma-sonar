@@ -1,3 +1,9 @@
+<a name="0.2.27"></a>
+# 0.2.26 (2017-04-26)
+
+## Bugfix
+- Fix unit failures can be more than one per testcase
+
 <a name="0.2.26"></a>
 # 0.2.26 (2016-05-18)
 
