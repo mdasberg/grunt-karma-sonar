@@ -1,104 +1,47 @@
-<?xml version="1.0"?><testsuites><testsuite name="Todo-application;There-are-uncompleted-and-unarchived-todos-available" tests="1" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.007696724">
-  <testcase name="Given I have todos" classname="happy-flow_feature" time="0.007696724"/>
-</testsuite>,<testsuite name="Todo-application;Verify-information" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.162797105">
-  <testcase name="Then the total number of todos is 3" classname="happy-flow_feature" time="0.087082606"/>
-  <testcase name="And the total number of remaining uncompleted todos is 2" classname="happy-flow_feature" time="0.075714499"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.134373679">
-  <testcase name="Then todo 0 with description do something should be present" classname="happy-flow_feature" time="0.08229391"/>
-  <testcase name="And todo 0 should be marked as completed false" classname="happy-flow_feature" time="0.052079769"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.110846655">
-  <testcase name="Then todo 1 with description do something else should be present" classname="happy-flow_feature" time="0.060886767"/>
-  <testcase name="And todo 1 should be marked as completed true" classname="happy-flow_feature" time="0.049959888"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.11421102899999999">
-  <testcase name="Then todo 2 with description do something different should be present" classname="happy-flow_feature" time="0.061998486"/>
-  <testcase name="And todo 2 should be marked as completed false" classname="happy-flow_feature" time="0.052212543"/>
-</testsuite>,<testsuite name="Todo-application;There-is-a-new-todo-that-needs-to-be-added" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.8028495870000001">
-  <testcase name="Given I have new todo" classname="happy-flow_feature" time="0.002302231"/>
-  <testcase name="When I add the todo" classname="happy-flow_feature" time="0.800547356"/>
-</testsuite>,<testsuite name="Todo-application;Verify-information" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.106922661">
-  <testcase name="Then the total number of todos is 4" classname="happy-flow_feature" time="0.058149011"/>
-  <testcase name="And the total number of remaining uncompleted todos is 3" classname="happy-flow_feature" time="0.04877365"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.111479778">
-  <testcase name="Then todo 0 with description do something should be present" classname="happy-flow_feature" time="0.06066819"/>
-  <testcase name="And todo 0 should be marked as completed false" classname="happy-flow_feature" time="0.050811588"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.115126134">
-  <testcase name="Then todo 1 with description do something else should be present" classname="happy-flow_feature" time="0.06315658"/>
-  <testcase name="And todo 1 should be marked as completed true" classname="happy-flow_feature" time="0.051969554"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.121193574">
-  <testcase name="Then todo 2 with description do something different should be present" classname="happy-flow_feature" time="0.068545922"/>
-  <testcase name="And todo 2 should be marked as completed false" classname="happy-flow_feature" time="0.052647652"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.116486122">
-  <testcase name="Then todo 3 with description another todo should be present" classname="happy-flow_feature" time="0.066801498"/>
-  <testcase name="And todo 3 should be marked as completed false" classname="happy-flow_feature" time="0.049684624"/>
-</testsuite>,<testsuite name="Todo-application;There-are-items-that-can-be-archived" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.757433991">
-  <testcase name="Given I have completed todos that has not been archived yet" classname="happy-flow_feature" time="0.001211505"/>
-  <testcase name="When I archive the todos" classname="happy-flow_feature" time="0.756222486"/>
-</testsuite>,<testsuite name="Todo-application;Verify-information" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.11764396999999999">
-  <testcase name="Then the total number of todos is 3" classname="happy-flow_feature" time="0.063500646"/>
-  <testcase name="And the total number of remaining uncompleted todos is 3" classname="happy-flow_feature" time="0.054143324"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.11587971">
-  <testcase name="Then todo 0 with description do something should be present" classname="happy-flow_feature" time="0.065107609"/>
-  <testcase name="And todo 0 should be marked as completed false" classname="happy-flow_feature" time="0.050772101"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.117543144">
-  <testcase name="Then todo 1 with description do something different should be present" classname="happy-flow_feature" time="0.059190935"/>
-  <testcase name="And todo 1 should be marked as completed false" classname="happy-flow_feature" time="0.058352209"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.131703095">
-  <testcase name="Then todo 2 with description another todo should be present" classname="happy-flow_feature" time="0.081421839"/>
-  <testcase name="And todo 2 should be marked as completed false" classname="happy-flow_feature" time="0.050281256"/>
-</testsuite>,<testsuite name="Todo-application;There-is-a-todo-that-is-completed" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.8305711050000001">
-  <testcase name="Given I have completed a todo" classname="happy-flow_feature" time="0.001140934"/>
-  <testcase name="When I check the todo as completed" classname="happy-flow_feature" time="0.829430171"/>
-</testsuite>,<testsuite name="Todo-application;Verify-information" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.10013502499999999">
-  <testcase name="Then the total number of todos is 3" classname="happy-flow_feature" time="0.049388018"/>
-  <testcase name="And the total number of remaining uncompleted todos is 2" classname="happy-flow_feature" time="0.050747007"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.106867513">
-  <testcase name="Then todo 0 with description do something should be present" classname="happy-flow_feature" time="0.059461315"/>
-  <testcase name="And todo 0 should be marked as completed false" classname="happy-flow_feature" time="0.047406198"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.112281167">
-  <testcase name="Then todo 1 with description do something different should be present" classname="happy-flow_feature" time="0.055597503"/>
-  <testcase name="And todo 1 should be marked as completed false" classname="happy-flow_feature" time="0.056683664"/>
-</testsuite>,<testsuite name="Todo-application;Verify-available-todos" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:13 GMT" time="0.10707746900000001">
-  <testcase name="Then todo 2 with description another todo should be present" classname="happy-flow_feature" time="0.059849125"/>
-  <testcase name="And todo 2 should be marked as completed true" classname="happy-flow_feature" time="0.047228344"/>
-</testsuite><testsuite name="Todo-application;The-api-response-for-fetching-the-todos-is-not-ok" tests="1" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:11 GMT" time="0.007798668">
-  <testcase name="Given an error occurred while fetching the todos" classname="unhappy-flow_feature" time="0.007798668"/>
-</testsuite>,<testsuite name="Todo-application;Verify-information" tests="3" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:11 GMT" time="0.254180568">
-  <testcase name="Then the total number of todos is 0" classname="happy-flow_feature" time="0.084552997"/>
-  <testcase name="And the total number of remaining uncompleted todos is 0" classname="happy-flow_feature" time="0.066296141"/>
-  <testcase name="And the total number of completed but unarchived todos is 0" classname="happy-flow_feature" time="0.10333143"/>
-</testsuite>,<testsuite name="Todo-application;The-api-response-for-adding-a-todo-is-not-ok" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:11 GMT" time="0.813039031">
-  <testcase name="Given an error occurred while adding a todo" classname="unhappy-flow_feature" time="0.002189076"/>
-  <testcase name="When I add the todo" classname="unhappy-flow_feature" time="0.810849955"/>
-</testsuite>,<testsuite name="Todo-application;Verify-information" tests="3" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:11 GMT" time="0.20330726699999999">
-  <testcase name="Then the total number of todos is 3" classname="happy-flow_feature" time="0.059872783"/>
-  <testcase name="And the total number of remaining uncompleted todos is 2" classname="happy-flow_feature" time="0.051069627"/>
-  <testcase name="And the total number of completed but unarchived todos is 1" classname="happy-flow_feature" time="0.092364857"/>
-</testsuite>,<testsuite name="Todo-application;The-api-response-for-archiving-a-todo-is-not-ok" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:11 GMT" time="0.7588134449999999">
-  <testcase name="Given an error occurred while archiving a todo" classname="unhappy-flow_feature" time="0.001699143"/>
-  <testcase name="When I archive the todos" classname="unhappy-flow_feature" time="0.757114302"/>
-</testsuite>,<testsuite name="Todo-application;Verify-information" tests="3" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:11 GMT" time="0.210750066">
-  <testcase name="Then the total number of todos is 3" classname="happy-flow_feature" time="0.061727289"/>
-  <testcase name="And the total number of remaining uncompleted todos is 2" classname="happy-flow_feature" time="0.050017626"/>
-  <testcase name="And the total number of completed but unarchived todos is 1" classname="happy-flow_feature" time="0.099005151"/>
-</testsuite>,<testsuite name="Todo-application;The-api-response-for-marking-a-todo-as-completed-is-not-ok" tests="2" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:11 GMT" time="0.8278649189999999">
-  <testcase name="Given an error occurred while completing a todo" classname="unhappy-flow_feature" time="0.001255218"/>
-  <testcase name="When I check the todo as completed" classname="unhappy-flow_feature" time="0.826609701"/>
-</testsuite>,<testsuite name="Todo-application;Verify-information" tests="3" failures="0" errors="0" skipped="0" timestamp="Tue, 17 May 2016 18:40:11 GMT" time="0.197094453">
-  <testcase name="Then the total number of todos is 3" classname="happy-flow_feature" time="0.05602773"/>
-  <testcase name="And the total number of remaining uncompleted todos is 2" classname="happy-flow_feature" time="0.050950611"/>
-  <testcase name="And the total number of completed but unarchived todos is 1" classname="happy-flow_feature" time="0.090116112"/>
-</testsuite><testsuite name="Happy flow" timestamp="2016-05-17T20:40:03" hostname="localhost" time="1.891" errors="0" tests="6" skipped="0" disabled="0" failures="0">
-  <testcase classname="happy-flow_spec" name="should show all todos" time="0.317" dirname="protractor/specs" extension=".js"/>
-  <testcase classname="happy-flow_spec" name="should show the total number of todos" time="0.073" dirname="protractor/specs" extension=".js"/>
-  <testcase classname="happy-flow_spec" name="should show the total number of remaining uncompleted todos" time="0.089" dirname="protractor/specs" extension=".js"/>
-  <testcase classname="todo_service_spec" name="should add a todo" time="0.312" dirname="karma/specs" extension=".js"/>
-  <testcase classname="happy-flow_spec" name="should archive completed todo" time="0.21" dirname="protractor/specs" extension=".js"/>
-  <testcase classname="happy-flow_spec" name="should mark a todo as completed" time="0.24" dirname="protractor/specs" extension=".js"/>
-</testsuite><testsuite name="Unhappy flow" timestamp="2016-05-17T20:40:03" hostname="localhost" time="1.869" errors="0" tests="0" skipped="0" disabled="0" failures="0"/>,<testsuite name="Unhappy flow.when the backend returns anything other than a status 200" timestamp="2016-05-17T20:40:04" hostname="localhost" time="1.326" errors="0" tests="6" skipped="0" disabled="0" failures="0">
-  <testcase classname="unhappy-flow_spec" name="should not show any todo" time="0.099" dirname="protractor/specs" extension=".js"/>
-  <testcase classname="unhappy-flow_spec" name="should show the total number of todos" time="0.112" dirname="protractor/specs" extension=".js"/>
-  <testcase classname="unhappy-flow_spec" name="should show the total number of remaining uncompleted todos" time="0.099" dirname="protractor/specs" extension=".js"/>
-  <testcase classname="unhappy-flow_spec" name="should not add a todo" time="0.296" dirname="protractor/specs" extension=".js"/>
-  <testcase classname="unhappy-flow_spec" name="should not archive completed todo" time="0.383" dirname="protractor/specs" extension=".js"/>
-  <testcase classname="unhappy-flow_spec" name="should not mark a todo as completed" time="0.335" dirname="protractor/specs" extension=".js"/>
+<?xml version="1.0"?><testsuites><testsuite name="The-todo-component;Verify-start-state" tests="4" failures="0" errors="0" skipped="0" timestamp="Wed, 26 Apr 2017 13:23:04 GMT" time="1.503115329">
+  <testcase name="Given there are todos in my todo list" classname="todo_component_feature" time="0.47456372"/>
+  <testcase name="Then the number of available todos is 3" classname="todo_component_feature" time="0.219430894"/>
+  <testcase name="And the number of uncompleted todos is 2" classname="todo_component_feature" time="0.109054977"/>
+  <testcase name="And the following todos are available:" classname="todo_component_feature" time="0.700065738"/>
+</testsuite>,<testsuite name="The-todo-component;Add-a-todo" tests="7" failures="0" errors="0" skipped="0" timestamp="Wed, 26 Apr 2017 13:23:04 GMT" time="2.168225957">
+  <testcase name="Then the number of available todos is 3" classname="todo_component_feature" time="0.076313679"/>
+  <testcase name="And the number of uncompleted todos is 2" classname="todo_component_feature" time="0.055158263"/>
+  <testcase name="And the following todos are available:" classname="todo_component_feature" time="0.516686735"/>
+  <testcase name="When a todo is added" classname="todo_component_feature" time="0.324248843"/>
+  <testcase name="Then the number of available todos is 4" classname="todo_component_feature" time="0.116941301"/>
+  <testcase name="And the number of uncompleted todos is 3" classname="todo_component_feature" time="0.113987486"/>
+  <testcase name="And the following todos are available:" classname="todo_component_feature" time="0.96488965"/>
+</testsuite>,<testsuite name="The-todo-component;Archive-completed-todos" tests="7" failures="0" errors="0" skipped="0" timestamp="Wed, 26 Apr 2017 13:23:04 GMT" time="1.059309044">
+  <testcase name="Then the number of available todos is 4" classname="todo_component_feature" time="0.046411376"/>
+  <testcase name="And the number of uncompleted todos is 3" classname="todo_component_feature" time="0.044203183"/>
+  <testcase name="And the following todos are available:" classname="todo_component_feature" time="0.336648595"/>
+  <testcase name="When the completed todos are archived" classname="todo_component_feature" time="0.113120757"/>
+  <testcase name="Then the number of available todos is 3" classname="todo_component_feature" time="0.049285468"/>
+  <testcase name="And the number of uncompleted todos is 3" classname="todo_component_feature" time="0.047249904"/>
+  <testcase name="And the following todos are available:" classname="todo_component_feature" time="0.422389761"/>
+</testsuite>,<testsuite name="The-todo-component;Complete-a-todo" tests="7" failures="0" errors="0" skipped="0" timestamp="Wed, 26 Apr 2017 13:23:04 GMT" time="0.987247062">
+  <testcase name="Then the number of available todos is 3" classname="todo_component_feature" time="0.049896923"/>
+  <testcase name="And the number of uncompleted todos is 3" classname="todo_component_feature" time="0.052860044"/>
+  <testcase name="And the following todos are available:" classname="todo_component_feature" time="0.308540759"/>
+  <testcase name="When a todo is completed" classname="todo_component_feature" time="0.084082548"/>
+  <testcase name="Then the number of available todos is 3" classname="todo_component_feature" time="0.054352156"/>
+  <testcase name="And the number of uncompleted todos is 2" classname="todo_component_feature" time="0.0598583"/>
+  <testcase name="And the following todos are available:" classname="todo_component_feature" time="0.377656332"/>
+</testsuite><testsuite name="The-todo-component;The-api-response-for-fetching-the-todos-is-not-ok" tests="4" failures="0" errors="0" skipped="0" timestamp="Wed, 26 Apr 2017 13:23:01 GMT" time="0.890855416">
+  <testcase name="Given the todo service throws an error while fetching the available todos" classname="todo_component_oops_feature" time="0.479368825"/>
+  <testcase name="Then the number of available todos is 0" classname="todo_component_oops_feature" time="0.197492909"/>
+  <testcase name="And the number of uncompleted todos is 0" classname="todo_component_oops_feature" time="0.105948957"/>
+  <testcase name="Then the error &amp;apos;An error occurred when fetching available todos&amp;apos; is shown" classname="todo_component_oops_feature" time="0.108044725"/>
+</testsuite>,<testsuite name="The-todo-component;The-api-response-for-adding-a-todo-is-not-ok" tests="3" failures="0" errors="0" skipped="0" timestamp="Wed, 26 Apr 2017 13:23:01 GMT" time="0.825443968">
+  <testcase name="Given there are todos in my todo list" classname="todo_component_oops_feature" time="0.362874507"/>
+  <testcase name="When a todo is added the todo service throws an error" classname="todo_component_oops_feature" time="0.35442655"/>
+  <testcase name="Then the error &amp;apos;An error occurred when adding a todo&amp;apos; is shown" classname="todo_component_oops_feature" time="0.108142911"/>
+</testsuite>,<testsuite name="The-todo-component;The-api-response-for-archiving-a-todo-is-not-ok" tests="3" failures="0" errors="0" skipped="0" timestamp="Wed, 26 Apr 2017 13:23:01 GMT" time="0.611128128">
+  <testcase name="Given there are todos in my todo list" classname="todo_component_oops_feature" time="0.265527661"/>
+  <testcase name="When the completed todos are archived the todo service throws an error" classname="todo_component_oops_feature" time="0.195319962"/>
+  <testcase name="Then the error &amp;apos;An error occurred when archiving completed todos&amp;apos; is shown" classname="todo_component_oops_feature" time="0.150280505"/>
+</testsuite>,<testsuite name="The-todo-component;The-api-response-for-completing-a-todo-is-not-ok" tests="3" failures="0" errors="0" skipped="0" timestamp="Wed, 26 Apr 2017 13:23:01 GMT" time="0.826851213">
+  <testcase name="Given there are todos in my todo list" classname="todo_component_oops_feature" time="0.307975604"/>
+  <testcase name="When a todo is completed the todo service throws an error" classname="todo_component_oops_feature" time="0.382567856"/>
+  <testcase name="Then the error &amp;apos;An error occurred when completing a todo&amp;apos; is shown" classname="todo_component_oops_feature" time="0.136307753"/>
 </testsuite></testsuites>
