@@ -43,6 +43,7 @@
 
             // #1
             glob.sync('**/*.feature', {cwd: testDir, root: '/'}).forEach(function (file) {
+
                 var tests = [],
                     content = grunt.file.read(testDir + path.sep + file),
                     featureMatch = CUCUMBER_FEATURE_REGEX.exec(content);

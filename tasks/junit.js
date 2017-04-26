@@ -55,20 +55,26 @@
                             fileMatch = match[0];
                         }
 
-                        var tc = {name: name, duration: duration > 0 ? duration : 0},
-                            failure = testcase.childrenNamed('failure'),
+                        var tc = {
+                                name: name,
+                                duration: duration > 0 ? duration : 0,
+                                failure: []
+                            },
+                            failures = testcase.childrenNamed('failure'),
                             skipped = testcase.childrenNamed('skipped'),
                             error = testcase.childrenNamed('error');
 
-                        if (failure.length === 1) {
-                            tc.failure = failure[0].val;
-                        }
+                        failures.forEach(function (failure) {
+                            tc.failure.push(failure.val);
+                        });
+
                         if (skipped.length === 1) {
                             tc.skipped = skipped[0].val;
                         }
                         if (error.length === 1) {
                             tc.error = error[0].val;
                         }
+
                         // #2
                         fileMatch.testcases.push(tc);
                     }
@@ -80,8 +86,19 @@
                 var fileContent = '<file path="' + file.path + '">';
                 file.testcases.forEach(function (testcase) {
                     fileContent = fileContent.concat('<testCase name="' + testcase.name + '" duration="' + testcase.duration + '"');
-                    if (testcase.failure) {
-                        fileContent = fileContent.concat('><failure message="">' + testcase.failure + '</failure></testCase>');
+                    if (testcase.failure.length > 0) {
+                        testcase.failure.forEach(function (failure) {
+                            fileContent = fileContent.concat('><failure message="">' + failure + '</failure>');
+                        });
+
+                        fileContent = fileContent.concat('</testCase>');
+
+                    } else if (testcase.skipped !== undefined) {
+                        fileContent = fileContent.concat('><skipped message=""/>');
+                        fileContent = fileContent.concat('</testCase>');
+                    } else if (testcase.error !== undefined) {
+                        fileContent = fileContent.concat('><error message="">' + testcase.error + '</error>');
+                        fileContent = fileContent.concat('</testCase>');
                     } else {
                         fileContent = fileContent.concat('/>');
                     }

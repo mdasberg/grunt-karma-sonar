@@ -38,9 +38,9 @@
                 var destination;
                 if (targetDir === 'test') {
                     var base = path.basename(file, extension);
-                    if(extension === '.js') {
+                    if (extension === '.js') {
                         destination = destinationDirectory + path.sep + path.basename(base.replace(/\./g, '_') + extension);
-                    } else if(extension === '.feature') {
+                    } else if (extension === '.feature') {
                         destination = destinationDirectory + path.sep + path.basename(base.concat(extension).replace(/\./g, '_') + '.js');
                     }
                 } else {
@@ -79,7 +79,7 @@
                 '-Dsonar.sources=src',
                 '-Dsonar.tests=test',
                 '-Dsonar.javascript.jstestdriver.reportsPath=results',
-                '-Dsonar.genericcoverage.unitTestReportPaths='+ 'results' + path.sep + 'TESTS-junit.xml',  
+                '-Dsonar.genericcoverage.unitTestReportPaths=' + 'results' + path.sep + 'TESTS-junit.xml',
                 '-Dsonar.javascript.jstestdriver.itReportsPath=results',
                 '-Dsonar.javascript.lcov.reportPath=' + 'results' + path.sep + 'coverage_report.lcov',
                 '-Dsonar.javascript.lcov.itReportPath=' + 'results' + path.sep + 'it_coverage_report.lcov'
@@ -181,27 +181,29 @@
                             grunt.verbose.writeln('Copying files to working directory [' + sonarOptions.defaultOutputDir + ']');
                             var sourceGlobs = [],
                                 testGlobs = [];
-                        
+
                             data.paths.forEach(function (p) {
                                 var cwd = p.cwd ? p.cwd : '.';
-                                sourceGlobs.push({cwd: cwd + path.sep + p.src, src: '**/*.*'});
-                                testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*.js'});
-                                testGlobs.push({cwd: cwd + path.sep + p.test, src: '**/*.feature'});
+                                copyFiles({
+                                    cwd: cwd + path.sep + p.src,
+                                    src: '**/*.*'
+                                }, sonarOptions.defaultOutputDir, p.src);
+                                copyFiles({
+                                    cwd: cwd + path.sep + p.test,
+                                    src: '**/*.js'
+                                }, sonarOptions.defaultOutputDir, p.test);
+                                copyFiles({
+                                    cwd: cwd + path.sep + p.test,
+                                    src: '**/*.feature'
+                                }, sonarOptions.defaultOutputDir, p.test);
                             });
-                        
-                            sourceGlobs.forEach(function (g) {
-                                copyFiles(g, sonarOptions.defaultOutputDir, 'src');
-                            });
-                        
-                            testGlobs.forEach(function (g) {
-                                copyFiles(g, sonarOptions.defaultOutputDir, 'test');
-                            });
+
                             callback(null, 200);
                         },
-                        
+
                         // #6
                         publish: function (callback) {
-                            var extension = (/^win/.test(process.platform) ? '.bat': '');
+                            var extension = (/^win/.test(process.platform) ? '.bat' : '');
                             var opts = {
                                 cmd: 'sonar-runner' + extension,
                                 args: buildArgs(sonarOptions, data),
@@ -209,27 +211,30 @@
                                     stdio: 'inherit'
                                 }
                             };
-                        
+
                             var libDir = path.join(__dirname, '..', 'lib');
                             if (grunt.file.exists(libDir)) {
-                        
-                                glob.sync('**/bin/sonar-runner' + extension, {cwd: libDir, root: '/'}).forEach(function (file) {
+
+                                glob.sync('**/bin/sonar-runner' + extension, {
+                                    cwd: libDir,
+                                    root: '/'
+                                }).forEach(function (file) {
                                     opts.cmd = libDir + path.sep + file;
                                 });
                             }
-                        
+
                             // Add custom properties
                             if (sonarOptions.runnerProperties) {
                                 Object.keys(sonarOptions.runnerProperties).forEach(function (prop) {
                                     opts.args.push('-D' + prop + '=' + sonarOptions.runnerProperties[prop]);
                                 });
                             }
-                        
+
                             // enable debug
                             if (sonarOptions.debug) {
                                 opts.args.push('-X');
                             }
-                        
+
                             if (!sonarOptions.dryRun) {
                                 if (sonarOptions.debug) {
                                     logArguments('Sonar will run with the following sonar properties:', opts);
