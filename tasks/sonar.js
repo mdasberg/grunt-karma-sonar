@@ -81,6 +81,7 @@
                 '-Dsonar.javascript.jstestdriver.reportsPath=results',
                 '-Dsonar.genericcoverage.unitTestReportPaths=' + 'results' + path.sep + 'TESTS-junit.xml',
                 '-Dsonar.javascript.jstestdriver.itReportsPath=results',
+                '-Dsonar.javascript.lcov.reportPaths=' + 'results' + path.sep + 'coverage_report.lcov' + ',' + 'results' + path.sep + 'it_coverage_report.lcov',
                 '-Dsonar.javascript.lcov.reportPath=' + 'results' + path.sep + 'coverage_report.lcov',
                 '-Dsonar.javascript.lcov.itReportPath=' + 'results' + path.sep + 'it_coverage_report.lcov'
             ];
