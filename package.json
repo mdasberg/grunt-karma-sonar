@@ -1,7 +1,7 @@
 {
   "name": "grunt-karma-sonar",
   "description": "Grunt plugin for integrating karma reports with sonar",
-  "version": "0.2.28",
+  "version": "0.2.29",
   "homepage": "https://github.com/mdasberg/grunt-karma-sonar",
   "author": {
     "name": "Mischa Dasberg",
@@ -44,7 +44,7 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "adm-zip": "0.4.7",
+    "adm-zip": "^0.4.13",
     "async": "^2.0.0-rc.5",
     "escape-string-regexp": "^1.0.5",
     "fs-extra": "^0.30.0",
